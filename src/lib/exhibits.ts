@@ -20,7 +20,7 @@ export const EXHIBITS: Exhibit[] = [
     title: 'Kinetic Typography',
     category: 'Gallery',
     tagline: 'Language as a living organism',
-    year: '2024',
+    year: '2026',
     tech: ['GSAP', 'Three.js', 'SVG Filters', 'CSS Animations'],
     hypothesis:
       'Typography need not remain static. By treating letterforms as particles subject to physical forces, we can create text that responds organically to user presence—transforming communication from declaration to conversation.',
@@ -30,7 +30,7 @@ export const EXHIBITS: Exhibit[] = [
       'This approach suggests a future where UI text actively participates in the interface—retreating when not needed, emphasizing itself when relevant. It challenges the notion that text must be passive to be legible.',
     shaderKey: 'kineticType',
     githubUrl: 'https://github.com/Ashborn-047/kinetic-typography',
-    liveUrl: 'https://ashborn-047.github.io/kinetic-typography/',
+    liveUrl: '/collections/Typography/index.html',
     collectionPath: 'collections/Typography',
   },
   {
@@ -38,7 +38,7 @@ export const EXHIBITS: Exhibit[] = [
     title: 'Liquid Shader UI',
     category: 'Gallery',
     tagline: 'Interfaces that breathe and flow',
-    year: '2024',
+    year: '2026',
     tech: ['Three.js', 'WebGL', 'Canvas 2D', 'Tailwind CSS'],
     hypothesis:
       'Skeuomorphism failed not because of its realism, but because it was static. True digital materiality requires physics. By simulating fluid viscosity in shaders, we create UI surfaces that feel tangible without sacrificing performance.',
@@ -48,7 +48,7 @@ export const EXHIBITS: Exhibit[] = [
       'Fluid UIs could serve as ambient indicators—visual viscosity representing system load, flow direction indicating data transfer. The interface becomes a living medium that communicates state without explicit widgets.',
     shaderKey: 'liquidShader',
     githubUrl: 'https://github.com/Ashborn-047/liquid-shader-ui',
-    liveUrl: 'https://ashborn-047.github.io/liquid-shader-ui/',
+    liveUrl: '/collections/Liquid Shader Ui/index.html',
     collectionPath: 'collections/Liquid Shader Ui',
   },
   {
@@ -56,7 +56,7 @@ export const EXHIBITS: Exhibit[] = [
     title: 'Aether Sync',
     category: 'Gallery',
     tagline: 'Cinematic GLSL shader dashboard',
-    year: '2025',
+    year: '2026',
     tech: ['WebGL 2.0', 'Three.js', 'GLSL ES 3.0', 'Vite'],
     hypothesis:
       'Network traffic is invisible, yet it defines our digital reality. By creating a cinematic dashboard of procedural shaders, we visualize the mathematical beauty underlying digital interfaces.',
@@ -66,7 +66,7 @@ export const EXHIBITS: Exhibit[] = [
       'This technique enables real-time visual systems that are both informative and aesthetically compelling. HUD animation engine with typewriter boot-loader effects mimics authentic terminal cold-starts.',
     shaderKey: 'aetherSync',
     githubUrl: 'https://github.com/Ashborn-047/Aether-Sync',
-    liveUrl: 'https://ashborn-047.github.io/Aether-Sync/',
+    liveUrl: '/collections/Shaders for UI/index.html',
     collectionPath: 'collections/Shaders for UI',
   },
   {
@@ -74,7 +74,7 @@ export const EXHIBITS: Exhibit[] = [
     title: 'Shader Vault',
     category: 'Library',
     tagline: '11 generative shaders, ready to deploy',
-    year: '2025',
+    year: '2026',
     tech: ['React 18', 'TypeScript', 'Three.js', 'GSAP', 'Framer Motion'],
     hypothesis:
       'Creativity requires access to primitives. By exposing raw shader code alongside running exhibits, we democratize advanced graphics—no longer mystical, but documented and remixable.',
@@ -83,7 +83,7 @@ export const EXHIBITS: Exhibit[] = [
     implications:
       'Open-sourcing techniques at the code level accelerates the field. When developers can inspect and modify production shaders, we build collective fluency in GPU programming.',
     githubUrl: 'https://github.com/Ashborn-047/shader-vault',
-    liveUrl: 'https://ashborn-047.github.io/shader-vault/',
+    liveUrl: '/collections/Shaders V2/index.html',
     collectionPath: 'collections/Shaders V2',
   },
   {
@@ -91,7 +91,7 @@ export const EXHIBITS: Exhibit[] = [
     title: 'Chroma & Kinetics',
     category: 'Documentary',
     tagline: 'Color theory meets dynamic aesthetics',
-    year: '2024',
+    year: '2026',
     tech: ['GSAP', 'ScrollTrigger', 'Draggable', 'Tailwind CSS'],
     hypothesis:
       'Color is typically treated as a static property. But perception of color is temporal—we notice change more than absolute values. A design system laboratory exploring the intersection of color theory and dynamic aesthetics.',
@@ -100,7 +100,7 @@ export const EXHIBITS: Exhibit[] = [
     implications:
       'Chromatic scrolling could replace traditional progress bars. Imagine documentation where each section has a unique hue, creating muscle memory through color association.',
     githubUrl: 'https://github.com/Ashborn-047/chroma-kinetics',
-    liveUrl: 'https://ashborn-047.github.io/chroma-kinetics/',
+    liveUrl: '/collections/Chroma & kinetics/index.html',
     collectionPath: 'collections/Chroma & kinetics',
   },
   {
@@ -108,7 +108,7 @@ export const EXHIBITS: Exhibit[] = [
     title: 'UI Evolution Atlas',
     category: 'Documentary',
     tagline: '36 components across 4 design eras',
-    year: '2025',
+    year: '2026',
     tech: ['GSAP', 'ScrollTrigger', 'Lucide Icons', 'CSS Grid'],
     hypothesis:
       'Portfolios are usually linear. But UI design is historical—each era influences the next. By documenting 36 components across Solid State (1995), Glass Age (2010), Organic Flow (2020), and Hybrid Architecture (2025), we map the interface design landscape.',
@@ -117,7 +117,7 @@ export const EXHIBITS: Exhibit[] = [
     implications:
       'Understanding the evolution of UI design informs future innovation. Each era contributes techniques that persist: terminal aesthetics from Solid, transparency from Glass, organic motion from Fluid, and spatial depth from Hybrid.',
     githubUrl: 'https://github.com/Ashborn-047/ui-evolution-atlas',
-    liveUrl: 'https://ashborn-047.github.io/ui-evolution-atlas/',
+    liveUrl: '/collections/Interface design/index.html',
     collectionPath: 'collections/Interface design',
   },
   {
@@ -125,7 +125,7 @@ export const EXHIBITS: Exhibit[] = [
     title: 'Living Interface Ecosystem',
     category: 'Documentary',
     tagline: 'From static tools to lived-in environments',
-    year: '2025',
+    year: '2026',
     tech: ['React 19', 'TypeScript', 'Vite', 'CSS Transforms'],
     hypothesis:
       'The web is no longer something we look at—it is something we walk through. This narrative exploration showcases the transition from Deterministic Tools to Ambient Environments through 6 evolutionary phases.',
@@ -134,7 +134,8 @@ export const EXHIBITS: Exhibit[] = [
     implications:
       'We are moving from interfaces that wait for instructions to interfaces that infer intent. From tools we use to spaces we inhabit. The final phase demonstrates "ambient computing" where interaction is immersive and pervasive.',
     githubUrl: 'https://github.com/Ashborn-047/Living-Interface-Ecosystem',
-    liveUrl: 'https://ashborn-047.github.io/Living-Interface-Ecosystem/',
+    liveUrl: '/collections/Interface ecosystem and environment/index.html',
     collectionPath: 'collections/Interface ecosystem and environment',
   },
 ];
+

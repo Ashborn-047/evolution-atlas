@@ -64,8 +64,8 @@ export default function App() {
 
             {/* Main content - renders above canvas */}
             <div className="relative">
-                {/* Header HUD */}
-                <header className="fixed top-0 left-0 right-0 z-50 hud-border border-b glass-panel">
+                {/* Header HUD - Glassmorphic */}
+                <header className="fixed top-0 left-0 right-0 z-50 border-b border-[rgba(224,224,224,0.08)]" style={{ background: 'rgba(5, 5, 5, 0.6)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
                     <div className="container mx-auto px-6 py-4 flex items-center justify-between">
                         <div>
                             <h1 className="font-editorial text-2xl tracking-tight">
@@ -99,12 +99,12 @@ export default function App() {
                 {mode === 'gallery' ? (
                     <>
                         {/* Hero Section */}
-                        <section className="h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+                        <section className="h-screen flex items-center justify-center pt-32 relative overflow-hidden">
                             {/* Subtle gradient overlay */}
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505] pointer-events-none" />
 
                             <div className="text-center max-w-5xl px-6 relative z-10">
-                                <p className="text-sm text-[#00F0FF] tracking-[0.3em] mb-6 uppercase">
+                                <p className="text-xs text-[#00F0FF] tracking-[0.3em] mb-8 uppercase">
                                     UI/UX Research • Web Design Evolution • 2024-2025
                                 </p>
                                 <h2 className="font-editorial text-5xl md:text-7xl lg:text-8xl mb-8 leading-[1.1]">
@@ -130,29 +130,58 @@ export default function App() {
                         </section>
 
                         {/* Era Timeline Section */}
-                        <section className="py-16 border-t border-b border-[rgba(224,224,224,0.1)]">
+                        <section className="py-24 border-t border-b border-[rgba(224,224,224,0.1)] overflow-hidden">
                             <div className="container mx-auto px-6">
-                                <div className="text-center mb-12">
-                                    <h3 className="font-editorial text-3xl mb-3">The Evolution of Interface Design</h3>
-                                    <p className="text-[#999999]">Four decades of transformation</p>
+                                <div className="text-center mb-16">
+                                    <p className="text-xs text-[#00F0FF] tracking-[0.3em] mb-4 uppercase">The Journey</p>
+                                    <h3 className="font-editorial text-4xl md:text-5xl mb-4">Evolution of Interface Design</h3>
+                                    <p className="text-[#999999] max-w-xl mx-auto">Four decades of transformation — from command lines to ambient environments</p>
                                 </div>
 
                                 {/* Timeline */}
-                                <div className="relative">
-                                    <div className="absolute top-8 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent" />
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                                <div className="relative max-w-5xl mx-auto">
+                                    {/* Connecting line */}
+                                    <div className="absolute top-12 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-[#ff3333] via-[#06b6d4] via-[#22c55e] to-[#8b5cf6]" />
+
+                                    <div className="grid grid-cols-4 gap-2 md:gap-4">
                                         {ERAS.map((era) => (
-                                            <div key={era.year} className="relative group cursor-pointer">
+                                            <div key={era.year} className="relative group">
+                                                {/* Dot with glow */}
+                                                <div className="flex justify-center mb-6">
+                                                    <div
+                                                        className="w-6 h-6 rounded-full relative z-10 transition-all duration-300 group-hover:scale-125"
+                                                        style={{
+                                                            backgroundColor: era.color,
+                                                            boxShadow: `0 0 30px ${era.color}, 0 0 60px ${era.color}50`,
+                                                        }}
+                                                    />
+                                                </div>
+
+                                                {/* Era card */}
                                                 <div
-                                                    className="w-4 h-4 rounded-full mx-auto mb-4 relative z-10 transition-transform group-hover:scale-150"
-                                                    style={{ backgroundColor: era.color, boxShadow: `0 0 20px ${era.color}50` }}
-                                                />
-                                                <div className="text-center p-4 hud-border glass-panel transition-all group-hover:border-[#00F0FF]">
-                                                    <span className="text-xl md:text-2xl font-bold" style={{ color: era.color }}>
+                                                    className="relative p-4 md:p-6 text-center transition-all duration-300 group-hover:-translate-y-2"
+                                                    style={{
+                                                        background: `linear-gradient(180deg, ${era.color}10 0%, transparent 100%)`,
+                                                        borderTop: `2px solid ${era.color}50`,
+                                                    }}
+                                                >
+                                                    {/* Large year */}
+                                                    <span
+                                                        className="block text-3xl md:text-5xl font-bold mb-2 transition-all group-hover:scale-110"
+                                                        style={{ color: era.color }}
+                                                    >
                                                         {era.year}
                                                     </span>
-                                                    <h4 className="font-editorial text-base md:text-lg mt-2 mb-1">{era.name}</h4>
-                                                    <p className="text-xs text-[#999999] hidden md:block">{era.description}</p>
+
+                                                    {/* Era name */}
+                                                    <h4 className="font-editorial text-sm md:text-xl mb-2 text-[#E0E0E0]">
+                                                        {era.name}
+                                                    </h4>
+
+                                                    {/* Description */}
+                                                    <p className="text-[10px] md:text-xs text-[#999999] leading-relaxed">
+                                                        {era.description}
+                                                    </p>
                                                 </div>
                                             </div>
                                         ))}

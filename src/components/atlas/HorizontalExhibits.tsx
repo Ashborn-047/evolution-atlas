@@ -1,8 +1,13 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { Github, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRef, useLayoutEffect } from 'react';
+import { Github, ExternalLink } from 'lucide-react';
 import { EXHIBITS, Exhibit } from '@/lib/exhibits';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Register GSAP plugin
+gsap.registerPlugin(ScrollTrigger);
 
 // Color mapping for exhibits
 const EXHIBIT_COLORS: Record<string, string> = {
@@ -25,46 +30,45 @@ function ExhibitSlide({ exhibit, index }: ExhibitSlideProps) {
 
     return (
         <div
-            className="min-w-full h-full flex items-center justify-center px-8 md:px-16 lg:px-24"
-            style={{ scrollSnapAlign: 'start' }}
+            className="exhibit-slide min-w-[100vw] h-screen flex items-center justify-center px-6 md:px-12 lg:px-20 pt-16"
         >
-            <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-start">
                 {/* Left: Visual / Number */}
                 <div className="relative">
                     {/* Large number background */}
                     <div
-                        className="absolute -left-4 -top-8 text-[12rem] md:text-[16rem] font-editorial font-bold opacity-10 select-none"
+                        className="absolute -left-2 -top-12 text-[8rem] md:text-[10rem] font-editorial font-bold opacity-10 select-none pointer-events-none"
                         style={{ color }}
                     >
                         {String(index + 1).padStart(2, '0')}
                     </div>
 
                     {/* Exhibit info card */}
-                    <div className="relative z-10 glass-panel hud-border p-8 md:p-12">
-                        <div className="flex items-center gap-4 mb-6">
-                            <span className="text-sm" style={{ color }}>{exhibit.year}</span>
+                    <div className="relative z-10 glass-panel hud-border p-5 md:p-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-medium" style={{ color }}>{exhibit.year}</span>
                             <span
-                                className="text-xs px-3 py-1 border"
+                                className="text-[10px] px-2 py-0.5 border font-medium"
                                 style={{ borderColor: color, color }}
                             >
                                 {exhibit.category}
                             </span>
                         </div>
 
-                        <h2 className="font-editorial text-4xl md:text-5xl lg:text-6xl mb-4">
+                        <h2 className="font-editorial text-3xl md:text-4xl mb-2 leading-tight">
                             {exhibit.title}
                         </h2>
 
-                        <p className="text-lg text-[#999999] mb-8">
+                        <p className="text-sm text-[#999999] mb-5">
                             {exhibit.tagline}
                         </p>
 
                         {/* Tech stack */}
-                        <div className="flex flex-wrap gap-2 mb-8">
-                            {exhibit.tech.map((tech) => (
+                        <div className="flex flex-wrap gap-1.5 mb-5">
+                            {exhibit.tech.slice(0, 4).map((tech) => (
                                 <span
                                     key={tech}
-                                    className="text-xs px-3 py-1.5 bg-[#1A1A1A] border border-[rgba(224,224,224,0.1)]"
+                                    className="text-[10px] px-2 py-1 bg-[#1A1A1A] border border-[rgba(224,224,224,0.1)]"
                                 >
                                     {tech}
                                 </span>
@@ -72,16 +76,16 @@ function ExhibitSlide({ exhibit, index }: ExhibitSlideProps) {
                         </div>
 
                         {/* Action buttons */}
-                        <div className="flex flex-wrap gap-4">
+                        <div className="flex flex-wrap gap-3">
                             {exhibit.liveUrl && (
                                 <a
                                     href={exhibit.liveUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-6 py-3 text-[#050505] font-medium transition-all hover:scale-105"
+                                    className="flex items-center gap-2 px-4 py-2 text-[#050505] text-sm font-medium transition-all hover:scale-105"
                                     style={{ backgroundColor: color }}
                                 >
-                                    <ExternalLink className="w-4 h-4" />
+                                    <ExternalLink className="w-3 h-3" />
                                     Live Demo
                                 </a>
                             )}
@@ -90,11 +94,11 @@ function ExhibitSlide({ exhibit, index }: ExhibitSlideProps) {
                                     href={exhibit.githubUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-6 py-3 border transition-all hover:scale-105"
+                                    className="flex items-center gap-2 px-4 py-2 border text-sm transition-all hover:scale-105"
                                     style={{ borderColor: color, color }}
                                 >
-                                    <Github className="w-4 h-4" />
-                                    Source Code
+                                    <Github className="w-3 h-3" />
+                                    Source
                                 </a>
                             )}
                         </div>
@@ -102,24 +106,24 @@ function ExhibitSlide({ exhibit, index }: ExhibitSlideProps) {
                 </div>
 
                 {/* Right: Description */}
-                <div className="space-y-8">
+                <div className="space-y-4 overflow-hidden">
                     <div>
-                        <h3 className="text-sm text-[#999999] mb-3 tracking-widest">THE HYPOTHESIS</h3>
-                        <p className="text-lg text-[#E0E0E0] leading-relaxed">
+                        <h3 className="text-[10px] text-[#00F0FF] mb-2 tracking-[0.2em] uppercase">The Hypothesis</h3>
+                        <p className="text-sm text-[#E0E0E0] leading-relaxed line-clamp-4">
                             {exhibit.hypothesis}
                         </p>
                     </div>
 
                     <div>
-                        <h3 className="text-sm text-[#999999] mb-3 tracking-widest">THE ARCHITECTURE</h3>
-                        <p className="text-[#999999] leading-relaxed">
+                        <h3 className="text-[10px] text-[#999999] mb-2 tracking-[0.2em] uppercase">The Architecture</h3>
+                        <p className="text-xs text-[#999999] leading-relaxed line-clamp-4">
                             {exhibit.architecture}
                         </p>
                     </div>
 
                     <div>
-                        <h3 className="text-sm text-[#999999] mb-3 tracking-widest">FUTURE IMPLICATIONS</h3>
-                        <p className="text-[#999999] leading-relaxed">
+                        <h3 className="text-[10px] text-[#999999] mb-2 tracking-[0.2em] uppercase">Future Implications</h3>
+                        <p className="text-xs text-[#999999] leading-relaxed line-clamp-3">
                             {exhibit.implications}
                         </p>
                     </div>
@@ -130,82 +134,74 @@ function ExhibitSlide({ exhibit, index }: ExhibitSlideProps) {
 }
 
 export function HorizontalExhibits() {
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-    const [activeIndex, setActiveIndex] = useState(0);
+    const sectionRef = useRef<HTMLElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const progressRef = useRef<HTMLDivElement>(null);
 
-    // Handle scroll to update active index
-    useEffect(() => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
+    useLayoutEffect(() => {
+        const section = sectionRef.current;
+        const container = containerRef.current;
+        const progress = progressRef.current;
 
-        const handleScroll = () => {
-            const scrollLeft = container.scrollLeft;
-            const slideWidth = container.clientWidth;
-            const newIndex = Math.round(scrollLeft / slideWidth);
-            setActiveIndex(Math.min(newIndex, EXHIBITS.length - 1));
+        if (!section || !container) return;
+
+        // Calculate the scroll distance
+        const scrollWidth = container.scrollWidth - window.innerWidth;
+
+        // Create the horizontal scroll animation
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                end: () => `+=${scrollWidth}`,
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onUpdate: (self) => {
+                    // Update progress bar
+                    if (progress) {
+                        progress.style.width = `${self.progress * 100}%`;
+                    }
+                },
+            },
+        });
+
+        // Animate the container horizontally
+        tl.to(container, {
+            x: -scrollWidth,
+            ease: 'none',
+        });
+
+        return () => {
+            ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
         };
-
-        container.addEventListener('scroll', handleScroll);
-        return () => container.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const scrollToSlide = (index: number) => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
-
-        const slideWidth = container.clientWidth;
-        container.scrollTo({
-            left: slideWidth * index,
-            behavior: 'smooth',
-        });
-    };
-
-    const goToPrevious = () => {
-        if (activeIndex > 0) {
-            scrollToSlide(activeIndex - 1);
-        }
-    };
-
-    const goToNext = () => {
-        if (activeIndex < EXHIBITS.length - 1) {
-            scrollToSlide(activeIndex + 1);
-        }
-    };
-
     return (
-        <section className="relative">
-            {/* Section header */}
-            <div className="absolute top-8 left-8 z-20">
-                <h3 className="font-editorial text-2xl mb-2">The Exhibits</h3>
+        <section ref={sectionRef} className="relative overflow-hidden bg-[#050505]">
+            {/* Section header - fixed during scroll */}
+            <div className="absolute top-6 left-8 z-20">
+                <h3 className="font-editorial text-2xl mb-1">The Exhibits</h3>
                 <p className="text-sm text-[#999999]">
-                    {activeIndex + 1} / {EXHIBITS.length} — Scroll horizontally or use arrows
+                    Scroll to explore all {EXHIBITS.length} experiments
                 </p>
             </div>
 
-            {/* Navigation arrows */}
-            <button
-                onClick={goToPrevious}
-                disabled={activeIndex === 0}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 glass-panel hud-border disabled:opacity-30 hover:border-[#00F0FF] transition-colors"
-            >
-                <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button
-                onClick={goToNext}
-                disabled={activeIndex === EXHIBITS.length - 1}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 glass-panel hud-border disabled:opacity-30 hover:border-[#00F0FF] transition-colors"
-            >
-                <ChevronRight className="w-6 h-6" />
-            </button>
+            {/* Progress bar */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-[#1A1A1A] z-30">
+                <div
+                    ref={progressRef}
+                    className="h-full bg-gradient-to-r from-[#00F0FF] via-[#FF00FF] to-[#00FF88] transition-all duration-100"
+                    style={{ width: '0%' }}
+                />
+            </div>
 
             {/* Horizontal scroll container */}
             <div
-                ref={scrollContainerRef}
-                className="flex overflow-x-auto h-screen snap-x snap-mandatory scrollbar-hide"
-                style={{
-                    scrollSnapType: 'x mandatory',
-                    WebkitOverflowScrolling: 'touch',
-                }}
+                ref={containerRef}
+                className="flex"
+                style={{ width: `${EXHIBITS.length * 100}vw` }}
             >
                 {EXHIBITS.map((exhibit, index) => (
                     <ExhibitSlide
@@ -216,32 +212,25 @@ export function HorizontalExhibits() {
                 ))}
             </div>
 
-            {/* Progress dots */}
+            {/* Progress dots - fixed during scroll */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
-                {EXHIBITS.map((exhibit, index) => (
-                    <button
+                {EXHIBITS.map((exhibit) => (
+                    <div
                         key={exhibit.id}
-                        onClick={() => scrollToSlide(index)}
-                        className="group relative"
-                    >
-                        <div
-                            className={`w-3 h-3 rounded-full transition-all ${index === activeIndex
-                                ? 'scale-125'
-                                : 'opacity-50 hover:opacity-100'
-                                }`}
-                            style={{
-                                backgroundColor: EXHIBIT_COLORS[exhibit.id] || '#00F0FF',
-                                boxShadow: index === activeIndex
-                                    ? `0 0 20px ${EXHIBIT_COLORS[exhibit.id] || '#00F0FF'}`
-                                    : 'none',
-                            }}
-                        />
-                        {/* Tooltip */}
-                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-                            {exhibit.title}
-                        </span>
-                    </button>
+                        className="w-2 h-2 rounded-full opacity-50"
+                        style={{
+                            backgroundColor: EXHIBIT_COLORS[exhibit.id] || '#00F0FF',
+                        }}
+                    />
                 ))}
+            </div>
+
+            {/* Scroll hint */}
+            <div className="absolute bottom-8 right-8 z-20 flex items-center gap-2 text-xs text-[#999999]">
+                <span>Scroll down to navigate</span>
+                <div className="w-4 h-6 border border-[#999999] rounded-full flex items-start justify-center p-1">
+                    <div className="w-1 h-2 bg-[#999999] rounded-full animate-bounce" />
+                </div>
             </div>
         </section>
     );
