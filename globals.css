@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Cyber-Organic "The Void" Design System */
+  --font-size: 16px;
+  
+  /* The Void Palette */
+  --void: #050505;
+  --surface: #1A1A1A;
+  --surface-elevated: #242424;
+  --primary-text: #E0E0E0;
+  --secondary-text: #999999;
+  --accent-cyan: #00F0FF;
+  --accent-magenta: #FF00FF;
+  --accent-bio: #00FF88;
+  
+  /* Frosted Glass Effects */
+  --glass-bg: rgba(26, 26, 26, 0.7);
+  --glass-border: rgba(224, 224, 224, 0.1);
+  
+  /* Core Tokens */
+  --background: var(--void);
+  --foreground: var(--primary-text);
+  --card: var(--surface);
+  --card-foreground: var(--primary-text);
+  --popover: var(--surface-elevated);
+  --popover-foreground: var(--primary-text);
+  --primary: var(--accent-cyan);
+  --primary-foreground: var(--void);
+  --secondary: var(--surface);
+  --secondary-foreground: var(--primary-text);
+  --muted: var(--surface);
+  --muted-foreground: var(--secondary-text);
+  --accent: var(--accent-bio);
+  --accent-foreground: var(--void);
+  --destructive: #FF3366;
+  --destructive-foreground: #E0E0E0;
+  --border: rgba(224, 224, 224, 0.1);
+  --input: transparent;
+  --input-background: var(--surface);
+  --switch-background: var(--surface-elevated);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: var(--accent-cyan);
+  
+  /* Chart Colors - Bioluminescent */
+  --chart-1: #00F0FF;
+  --chart-2: #00FF88;
+  --chart-3: #FF00FF;
+  --chart-4: #FFD700;
+  --chart-5: #FF3366;
+  
+  --radius: 0rem; /* Brutalist - no rounded corners */
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--primary-text);
+  --sidebar-primary: var(--accent-cyan);
+  --sidebar-primary-foreground: var(--void);
+  --sidebar-accent: var(--surface-elevated);
+  --sidebar-accent-foreground: var(--primary-text);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--accent-cyan);
+}
+
+.dark {
+  /* Already dark by default - no changes needed */
+  --background: var(--void);
+  --foreground: var(--primary-text);
+  --card: var(--surface);
+  --card-foreground: var(--primary-text);
+  --popover: var(--surface-elevated);
+  --popover-foreground: var(--primary-text);
+  --primary: var(--accent-cyan);
+  --primary-foreground: var(--void);
+  --secondary: var(--surface);
+  --secondary-foreground: var(--primary-text);
+  --muted: var(--surface);
+  --muted-foreground: var(--secondary-text);
+  --accent: var(--accent-bio);
+  --accent-foreground: var(--void);
+  --destructive: #FF3366;
+  --destructive-foreground: #E0E0E0;
+  --border: rgba(224, 224, 224, 0.1);
+  --input: transparent;
+  --ring: var(--accent-cyan);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: #00F0FF;
+  --chart-2: #00FF88;
+  --chart-3: #FF00FF;
+  --chart-4: #FFD700;
+  --chart-5: #FF3366;
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--primary-text);
+  --sidebar-primary: var(--accent-cyan);
+  --sidebar-primary-foreground: var(--void);
+  --sidebar-accent: var(--surface-elevated);
+  --sidebar-accent-foreground: var(--primary-text);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--accent-cyan);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  /* Editorial headlines for documentary sections */
+  .font-editorial {
+    font-family: Georgia, 'Times New Roman', serif;
+    letter-spacing: -0.02em;
+  }
+  
+  /* Cyber HUD - thin borders */
+  .hud-border {
+    border: 1px solid var(--glass-border);
+  }
+  
+  /* Frosted glass panel */
+  .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
+/**
+ * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
+ */
+@layer base {
+  :where(:not(:has([class*=' text-']), :not(:has([class^='text-'])))) {
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h4 {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    label {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    button {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    input {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+/* Custom range slider styling for Cyber-Organic theme */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: rgba(224, 224, 224, 0.1);
+  outline: none;
+  border-radius: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #00F0FF;
+  cursor: pointer;
+  border: 1px solid #00F0FF;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #00F0FF;
+  cursor: pointer;
+  border: 1px solid #00F0FF;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  border-radius: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #00FF88;
+  border-color: #00FF88;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: #00FF88;
+  border-color: #00FF88;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+}
