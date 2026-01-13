@@ -1,8 +1,8 @@
-import React, { useRef, useMemo } from 'react';
+import { useRef, useMemo, FC } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-export const FlickeringGrid: React.FC = () => {
+export const FlickeringGrid: FC = () => {
     const meshRef = useRef<THREE.InstancedMesh>(null);
     const count = 40 * 40;
 

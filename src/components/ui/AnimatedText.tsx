@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef, FC } from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/lib/utils';
 
@@ -22,7 +22,7 @@ interface AnimatedTextProps {
     trigger?: boolean;
 }
 
-export const AnimatedText: React.FC<AnimatedTextProps> = ({
+export const AnimatedText: FC<AnimatedTextProps> = ({
     text,
     effect = 'breathe',
     className,

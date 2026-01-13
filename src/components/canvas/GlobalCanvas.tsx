@@ -2,7 +2,7 @@
 
 import { Canvas } from '@react-three/fiber';
 import { View, Preload, OrbitControls } from '@react-three/drei';
-import { Suspense, useRef } from 'react';
+import { Suspense, useRef, ReactNode, RefObject, MutableRefObject } from 'react';
 import * as THREE from 'three';
 
 /**
@@ -16,7 +16,7 @@ import * as THREE from 'three';
  * 
  * CRITICAL: This Canvas is mounted once in the root layout and never unmounts.
  */
-export function GlobalCanvas({ children }: { children: React.ReactNode }) {
+export function GlobalCanvas({ children }: { children: ReactNode }) {
   const canvasRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -67,14 +67,14 @@ export function GlobalCanvas({ children }: { children: React.ReactNode }) {
  * Use this in page components with a ref to bind the 3D scene to HTML.
  */
 interface ViewportSceneProps {
-  trackRef: React.RefObject<HTMLDivElement>;
-  children: React.ReactNode;
+  trackRef: RefObject<HTMLDivElement>;
+  children: ReactNode;
   orbit?: boolean;
 }
 
 export function ViewportScene({ trackRef, children, orbit = false }: ViewportSceneProps) {
   return (
-    <View track={trackRef as React.MutableRefObject<HTMLElement>}>
+    <View track={trackRef as MutableRefObject<HTMLElement>}>
       {children}
       {orbit && <OrbitControls makeDefault />}
     </View>

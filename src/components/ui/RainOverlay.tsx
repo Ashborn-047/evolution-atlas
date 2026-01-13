@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef, FC } from 'react';
 
 interface RainOverlayProps {
     density?: number;
@@ -10,7 +10,7 @@ interface RainOverlayProps {
     className?: string;
 }
 
-export const RainOverlay: React.FC<RainOverlayProps> = ({
+export const RainOverlay: FC<RainOverlayProps> = ({
     density = 40,
     speed = 1.0,
     color = 'rgba(255, 255, 255, 0.2)',

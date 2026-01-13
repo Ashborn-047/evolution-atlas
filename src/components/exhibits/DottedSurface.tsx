@@ -1,8 +1,8 @@
-import React, { useRef, useMemo } from 'react';
+import { useRef, useMemo, FC } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-export const DottedSurface: React.FC = () => {
+export const DottedSurface: FC = () => {
     const pointsRef = useRef<THREE.Points>(null);
     const count = 40 * 60;
 

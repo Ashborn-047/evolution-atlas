@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, FC } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -54,47 +54,47 @@ const FRAGMENT_SHADER = `
   }
 `;
 
-export const DotScreenShader: React.FC = () => {
-    const { size, viewport } = useThree();
+export const DotScreenShader: FC = () => {
+  const { size, viewport } = useThree();
 
-    const material = useMemo(() => {
-        return new THREE.ShaderMaterial({
-            uniforms: {
-                time: { value: 0 },
-                resolution: { value: new THREE.Vector2() },
-                dotColor: { value: new THREE.Color('#00F0FF') },
-                bgColor: { value: new THREE.Color('#050505') },
-                uMouse: { value: new THREE.Vector2(0.5, 0.5) },
-                gridSize: { value: 60 },
-                dotOpacity: { value: 0.6 }
-            },
-            vertexShader: VERTEX_SHADER,
-            fragmentShader: FRAGMENT_SHADER,
-            transparent: true
-        });
-    }, []);
-
-    useFrame((state) => {
-        if (material) {
-            material.uniforms.time.value = state.clock.elapsedTime;
-            const u = (state.pointer.x + 1) / 2;
-            const v = (state.pointer.y + 1) / 2;
-            material.uniforms.uMouse.value.x += (u - material.uniforms.uMouse.value.x) * 0.1;
-            material.uniforms.uMouse.value.y += (v - material.uniforms.uMouse.value.y) * 0.1;
-        }
+  const material = useMemo(() => {
+    return new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        resolution: { value: new THREE.Vector2() },
+        dotColor: { value: new THREE.Color('#00F0FF') },
+        bgColor: { value: new THREE.Color('#050505') },
+        uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+        gridSize: { value: 60 },
+        dotOpacity: { value: 0.6 }
+      },
+      vertexShader: VERTEX_SHADER,
+      fragmentShader: FRAGMENT_SHADER,
+      transparent: true
     });
+  }, []);
 
-    useEffect(() => {
-        material.uniforms.resolution.value.set(
-            size.width * viewport.dpr,
-            size.height * viewport.dpr
-        );
-    }, [size, viewport, material]);
+  useFrame((state) => {
+    if (material) {
+      material.uniforms.time.value = state.clock.elapsedTime;
+      const u = (state.pointer.x + 1) / 2;
+      const v = (state.pointer.y + 1) / 2;
+      material.uniforms.uMouse.value.x += (u - material.uniforms.uMouse.value.x) * 0.1;
+      material.uniforms.uMouse.value.y += (v - material.uniforms.uMouse.value.y) * 0.1;
+    }
+  });
 
-    return (
-        <mesh scale={[size.width, size.height, 1]}>
-            <planeGeometry args={[1, 1]} />
-            <primitive object={material} attach="material" />
-        </mesh>
+  useEffect(() => {
+    material.uniforms.resolution.value.set(
+      size.width * viewport.dpr,
+      size.height * viewport.dpr
     );
+  }, [size, viewport, material]);
+
+  return (
+    <mesh scale={[size.width, size.height, 1]}>
+      <planeGeometry args={[1, 1]} />
+      <primitive object={material} attach="material" />
+    </mesh>
+  );
 };
