@@ -1,13 +1,23 @@
 'use client';
 
-import { useRef, useLayoutEffect } from 'react';
+import { useRef, useLayoutEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { DitheringShader } from '../ui/DitheringShader';
+import { ChapterModal } from './ChapterModal';
+import { ChromaticDispersion } from '../ui/ChromaticDispersion';
+import { ArrowLeft } from 'lucide-react';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
   // Note: SplitText is a premium plugin, we'll use a CSS-based approach instead
+}
+
+interface DocumentaryMarker {
+  label: string;
+  url: string;
 }
 
 interface DocumentarySection {
@@ -16,9 +26,10 @@ interface DocumentarySection {
   content: string;
   color: string;
   icon: string;
+  markers: DocumentaryMarker[];
 }
 
-const DOCUMENTARY_SECTIONS: DocumentarySection[] = [
+export const DOCUMENTARY_SECTIONS: DocumentarySection[] = [
   {
     title: 'The Beginning',
     subtitle: 'Where Static Interfaces Ruled',
@@ -26,6 +37,12 @@ const DOCUMENTARY_SECTIONS: DocumentarySection[] = [
       'In the early web, interfaces were lifeless. HTML rendered text and images, but nothing breathed. CSS added color and layout, but pixels remained inert. The gap between what we could imagine and what browsers could render felt insurmountable.',
     color: '#ff3333',
     icon: '◉',
+    markers: [
+      { label: 'Solid State (1995)', url: '/collections/Interface design/index.html#standalone-solid' },
+      { label: 'Terminal Hierarchy', url: '/collections/Interface design/index.html#standalone-solid' },
+      { label: 'Static CSS Layouts', url: '/collections/Interface design/index.html#standalone-solid' },
+      { label: 'Monospace Type', url: '/collections/Typography/experiments/pixels.html#standalone' }
+    ],
   },
   {
     title: 'The Awakening',
@@ -34,6 +51,12 @@ const DOCUMENTARY_SECTIONS: DocumentarySection[] = [
       'When WebGL arrived, everything changed. Suddenly, the GPU—dormant in browsers for years—became accessible. We could write shaders, manipulate vertices, and render 60fps graphics that rivaled native applications. The web was no longer a document viewer; it was a canvas.',
     color: '#06b6d4',
     icon: '◎',
+    markers: [
+      { label: 'ELASTIC Physics', url: '/collections/Typography/experiments/elastic.html#standalone' },
+      { label: 'VERTEX Primitives', url: '/collections/Typography/experiments/vertex.html#standalone' },
+      { label: 'Plasma Ball GLSL', url: '/collections/Shaders for UI/index.html#standalone-Plasma Ball' },
+      { label: 'Binary Streams', url: '/collections/Shaders for UI/index.html#standalone-Binary Stream' }
+    ],
   },
   {
     title: 'The Experimentation',
@@ -42,6 +65,12 @@ const DOCUMENTARY_SECTIONS: DocumentarySection[] = [
       'We began treating shaders not as effects, but as fundamental building blocks. Noise functions became animations. Fragment shaders became buttons. Vertex displacement became feedback. The line between "graphics" and "interface" dissolved.',
     color: '#22c55e',
     icon: '◈',
+    markers: [
+      { label: 'Interactive Ripple', url: '/collections/Liquid Shader Ui/examples/ripple/index.html#standalone' },
+      { label: 'Liquid Mercury Nav', url: '/collections/Liquid Shader Ui/examples/mercury/index.html#standalone' },
+      { label: 'Rainy Pond Surface', url: '/collections/Liquid Shader Ui/examples/pond/index.html#standalone' },
+      { label: 'Physics Feedback', url: '/collections/Liquid Shader Ui/examples/rain/index.html#standalone' }
+    ],
   },
   {
     title: 'The Synthesis',
@@ -50,6 +79,12 @@ const DOCUMENTARY_SECTIONS: DocumentarySection[] = [
       'The aesthetic you see here—rigid grids housing organic chaos—emerged from this experimentation. We call it Biotech Brutalism. Thin borders and monospace type (The Cyber) contain fluid, bioluminescent shaders (The Organic). Order and entropy, in harmony.',
     color: '#8b5cf6',
     icon: '◇',
+    markers: [
+      { label: 'Glass Age (2010)', url: '/collections/Interface design/index.html#standalone-glass' },
+      { label: 'Organic Flow (2020)', url: '/collections/Interface design/index.html#standalone-fluid' },
+      { label: 'Hybrid Design', url: '/collections/Interface design/index.html#standalone-hybrid' },
+      { label: 'Biotech Layouts', url: '/collections/Interface design/index.html#standalone-hybrid' }
+    ],
   },
   {
     title: 'The Future',
@@ -58,13 +93,19 @@ const DOCUMENTARY_SECTIONS: DocumentarySection[] = [
       'Where do we go from here? AI-driven shaders that adapt to user emotion? Haptic feedback via visual distortion? Interfaces that blur the line between screen and reality? The next decade will answer these questions. This atlas is just the beginning.',
     color: '#00F0FF',
     icon: '◆',
+    markers: [
+      { label: 'Neural Ripple AI', url: '/collections/Shaders V2/index.html#standalone' },
+      { label: 'Probabilistic UI', url: '/collections/Interface ecosystem and environment/index.html#standalone' },
+      { label: 'Ambient Wash', url: '/collections/Interface ecosystem and environment/index.html#standalone' },
+      { label: 'Adaptive Shapes', url: '/collections/Shaders V2/index.html#standalone' }
+    ],
   },
 ];
 
 export function DocumentaryScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -156,20 +197,7 @@ export function DocumentaryScroll() {
         });
       });
 
-      // Progress bar
-      if (progressRef.current) {
-        gsap.to(progressRef.current, {
-          scaleY: 1,
-          transformOrigin: 'top',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 0.3,
-          },
-        });
-      }
+      // Sidebars removed as requested
     }, containerRef);
 
     return () => ctx.revert();
@@ -177,58 +205,46 @@ export function DocumentaryScroll() {
 
   return (
     <div ref={containerRef} className="relative min-h-screen pt-24">
-      {/* Fixed progress line on the left */}
-      <div className="fixed left-8 top-1/2 -translate-y-1/2 h-64 w-px bg-[#1A1A1A] z-40 hidden lg:block">
-        <div
-          ref={progressRef}
-          className="w-full h-full bg-gradient-to-b from-[#00F0FF] to-[#FF00FF]"
-          style={{ transform: 'scaleY(0)', transformOrigin: 'top' }}
-        />
-        {/* Progress dots */}
-        {DOCUMENTARY_SECTIONS.map((section, index) => (
-          <div
-            key={index}
-            className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2 bg-[#050505]"
-            style={{
-              top: `${(index / (DOCUMENTARY_SECTIONS.length - 1)) * 100}%`,
-              borderColor: section.color,
-            }}
+
+      {/* Documentary Hero Section */}
+      <section className="min-h-screen relative flex items-center justify-center overflow-hidden">
+        {/* Background Shader */}
+        <div className="absolute inset-0 z-0">
+          <DitheringShader
+            shape="ripple"
+            type="2x2"
+            colorBack="#050505"
+            colorFront="#1a3040"
+            pxSize={3}
+            speed={0.8}
           />
-        ))}
-      </div>
+        </div>
 
-      {/* Chapter navigation */}
-      <div className="fixed right-8 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-4">
-        {DOCUMENTARY_SECTIONS.map((section, index) => (
-          <a
-            key={index}
-            href={`#chapter-${index + 1}`}
-            className="group flex items-center gap-3 text-right"
-          >
-            <span className="text-xs text-[#999999] opacity-0 group-hover:opacity-100 transition-opacity">
-              {section.title}
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 z-1 bg-gradient-to-b from-[#050505]/60 via-transparent to-[#050505] pointer-events-none" />
+
+        <div className="container mx-auto max-w-4xl px-6 pb-32 text-center relative z-10">
+          <p className="text-xs text-[#00F0FF] tracking-[0.3em] mb-6 uppercase opacity-80">Documentary Mode</p>
+          <h1 className="font-editorial text-5xl md:text-7xl lg:text-8xl mb-8 leading-tight">
+            The Story of
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#FF00FF] to-[#00FF88] mt-2">
+              Interface Evolution
             </span>
-            <div
-              className="w-2 h-2 rounded-full transition-all group-hover:scale-150"
-              style={{ backgroundColor: section.color }}
-            />
-          </a>
-        ))}
-      </div>
+          </h1>
+          <p className="text-xl md:text-2xl text-[#E0E0E0]/70 max-w-2xl mx-auto font-light leading-relaxed">
+            A visual narrative through five transformative eras that shaped how we interact with digital interfaces.
+          </p>
+        </div>
 
-      {/* Header */}
-      <div className="container mx-auto max-w-4xl px-6 mb-24 text-center">
-        <p className="text-xs text-[#00F0FF] tracking-[0.3em] mb-4 uppercase">Documentary Mode</p>
-        <h1 className="font-editorial text-5xl md:text-6xl lg:text-7xl mb-6">
-          The Story of
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#FF00FF] to-[#00FF88]">
-            Interface Evolution
-          </span>
-        </h1>
-        <p className="text-lg text-[#999999] max-w-2xl mx-auto">
-          A visual narrative through five transformative eras that shaped how we interact with digital interfaces.
-        </p>
-      </div>
+        {/* Scroll Indicator - Outside container to avoid flex conflicts */}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50 z-20">
+          <span className="text-[10px] uppercase tracking-[0.4em] font-mono">Scroll to Begin</span>
+          <div className="w-px h-12 bg-gradient-to-b from-[#00F0FF] to-transparent" />
+        </div>
+      </section>
+
+      {/* Spacer to first chapter */}
+      <div className="h-32" />
 
       {/* Documentary Sections */}
       <div className="container mx-auto max-w-4xl px-6 space-y-48 pb-48">
@@ -294,9 +310,21 @@ export function DocumentaryScroll() {
               </h3>
 
               {/* Content */}
-              <p className="section-content text-base md:text-lg text-[#999999] leading-relaxed max-w-3xl">
+              <p className="section-content text-base md:text-lg text-[#999999] leading-relaxed max-w-3xl mb-10">
                 {section.content}
               </p>
+
+              {/* Read More Button */}
+              <button
+                onClick={() => setSelectedChapter(index)}
+                className="group relative flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 transition-all duration-300"
+              >
+                <div className="w-1.5 h-1.5 rounded-full transition-all group-hover:scale-150" style={{ backgroundColor: section.color }} />
+                <span className="text-sm font-mono tracking-widest uppercase">Read Insight</span>
+                <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M5 12h14M12 5l7 7-7 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
 
               {/* Era indicator */}
               <div className="mt-12 flex items-center gap-4">
@@ -315,17 +343,56 @@ export function DocumentaryScroll() {
         ))}
       </div>
 
-      {/* Ending */}
-      <div className="container mx-auto max-w-4xl px-6 pb-24 text-center">
-        <div className="glass-panel hud-border p-12 md:p-16">
-          <p className="font-editorial text-2xl md:text-3xl text-[#E0E0E0] mb-4">
-            "The interface is no longer waiting."
-          </p>
-          <p className="text-sm text-[#999999]">
-            — Living Interface Ecosystem
-          </p>
+      {/* Immersive Footer Redesign */}
+      <section className="min-h-screen relative flex items-center justify-center overflow-hidden bg-black">
+        {/* New Shader Kind */}
+        <ChromaticDispersion />
+
+        {/* Dynamic Typography Reveal */}
+        <div className="container mx-auto max-w-4xl px-6 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+          >
+            <h2 className="font-editorial text-4xl md:text-6xl text-white mb-12 drop-shadow-2xl">
+              "The interface is no longer waiting."
+            </h2>
+
+            <div className="flex flex-col items-center gap-12">
+              <div className="w-px h-24 bg-gradient-to-b from-white to-transparent opacity-20" />
+
+              <div className="space-y-4">
+                <p className="text-xs uppercase tracking-[0.5em] text-white/40 font-mono">
+                  Evolution Synthesis Complete
+                </p>
+                <div className="text-xl md:text-2xl text-[#00F0FF] font-light">
+                  Living Interface Ecosystem
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="group relative px-8 py-4 rounded-full border border-white/10 hover:border-white/30 bg-white/5 backdrop-blur-md overflow-hidden transition-all duration-500"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-[#00F0FF]/10 to-[#FF00FF]/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                <div className="relative flex items-center gap-3">
+                  <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                  <span className="text-sm font-mono tracking-widest uppercase text-white">Return to Evolution</span>
+                </div>
+              </button>
+            </div>
+          </motion.div>
         </div>
-      </div>
+      </section>
+
+      {/* Chapter Modal */}
+      <ChapterModal
+        isOpen={selectedChapter !== null}
+        onClose={() => setSelectedChapter(null)}
+        chapterIndex={selectedChapter}
+      />
     </div>
   );
 }
