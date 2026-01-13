@@ -7,7 +7,9 @@ import { DocumentaryScroll } from './components/documentary/DocumentaryScroll';
 import { ShaderVault } from './components/library/ShaderVault';
 import { ShaderControls } from './components/library/ShaderControls';
 import { CustomCursor } from './components/ui/CustomCursor';
+import { DitheringShader } from './components/ui/DitheringShader';
 import { Github, ExternalLink } from 'lucide-react';
+
 
 type Mode = 'gallery' | 'documentary';
 
@@ -68,8 +70,8 @@ export default function App() {
 
             {/* Main content - renders above canvas */}
             <div className="relative">
-                {/* Header HUD - Glassmorphic */}
-                <header className="fixed top-0 left-0 right-0 z-50 border-b border-[rgba(224,224,224,0.08)]" style={{ background: 'rgba(5, 5, 5, 0.6)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
+                {/* Header HUD - Glassmorphic - Absolute so it scrolls away */}
+                <header className="absolute top-0 left-0 right-0 z-50 border-b border-[rgba(224,224,224,0.08)]" style={{ background: 'rgba(5, 5, 5, 0.6)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
                     <div className="container mx-auto px-6 py-4 flex items-center justify-between">
                         <div>
                             <h1 className="font-editorial text-2xl tracking-tight">
@@ -104,30 +106,42 @@ export default function App() {
                     <>
                         {/* Hero Section */}
                         <section className="h-screen flex items-center justify-center pt-32 relative overflow-hidden">
-                            {/* Subtle gradient overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505] pointer-events-none" />
+                            {/* Dithering Shader Background */}
+                            <div className="absolute inset-0 z-0">
+                                <DitheringShader
+                                    shape="swirl"
+                                    type="4x4"
+                                    colorBack="#050505"
+                                    colorFront="#0a3040"
+                                    pxSize={4}
+                                    speed={0.6}
+                                />
+                            </div>
+
+                            {/* Subtle gradient overlay for text legibility */}
+                            <div className="absolute inset-0 z-1 bg-gradient-to-b from-[#050505]/70 via-[#050505]/30 to-[#050505] pointer-events-none" />
 
                             <div className="text-center max-w-5xl px-6 relative z-10">
-                                <p className="text-xs text-[#00F0FF] tracking-[0.3em] mb-8 uppercase">
-                                    UI/UX Research • Web Design Evolution • 2024-2025
+                                <p className="text-xs text-[#00F0FF] tracking-[0.4em] mb-10 uppercase font-mono opacity-80">
+                                    UI/UX Research • Design Evolution • 2025-26
                                 </p>
-                                <h2 className="font-editorial text-5xl md:text-7xl lg:text-8xl mb-8 leading-[1.1]">
+                                <h2 className="font-editorial text-5xl md:text-6xl lg:text-7xl mb-10 leading-[1.1] tracking-tight">
                                     Where Code Becomes
-                                    <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#FF00FF] to-[#00FF88]">
+                                    <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#FF00FF] to-[#00FF88] mt-2">
                                         Experience
                                     </span>
                                 </h2>
-                                <p className="text-lg md:text-xl text-[#999999] max-w-3xl mx-auto mb-12 leading-relaxed">
-                                    Seven experiments in computational aesthetics. Each a thesis on the future
-                                    of digital interaction — from kinetic typography to ambient computing.
+                                <p className="text-xl md:text-2xl text-[#E0E0E0]/60 max-w-3xl mx-auto mb-16 leading-relaxed font-light">
+                                    An immersive thesis on computational aesthetics. Explore the journey
+                                    from kinetic typography to ambient, living interfaces.
                                 </p>
 
-                                {/* Scroll indicator */}
-                                <div className="flex flex-col items-center gap-3">
-                                    <span className="text-xs text-[#999999] tracking-widest">SCROLL TO EXPLORE</span>
+                                {/* Improved Scroll indicator */}
+                                <div className="flex flex-col items-center gap-4">
+                                    <span className="text-[10px] text-[#999999] tracking-[0.5em] font-mono uppercase">SCROLL TO EXPLORE</span>
                                     <div className="relative">
-                                        <div className="w-px h-16 bg-gradient-to-b from-[#00F0FF] to-transparent" />
-                                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#00F0FF] rounded-full animate-ping" />
+                                        <div className="w-px h-20 bg-gradient-to-b from-[#00F0FF] via-[#00F0FF]/20 to-transparent" />
+                                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#00F0FF] rounded-full blur-[2px] animate-pulse" />
                                     </div>
                                 </div>
                             </div>
@@ -197,9 +211,22 @@ export default function App() {
                         {/* Horizontal Scroll Exhibits */}
                         <HorizontalExhibits />
 
-                        {/* Interactive Footer */}
-                        <footer className="relative border-t border-[rgba(224,224,224,0.1)]">
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#00F0FF]/5 via-transparent to-transparent pointer-events-none" />
+                        {/* Interactive Footer - Higher z-index to prevent overlap */}
+                        <footer className="relative z-50 border-t border-[rgba(224,224,224,0.1)] bg-[#050505] overflow-hidden">
+                            {/* Dithering Shader Background */}
+                            <div className="absolute inset-0 z-0">
+                                <DitheringShader
+                                    shape="wave"
+                                    type="8x8"
+                                    colorBack="#050505"
+                                    colorFront="#1a1030"
+                                    pxSize={3}
+                                    speed={0.5}
+                                />
+                            </div>
+
+                            {/* Gradient overlay for text legibility */}
+                            <div className="absolute inset-0 z-1 bg-gradient-to-t from-[#050505]/90 via-[#050505]/50 to-[#050505]/80 pointer-events-none" />
 
                             <div className="container mx-auto px-6 py-16 relative z-10">
                                 {/* Typewriter Quote */}

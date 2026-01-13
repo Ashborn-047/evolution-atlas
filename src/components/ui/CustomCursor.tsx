@@ -18,6 +18,8 @@ export function CustomCursor() {
         let mouseY = 0;
         let cursorX = 0;
         let cursorY = 0;
+        let dotX = 0;
+        let dotY = 0;
 
         const handleMouseMove = (e: MouseEvent) => {
             mouseX = e.clientX;
@@ -29,12 +31,16 @@ export function CustomCursor() {
 
         // Smooth cursor animation
         const animate = () => {
-            // Lerp for smooth following
-            cursorX += (mouseX - cursorX) * 0.15;
-            cursorY += (mouseY - cursorY) * 0.15;
+            // Lerp for smooth following - ring follows slower
+            cursorX += (mouseX - cursorX) * 0.12;
+            cursorY += (mouseY - cursorY) * 0.12;
+
+            // Dot follows faster but still smooth (no more jumping ahead)
+            dotX += (mouseX - dotX) * 0.35;
+            dotY += (mouseY - dotY) * 0.35;
 
             cursor.style.transform = `translate(${cursorX - 20}px, ${cursorY - 20}px)`;
-            cursorDot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+            cursorDot.style.transform = `translate(${dotX - 4}px, ${dotY - 4}px)`;
 
             requestAnimationFrame(animate);
         };

@@ -182,6 +182,124 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Motion Eras */
+  .era-solid {
+    --era-accent: var(--accent-cyan);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+  }
+
+  .era-organic {
+    --era-accent: var(--accent-bio);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+
+  .era-glass {
+    --era-accent: var(--accent-magenta);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+  }
+
+  .era-hybrid {
+    --era-accent: #ffffff;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Keyframes for Typography */
+  @keyframes typoBreathe {
+
+    0%,
+    100% {
+      transform: scale(0.98);
+      opacity: 0.8;
+    }
+
+    50% {
+      transform: scale(1.02);
+      opacity: 1;
+    }
+  }
+
+  @keyframes glitch-red {
+    0% {
+      transform: translate(-2px, 0);
+      clip-path: inset(44% 0 1% 0);
+    }
+
+    20% {
+      transform: translate(2px, 0);
+      clip-path: inset(12% 0 58% 0);
+    }
+
+    40% {
+      transform: translate(-2px, 0);
+      clip-path: inset(91% 0 5% 0);
+    }
+
+    60% {
+      transform: translate(2px, 0);
+      clip-path: inset(25% 0 58% 0);
+    }
+
+    80% {
+      transform: translate(-2px, 0);
+      clip-path: inset(54% 0 7% 0);
+    }
+
+    100% {
+      transform: translate(2px, 0);
+      clip-path: inset(58% 0 43% 0);
+    }
+  }
+
+  @keyframes glitch-cyan {
+    0% {
+      transform: translate(2px, 0);
+      clip-path: inset(65% 0 14% 0);
+    }
+
+    20% {
+      transform: translate(-2px, 0);
+      clip-path: inset(17% 0 77% 0);
+    }
+
+    40% {
+      transform: translate(2px, 0);
+      clip-path: inset(91% 0 5% 0);
+    }
+
+    60% {
+      transform: translate(-2px, 0);
+      clip-path: inset(40% 0 43% 0);
+    }
+
+    80% {
+      transform: translate(2px, 0);
+      clip-path: inset(12% 0 69% 0);
+    }
+
+    100% {
+      transform: translate(-2px, 0);
+      clip-path: inset(89% 0 3% 0);
+    }
+  }
+
+  .animate-typo-breathe {
+    animation: typoBreathe 3s ease-in-out infinite;
+  }
+
+  .glitch-layer-red {
+    animation: glitch-red 0.12s steps(2) infinite;
+    color: #ff0000;
+  }
+
+  .glitch-layer-cyan {
+    animation: glitch-cyan 0.1s steps(3) infinite;
+    color: #00ffff;
+  }
 }
 
 /**
