@@ -6,6 +6,7 @@ import { HorizontalExhibits } from './components/atlas/HorizontalExhibits';
 import { DocumentaryScroll } from './components/documentary/DocumentaryScroll';
 import { ShaderVault } from './components/library/ShaderVault';
 import { ShaderControls } from './components/library/ShaderControls';
+import { CustomCursor } from './components/ui/CustomCursor';
 import { Github, ExternalLink } from 'lucide-react';
 
 type Mode = 'gallery' | 'documentary';
@@ -51,6 +52,9 @@ export default function App() {
 
     return (
         <>
+            {/* Global Custom Cursor */}
+            <CustomCursor />
+
             {/* Global WebGL Canvas - renders behind everything */}
             <GlobalCanvas>
                 {null}

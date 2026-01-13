@@ -2,7 +2,7 @@
 
 import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { InstancedMesh, Object3D, ShaderMaterial, Vector3 } from 'three';
+import { InstancedMesh, Object3D, ShaderMaterial } from 'three';
 import { useAtlasStore } from '@/lib/store';
 import { SHADERS } from '@/lib/shaders';
 
@@ -95,7 +95,7 @@ export function AetherSync() {
     >
       <sphereGeometry args={[0.02, 8, 8]} />
       <primitive object={material} ref={materialRef} attach="material" />
-      
+
       {/* Pass attributes to shader */}
       <instancedBufferAttribute
         attach="geometry-attributes-offset"

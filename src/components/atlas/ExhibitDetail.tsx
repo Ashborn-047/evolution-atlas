@@ -76,7 +76,7 @@ export function ExhibitDetail({ exhibit, onClose }: ExhibitDetailProps) {
           style={{ isolation: 'isolate' }}
         >
           {containerRef.current && (
-            <View track={containerRef}>
+            <View track={containerRef as React.MutableRefObject<HTMLElement>}>
               <PortalScene variant={config.variant} color={config.color} />
             </View>
           )}

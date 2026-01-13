@@ -2,7 +2,7 @@
 
 import { Canvas } from '@react-three/fiber';
 import { View, Preload, OrbitControls } from '@react-three/drei';
-import { Suspense, useRef, useEffect } from 'react';
+import { Suspense, useRef } from 'react';
 import * as THREE from 'three';
 
 /**
@@ -43,15 +43,15 @@ export function GlobalCanvas({ children }: { children: React.ReactNode }) {
           {/* Ambient lighting for all scenes */}
           <ambientLight intensity={0.2} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
-          
+
           {/* Preload common assets */}
           <Preload all />
-          
+
           {/* This is where View components will inject their scenes */}
           <Suspense fallback={null}>{children}</Suspense>
         </Canvas>
       </div>
-      
+
       {/* HTML content layer - renders above canvas */}
       <div className="relative z-10 pointer-events-auto">
         {/* App content goes here via layout */}
@@ -74,7 +74,7 @@ interface ViewportSceneProps {
 
 export function ViewportScene({ trackRef, children, orbit = false }: ViewportSceneProps) {
   return (
-    <View track={trackRef}>
+    <View track={trackRef as React.MutableRefObject<HTMLElement>}>
       {children}
       {orbit && <OrbitControls makeDefault />}
     </View>

@@ -47,12 +47,12 @@ export function ExhibitViewer({ exhibitId, className }: ExhibitViewerProps) {
       style={{ isolation: 'isolate' }}
     >
       {containerRef.current && (
-        <View track={containerRef}>
+        <View track={containerRef as React.MutableRefObject<HTMLElement>}>
           {/* Ambient lighting for the exhibit */}
           <ambientLight intensity={0.3} />
           <pointLight position={[10, 10, 10]} intensity={1} />
           <pointLight position={[-10, -10, -10]} intensity={0.5} color="#00F0FF" />
-          
+
           {/* Render the selected exhibit */}
           {renderExhibit()}
         </View>
