@@ -3,7 +3,7 @@
 import { Canvas } from '@react-three/fiber';
 import { View, Preload, OrbitControls } from '@react-three/drei';
 import { Suspense, useRef, ReactNode, RefObject, MutableRefObject } from 'react';
-import * as THREE from 'three';
+import { ACESFilmicToneMapping } from 'three';
 
 /**
  * GlobalCanvas Component
@@ -34,7 +34,7 @@ export function GlobalCanvas({ children }: { children: ReactNode }) {
             antialias: true,
             alpha: true,
             powerPreference: 'high-performance',
-            toneMapping: THREE.ACESFilmicToneMapping,
+            toneMapping: ACESFilmicToneMapping,
             toneMappingExposure: 1.2,
           }}
           camera={{ position: [0, 0, 5], fov: 50 }}

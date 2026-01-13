@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import { Scene, OrthographicCamera, WebGLRenderer, Clock, ShaderMaterial, PlaneGeometry, Mesh, Vector2 } from 'three';
 
 export function ChromaticDispersion() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -11,14 +11,14 @@ export function ChromaticDispersion() {
         if (!container) return;
 
         // 1) Set up Scene, Camera, Renderer
-        const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        const scene = new Scene();
+        const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        const renderer = new WebGLRenderer({ antialias: true, alpha: true });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(container.clientWidth, container.clientHeight);
         container.appendChild(renderer.domElement);
 
-        const clock = new THREE.Clock();
+        const clock = new Clock();
 
         // 2) Shaders
         const vertexShader = `
@@ -113,18 +113,18 @@ export function ChromaticDispersion() {
         // 3) Mesh and Material
         const uniforms = {
             u_time: { value: 0 },
-            u_resolution: { value: new THREE.Vector2(container.clientWidth, container.clientHeight) }
+            u_resolution: { value: new Vector2(container.clientWidth, container.clientHeight) }
         };
 
-        const material = new THREE.ShaderMaterial({
+        const material = new ShaderMaterial({
             vertexShader,
             fragmentShader,
             uniforms,
             transparent: true
         });
 
-        const geometry = new THREE.PlaneGeometry(2, 2);
-        const mesh = new THREE.Mesh(geometry, material);
+        const geometry = new PlaneGeometry(2, 2);
+        const mesh = new Mesh(geometry, material);
         scene.add(mesh);
 
         // 4) Resize Handler

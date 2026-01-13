@@ -1,12 +1,12 @@
 import { useRef, useMemo, FC } from 'react';
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { InstancedMesh, Object3D } from 'three';
 
 export const FlickeringGrid: FC = () => {
-    const meshRef = useRef<THREE.InstancedMesh>(null);
+    const meshRef = useRef<InstancedMesh>(null);
     const count = 40 * 40;
 
-    const dummy = useMemo(() => new THREE.Object3D(), []);
+    const dummy = useMemo(() => new Object3D(), []);
     const opacities = useMemo(() => new Float32Array(count).map(() => Math.random()), [count]);
 
     useFrame(() => {

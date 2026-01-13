@@ -1,20 +1,20 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import { Scene, OrthographicCamera, WebGLRenderer, Clock, ShaderMaterial, PlaneGeometry, Mesh, Vector2 } from 'three';
 
 export function SingularityWaveShader() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const materialRef = useRef<THREE.ShaderMaterial>();
+    const materialRef = useRef<ShaderMaterial>();
 
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
         // 1) Renderer + Scene + Camera + Clock
-        let renderer: THREE.WebGLRenderer;
+        let renderer: WebGLRenderer;
         try {
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+            renderer = new WebGLRenderer({ antialias: true, alpha: false });
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(container.clientWidth, container.clientHeight);
             container.appendChild(renderer.domElement);
@@ -24,9 +24,9 @@ export function SingularityWaveShader() {
             return;
         }
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-        const clock = new THREE.Clock();
+        const scene = new Scene();
+        const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        const clock = new Clock();
 
         // 2) Shaders
         const vertexShader = `
@@ -119,12 +119,12 @@ export function SingularityWaveShader() {
         // 3) Material, Geometry, Mesh
         const uniforms = {
             u_time: { value: 0 },
-            u_resolution: { value: new THREE.Vector2(container.clientWidth, container.clientHeight) }
+            u_resolution: { value: new Vector2(container.clientWidth, container.clientHeight) }
         };
-        const material = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms });
+        const material = new ShaderMaterial({ vertexShader, fragmentShader, uniforms });
         materialRef.current = material;
-        const geometry = new THREE.PlaneGeometry(2, 2);
-        const mesh = new THREE.Mesh(geometry, material);
+        const geometry = new PlaneGeometry(2, 2);
+        const mesh = new Mesh(geometry, material);
         scene.add(mesh);
 
         // 4) Resize Handler

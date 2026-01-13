@@ -1,9 +1,9 @@
 import { useRef, useMemo, FC } from 'react';
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Points, BufferAttribute } from 'three';
 
 export const DottedSurface: FC = () => {
-    const pointsRef = useRef<THREE.Points>(null);
+    const pointsRef = useRef<Points>(null);
     const count = 40 * 60;
 
     const positions = useMemo(() => {
@@ -21,7 +21,7 @@ export const DottedSurface: FC = () => {
     useFrame((state) => {
         if (!pointsRef.current) return;
         const time = state.clock.elapsedTime;
-        const posAttr = pointsRef.current.geometry.attributes.position as THREE.BufferAttribute;
+        const posAttr = pointsRef.current.geometry.attributes.position as BufferAttribute;
 
         for (let i = 0; i < count; i++) {
             const ix = i % 40;
