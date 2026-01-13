@@ -57,6 +57,9 @@ export function CustomCursor() {
             setIsHovering(false);
         };
 
+        // Hide default cursor
+        document.body.style.cursor = 'none';
+
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mousedown', handleMouseDown);
         document.addEventListener('mouseup', handleMouseUp);
@@ -66,6 +69,7 @@ export function CustomCursor() {
         animate();
 
         return () => {
+            document.body.style.cursor = 'auto';
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mousedown', handleMouseDown);
             document.removeEventListener('mouseup', handleMouseUp);
