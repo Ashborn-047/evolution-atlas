@@ -38,10 +38,10 @@ export const DOCUMENTARY_SECTIONS: DocumentarySection[] = [
     color: '#ff3333',
     icon: '◉',
     markers: [
-      { label: 'Solid State (1995)', url: '/collections/Interface design/index.html#standalone-solid' },
-      { label: 'Terminal Hierarchy', url: '/collections/Interface design/index.html#standalone-solid' },
-      { label: 'Static CSS Layouts', url: '/collections/Interface design/index.html#standalone-solid' },
-      { label: 'Monospace Type', url: '/collections/Typography/experiments/pixels.html#standalone' }
+      { label: 'Solid State (1995)', url: 'collections/Interface design/index.html#standalone-solid' },
+      { label: 'Terminal Hierarchy', url: 'collections/Interface design/index.html#standalone-solid' },
+      { label: 'Static CSS Layouts', url: 'collections/Interface design/index.html#standalone-solid' },
+      { label: 'Monospace Type', url: 'collections/Typography/experiments/pixels.html#standalone' }
     ],
   },
   {
@@ -52,10 +52,10 @@ export const DOCUMENTARY_SECTIONS: DocumentarySection[] = [
     color: '#06b6d4',
     icon: '◎',
     markers: [
-      { label: 'ELASTIC Physics', url: '/collections/Typography/experiments/elastic.html#standalone' },
-      { label: 'VERTEX Primitives', url: '/collections/Typography/experiments/vertex.html#standalone' },
-      { label: 'Plasma Ball GLSL', url: '/collections/Shaders for UI/index.html#standalone-Plasma Ball' },
-      { label: 'Binary Streams', url: '/collections/Shaders for UI/index.html#standalone-Binary Stream' }
+      { label: 'ELASTIC Physics', url: 'collections/Typography/experiments/elastic.html#standalone' },
+      { label: 'VERTEX Primitives', url: 'collections/Typography/experiments/vertex.html#standalone' },
+      { label: 'Plasma Ball GLSL', url: 'collections/Shaders for UI/index.html#standalone-Oldschool Plasma' },
+      { label: 'Binary Streams', url: 'collections/Shaders for UI/index.html#standalone-Binary Stream' }
     ],
   },
   {
@@ -66,10 +66,10 @@ export const DOCUMENTARY_SECTIONS: DocumentarySection[] = [
     color: '#22c55e',
     icon: '◈',
     markers: [
-      { label: 'Interactive Ripple', url: '/collections/Liquid Shader Ui/examples/ripple/index.html#standalone' },
-      { label: 'Liquid Mercury Nav', url: '/collections/Liquid Shader Ui/examples/mercury/index.html#standalone' },
-      { label: 'Rainy Pond Surface', url: '/collections/Liquid Shader Ui/examples/pond/index.html#standalone' },
-      { label: 'Physics Feedback', url: '/collections/Liquid Shader Ui/examples/rain/index.html#standalone' }
+      { label: 'Interactive Ripple', url: 'collections/Liquid Shader Ui/examples/ripple/index.html#standalone' },
+      { label: 'Liquid Mercury Nav', url: 'collections/Liquid Shader Ui/examples/mercury/index.html#standalone' },
+      { label: 'Rainy Pond Surface', url: 'collections/Liquid Shader Ui/examples/pond/index.html#standalone' },
+      { label: 'Physics Feedback', url: 'collections/Liquid Shader Ui/examples/rain/index.html#standalone' }
     ],
   },
   {
@@ -80,10 +80,10 @@ export const DOCUMENTARY_SECTIONS: DocumentarySection[] = [
     color: '#8b5cf6',
     icon: '◇',
     markers: [
-      { label: 'Glass Age (2010)', url: '/collections/Interface design/index.html#standalone-glass' },
-      { label: 'Organic Flow (2020)', url: '/collections/Interface design/index.html#standalone-fluid' },
-      { label: 'Hybrid Design', url: '/collections/Interface design/index.html#standalone-hybrid' },
-      { label: 'Biotech Layouts', url: '/collections/Interface design/index.html#standalone-hybrid' }
+      { label: 'Glass Age (2010)', url: 'collections/Interface design/index.html#standalone-glass' },
+      { label: 'Organic Flow (2020)', url: 'collections/Interface design/index.html#standalone-fluid' },
+      { label: 'Hybrid Design', url: 'collections/Interface design/index.html#standalone-hybrid' },
+      { label: 'Biotech Layouts', url: 'collections/Interface design/index.html#standalone-hybrid' }
     ],
   },
   {
@@ -94,10 +94,10 @@ export const DOCUMENTARY_SECTIONS: DocumentarySection[] = [
     color: '#00F0FF',
     icon: '◆',
     markers: [
-      { label: 'Neural Ripple AI', url: '/collections/Shaders V2/index.html#standalone' },
-      { label: 'Probabilistic UI', url: '/collections/Interface ecosystem and environment/index.html#standalone' },
-      { label: 'Ambient Wash', url: '/collections/Interface ecosystem and environment/index.html#standalone' },
-      { label: 'Adaptive Shapes', url: '/collections/Shaders V2/index.html#standalone' }
+      { label: 'Neural Ripple AI', url: 'collections/Shaders V2/index.html#standalone-1' },
+      { label: 'Data Singularity', url: 'collections/Shaders V2/index.html#standalone-6' },
+      { label: 'Predictive Clusters', url: 'collections/Shaders V2/index.html#standalone-11' },
+      { label: 'Adaptive Shapes', url: 'collections/Shaders V2/index.html#standalone-7' }
     ],
   },
 ];

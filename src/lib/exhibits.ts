@@ -30,7 +30,7 @@ export const EXHIBITS: Exhibit[] = [
       'This approach suggests a future where UI text actively participates in the interface—retreating when not needed, emphasizing itself when relevant. It challenges the notion that text must be passive to be legible.',
     shaderKey: 'kineticType',
     githubUrl: 'https://github.com/Ashborn-047/kinetic-typography',
-    liveUrl: '/collections/Typography/index.html',
+    liveUrl: 'collections/Typography/index.html',
     collectionPath: 'collections/Typography',
   },
   {
@@ -48,7 +48,7 @@ export const EXHIBITS: Exhibit[] = [
       'Fluid UIs could serve as ambient indicators—visual viscosity representing system load, flow direction indicating data transfer. The interface becomes a living medium that communicates state without explicit widgets.',
     shaderKey: 'liquidShader',
     githubUrl: 'https://github.com/Ashborn-047/liquid-shader-ui',
-    liveUrl: '/collections/Liquid Shader Ui/index.html',
+    liveUrl: 'collections/Liquid Shader Ui/index.html',
     collectionPath: 'collections/Liquid Shader Ui',
   },
   {
@@ -66,7 +66,7 @@ export const EXHIBITS: Exhibit[] = [
       'This technique enables real-time visual systems that are both informative and aesthetically compelling. HUD animation engine with typewriter boot-loader effects mimics authentic terminal cold-starts.',
     shaderKey: 'aetherSync',
     githubUrl: 'https://github.com/Ashborn-047/Aether-Sync',
-    liveUrl: '/collections/Shaders for UI/index.html',
+    liveUrl: 'collections/Shaders for UI/index.html',
     collectionPath: 'collections/Shaders for UI',
   },
   {
@@ -83,7 +83,7 @@ export const EXHIBITS: Exhibit[] = [
     implications:
       'Open-sourcing techniques at the code level accelerates the field. When developers can inspect and modify production shaders, we build collective fluency in GPU programming.',
     githubUrl: 'https://github.com/Ashborn-047/shader-vault',
-    liveUrl: '/collections/Shaders V2/index.html',
+    liveUrl: 'collections/Shaders V2/index.html',
     collectionPath: 'collections/Shaders V2',
   },
   {
@@ -100,7 +100,7 @@ export const EXHIBITS: Exhibit[] = [
     implications:
       'Chromatic scrolling could replace traditional progress bars. Imagine documentation where each section has a unique hue, creating muscle memory through color association.',
     githubUrl: 'https://github.com/Ashborn-047/chroma-kinetics',
-    liveUrl: '/collections/Chroma & kinetics/index.html',
+    liveUrl: 'collections/Chroma & kinetics/index.html',
     collectionPath: 'collections/Chroma & kinetics',
   },
   {
@@ -117,7 +117,7 @@ export const EXHIBITS: Exhibit[] = [
     implications:
       'Understanding the evolution of UI design informs future innovation. Each era contributes techniques that persist: terminal aesthetics from Solid, transparency from Glass, organic motion from Fluid, and spatial depth from Hybrid.',
     githubUrl: 'https://github.com/Ashborn-047/ui-evolution-atlas',
-    liveUrl: '/collections/Interface design/index.html',
+    liveUrl: 'collections/Interface design/index.html',
     collectionPath: 'collections/Interface design',
   },
   {
@@ -134,7 +134,7 @@ export const EXHIBITS: Exhibit[] = [
     implications:
       'We are moving from interfaces that wait for instructions to interfaces that infer intent. From tools we use to spaces we inhabit. The final phase demonstrates "ambient computing" where interaction is immersive and pervasive.',
     githubUrl: 'https://github.com/Ashborn-047/Living-Interface-Ecosystem',
-    liveUrl: '/collections/Interface ecosystem and environment/index.html',
+    liveUrl: 'collections/Interface ecosystem and environment/index.html',
     collectionPath: 'collections/Interface ecosystem and environment',
   },
 ];

@@ -45,7 +45,7 @@ export function GlobalCanvas({ children }: { children: ReactNode }) {
           <directionalLight position={[10, 10, 5]} intensity={1} />
 
           {/* Preload common assets */}
-          <Preload all />
+          {/* <Preload all /> */}
 
           {/* This is where View components will inject their scenes */}
           <Suspense fallback={null}>{children}</Suspense>

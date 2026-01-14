@@ -11,6 +11,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+    dedupe: ['three'],
   },
   build: {
     chunkSizeWarningLimit: 1000,
