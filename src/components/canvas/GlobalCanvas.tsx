@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { View, Preload, OrbitControls } from '@react-three/drei';
+import { View, OrbitControls } from '@react-three/drei';
 import { Suspense, useRef, ReactNode, RefObject, MutableRefObject } from 'react';
 import { ACESFilmicToneMapping } from 'three';
 
