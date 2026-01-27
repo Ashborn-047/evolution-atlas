@@ -48,7 +48,7 @@ export const EXHIBITS: Exhibit[] = [
       'Fluid UIs could serve as ambient indicators—visual viscosity representing system load, flow direction indicating data transfer. The interface becomes a living medium that communicates state without explicit widgets.',
     shaderKey: 'liquidShader',
     githubUrl: 'https://github.com/Ashborn-047/liquid-shader-ui',
-    liveUrl: 'collections/Liquid Shader Ui/index.html',
+    liveUrl: 'collections/Liquid Shader Ui/dist/index.html',
     collectionPath: 'collections/Liquid Shader Ui',
   },
   {
