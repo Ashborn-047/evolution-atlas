@@ -1,0 +1,1 @@
+import{a as o,j as t,R as r}from"./client-jcPAbkVI.js";import{DotScreenShader as e}from"./shader-CEoVmwd-.js";import{B as m}from"./BackButton-CBV6DpJJ.js";import"./react-three-fiber.esm-BmoVAfYe.js";import"./three.module-DXxcgxC0.js";o.createRoot(document.getElementById("root")).render(t.jsxs(r.StrictMode,{children:[t.jsx(m,{}),t.jsx(e,{})]}));

@@ -1,0 +1,1 @@
+import{a as e,j as t,R as o}from"./client-jcPAbkVI.js";import{RainingLetters as r}from"./shader-kkZieAct.js";import{B as s}from"./BackButton-CBV6DpJJ.js";e.createRoot(document.getElementById("root")).render(t.jsxs(o.StrictMode,{children:[t.jsx(s,{}),t.jsx(r,{})]}));

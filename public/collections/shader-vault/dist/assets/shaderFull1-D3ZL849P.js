@@ -1,0 +1,1 @@
+import{a as o,j as t,R as r}from"./client-jcPAbkVI.js";import e from"./shader-Do8hDIWs.js";import{B as a}from"./BackButton-CBV6DpJJ.js";import"./three.module-DXxcgxC0.js";o.createRoot(document.getElementById("root")).render(t.jsxs(r.StrictMode,{children:[t.jsx(a,{}),t.jsx(e,{})]}));
