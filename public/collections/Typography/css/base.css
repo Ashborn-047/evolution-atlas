@@ -1,0 +1,48 @@
+/* ==========================================================================
+   BASE.CSS
+   Global styles, resets, and base element styling
+   ========================================================================== */
+
+/* ---------- Body Defaults ---------- */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    cursor: none;
+}
+
+/* ---------- Font Family Utilities ---------- */
+.font-display {
+    font-family: var(--font-display);
+}
+
+.font-body {
+    font-family: var(--font-body);
+}
+
+.font-serif {
+    font-family: var(--font-serif);
+}
+
+.font-pixel {
+    font-family: var(--font-pixel);
+}
+
+/* ---------- Typography Utilities ---------- */
+.text-huge {
+    font-size: clamp(6rem, 20vw, 25rem);
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+}
+
+.text-outline {
+    -webkit-text-stroke: 1px currentColor;
+    color: transparent;
+}
+
+/* ---------- Helper Classes ---------- */
+.char-split {
+    display: inline-block;
+    white-space: pre;
+}

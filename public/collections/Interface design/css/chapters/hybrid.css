@@ -1,0 +1,735 @@
+/**
+ * ============================================
+ * CHAPTER 4: HYBRID ARCHITECTURE - Component Styles
+ * ============================================
+ * 
+ * Era: Convergence of all eras
+ * Animation: Mixed techniques (solid + glass + fluid)
+ * 
+ * 18 Variants (3 per component type):
+ * 
+ * 4.1 Cards: Spatial Glass, Liquid Solid, Neon Depth
+ * 4.2 Navs: Dynamic Island, Magnetic Frost, Worm Line
+ * 4.3 Buttons: Atmospheric Glow, Glazed Jelly, Ripple Glass
+ * 4.4 Badges: Status Orb, Chiseled Glass, Holographic
+ * 4.5 Carousels: Fluid Stream, Snap Blur, Accordion Deck
+ * 4.6 Inputs: Morphing Field, Liquid Slider, Rotary Knob
+ */
+
+/* ========== CHAPTER THEME ========== */
+.hybrid-theme .chapter-header {
+    border-color: var(--accent-hybrid);
+}
+
+.hybrid-theme h2 {
+    color: white;
+    background: linear-gradient(90deg, #fff, var(--accent-hybrid));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hybrid-theme .narrative-title {
+    color: var(--accent-hybrid);
+}
+
+
+/* ==========================================
+   4.1 CARD HYBRIDS (3 variants)
+   ========================================== */
+
+/* 4.1.A SPATIAL GLASS CARD
+ * Combines: Glass (blur, border) + Fluid (blob background)
+ * Hover: translateY + scale + glow
+ */
+.card-hybrid-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    height: 180px;
+}
+
+.card-hybrid {
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 20, 25, 0.4);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.card-hybrid:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(139, 92, 246, 0.1);
+}
+
+.hybrid-tag {
+    background: #fff;
+    color: #000;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    width: fit-content;
+}
+
+.hybrid-blob-bg {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: var(--accent-hybrid);
+    filter: blur(50px);
+    opacity: 0.4;
+    top: 20%;
+    left: 20%;
+    z-index: -1;
+    transition: 0.5s;
+}
+
+.card-hybrid:hover~.hybrid-blob-bg {
+    transform: translate(50px, -20px);
+    opacity: 0.6;
+}
+
+
+/* 4.1.B LIQUID SOLID CARD
+ * Combines: Solid (rigid border) + Fluid (morph shape)
+ * Hover: border-radius morphs, ::before blob rises
+ */
+.card-liquid-solid {
+    width: 100%;
+    max-width: 300px;
+    height: 180px;
+    background: #111;
+    border: 2px solid #333;
+    border-radius: 0;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    transition: border-radius 0.5s, background 0.5s, border-color 0.5s, color 0.3s;
+    cursor: pointer;
+    color: #888;
+}
+
+.card-liquid-solid::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: var(--accent-hybrid);
+    border-radius: 50%;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.card-liquid-solid:hover {
+    border-radius: 50px 20px 50px 20px;
+    border-color: transparent;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.card-liquid-solid:hover::before {
+    top: -20px;
+}
+
+.card-liquid-solid span {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* 4.1.C NEON DEPTH CARD
+ * Combines: Solid (border) + Animated glow (conic-gradient)
+ * Hover: Rotating neon border appears
+ */
+.card-neon-depth {
+    width: 100%;
+    max-width: 300px;
+    height: 180px;
+    background: #050505;
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-neon-depth::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, var(--accent-cyan), transparent 30%);
+    animation: rotate 4s linear infinite;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.card-neon-depth:hover::before {
+    opacity: 1;
+}
+
+.card-neon-depth::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: #111;
+    border-radius: 18px;
+    z-index: 1;
+}
+
+.card-neon-depth h3 {
+    position: relative;
+    z-index: 2;
+    color: #555;
+    transition: 0.3s;
+}
+
+.card-neon-depth:hover h3 {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 10px var(--accent-cyan);
+}
+
+
+/* ==========================================
+   4.2 NAV HYBRIDS (3 variants)
+   ========================================== */
+
+/* 4.2.A DYNAMIC ISLAND NAV
+ * Combines: Solid (pill container) + Fluid (animated blob)
+ */
+.hybrid-nav {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 50px;
+    padding: 5px;
+    display: flex;
+    gap: 5px;
+    position: relative;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.hybrid-nav-item {
+    padding: 10px 20px;
+    color: #888;
+    cursor: pointer;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+    position: relative;
+    z-index: 2;
+}
+
+.hybrid-nav-item:hover {
+    color: white;
+}
+
+.hybrid-nav-indicator {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: calc(100% - 10px);
+    width: 80px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* GSAP animates: left, width */
+}
+
+
+/* 4.2.B MAGNETIC FROST NAV
+ * Combines: Glass (frost) + Fluid (magnetic pull)
+ */
+.nav-magnetic-frost {
+    display: flex;
+    gap: 20px;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+.nav-mag-link {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s;
+    display: inline-block;
+    /* GSAP animates: x, y (magnetic) */
+}
+
+.nav-mag-link:hover {
+    color: var(--accent-hybrid);
+}
+
+
+/* 4.2.C WORM LINE NAV
+ * Combines: Solid (underline) + Fluid (crawling animation)
+ */
+.nav-worm {
+    display: flex;
+    gap: 30px;
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+}
+
+.nav-worm-item {
+    color: #666;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.nav-worm-item:hover {
+    color: white;
+}
+
+.worm-line {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: var(--accent-cyan);
+    transition: left 0.3s ease-out, width 0.3s ease-out;
+    box-shadow: 0 -2px 10px var(--accent-cyan);
+    /* GSAP animates: left, width */
+}
+
+
+/* ==========================================
+   4.3 BUTTON HYBRIDS (3 variants)
+   ========================================== */
+
+/* 4.3.A ATMOSPHERIC GLOW BUTTON
+ * Combines: Solid (border) + Fluid (cursor-tracking glow)
+ * Technique: CSS custom properties --x, --y
+ */
+.btn-hybrid {
+    position: relative;
+    padding: 16px 40px;
+    background: #050505;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.btn-hybrid:hover {
+    border-color: var(--accent-hybrid);
+    box-shadow: 0 0 30px -5px rgba(139, 92, 246, 0.4);
+}
+
+.btn-hybrid span {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-hybrid::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(139, 92, 246, 0.3), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1;
+}
+
+.btn-hybrid:hover::before {
+    opacity: 1;
+}
+
+
+/* 4.3.B GLAZED JELLY BUTTON
+ * Combines: Glass (gradient, blur) + Fluid (squish)
+ */
+.btn-glazed-jelly {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.8), rgba(6, 182, 212, 0.8));
+    padding: 16px 40px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+    /* GSAP animates: scaleX, scaleY (jelly) */
+}
+
+
+/* 4.3.C RIPPLE GLASS BUTTON
+ * Combines: Glass (background) + Material ripple
+ */
+.btn-ripple-glass {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 16px 40px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   4.4 BADGE HYBRIDS (3 variants)
+   ========================================== */
+
+/* 4.4.A STATUS ORB BADGE
+ * Combines: Glass (container) + Fluid (pulsing orb)
+ */
+.hybrid-badge-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-orb {
+    width: 10px;
+    height: 10px;
+    background: var(--accent-hybrid);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-hybrid);
+    position: relative;
+}
+
+.status-orb::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid var(--accent-hybrid);
+    opacity: 0.5;
+    animation: pulse-border 2s infinite;
+}
+
+
+/* 4.4.B CHISELED GLASS BADGE
+ * Combines: Solid (shadow offset) + Glass (blur)
+ */
+.badge-chiseled-glass {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 4px 4px 0 rgba(139, 92, 246, 0.5);
+    color: white;
+    backdrop-filter: blur(4px);
+    transition: 0.2s;
+    cursor: default;
+}
+
+.badge-chiseled-glass:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 rgba(139, 92, 246, 0.5);
+}
+
+
+/* 4.4.C HOLOGRAPHIC BADGE
+ * Combines: Solid (base) + Glass (light sweep)
+ */
+.badge-holo {
+    background: linear-gradient(135deg, #222, #333);
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    color: #888;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s;
+}
+
+.badge-holo::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(6, 182, 212, 0.3), transparent);
+    transform: rotate(45deg) translateY(100%);
+    transition: transform 0.5s;
+}
+
+.badge-holo:hover {
+    color: white;
+    border-color: var(--accent-cyan);
+}
+
+.badge-holo:hover::before {
+    transform: rotate(45deg) translateY(-100%);
+}
+
+
+/* ==========================================
+   4.5 CAROUSEL HYBRIDS (3 variants)
+   ========================================== */
+
+/* 4.5.A FLUID STREAM CAROUSEL
+ * Combines: Glass (cards) + Fluid (3D push)
+ */
+.hybrid-stream {
+    display: flex;
+    gap: 15px;
+    perspective: 1000px;
+}
+
+.stream-card {
+    width: 100px;
+    height: 140px;
+    background: linear-gradient(180deg, rgba(30, 30, 30, 0.8), rgba(10, 10, 10, 0.9));
+    border: 1px solid #333;
+    border-radius: 16px;
+    transition: 0.4s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-size: 1.5rem;
+}
+
+.stream-card:hover {
+    transform: translateY(-20px) rotateX(10deg);
+    border-color: var(--accent-hybrid);
+    color: white;
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.stream-card:hover~.stream-card {
+    transform: translateX(10px);
+}
+
+
+/* 4.5.B SNAP BLUR CAROUSEL
+ * Combines: Solid (scroll snap) + Glass (blur overlay)
+ */
+.snap-blur-wrapper {
+    width: 300px;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid #333;
+}
+
+.snap-blur-track {
+    display: flex;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.snap-blur-item {
+    width: 300px;
+    height: 150px;
+    flex-shrink: 0;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.snap-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.snap-blur-wrapper:hover .snap-overlay {
+    opacity: 1;
+}
+
+
+/* 4.5.C ACCORDION DECK
+ * Combines: Solid (flex) + Fluid (expand on hover)
+ */
+.acc-deck {
+    display: flex;
+    gap: 5px;
+    height: 150px;
+    width: 320px;
+}
+
+.acc-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    transition: 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: transparent;
+    cursor: pointer;
+}
+
+.acc-card:hover {
+    flex: 4;
+    background: var(--accent-cyan);
+    color: black;
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   4.6 INPUT HYBRIDS (3 variants)
+   ========================================== */
+
+/* 4.6.A MORPHING INPUT FIELD
+ * Combines: Solid (underline) + Fluid (label animation)
+ */
+.hybrid-input-group {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+}
+
+.hybrid-input {
+    width: 100%;
+    padding: 15px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #333;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.hybrid-input:focus {
+    border-color: var(--accent-hybrid);
+}
+
+.hybrid-label {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    color: #666;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.hybrid-input:focus~.hybrid-label,
+.hybrid-input:not(:placeholder-shown)~.hybrid-label {
+    top: -10px;
+    left: 0;
+    font-size: 0.75rem;
+    color: var(--accent-hybrid);
+}
+
+
+/* 4.6.B LIQUID SLIDER
+ * Combines: Solid (track) + Fluid (deformable thumb)
+ */
+.liquid-slider-track {
+    width: 250px;
+    height: 10px;
+    background: #333;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.liquid-slider-thumb {
+    width: 30px;
+    height: 30px;
+    background: var(--accent-hybrid);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    box-shadow: 0 0 15px var(--accent-hybrid);
+    transition: border-radius 0.2s;
+    /* GSAP/Draggable animates: x, border-radius on drag */
+}
+
+.liquid-slider-thumb:active {
+    border-radius: 40% 60% 60% 40% / 40% 50% 50% 60%;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+
+/* 4.6.C ROTARY KNOB
+ * Combines: Solid (container) + Fluid (rotation)
+ */
+.rotary-container {
+    width: 80px;
+    height: 80px;
+    background: #111;
+    border-radius: 50%;
+    border: 2px solid #333;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.rotary-knob {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    cursor: grab;
+    /* GSAP Draggable: type: "rotation" */
+}
+
+.rotary-marker {
+    width: 4px;
+    height: 15px;
+    background: var(--accent-cyan);
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    box-shadow: 0 0 5px var(--accent-cyan);
+}

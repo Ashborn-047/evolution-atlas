@@ -1,0 +1,191 @@
+/* ============================================
+   BACKGROUND ENGINE STYLES
+   ============================================ */
+
+.bg-engine {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background: #000;
+    pointer-events: none;
+}
+
+/* 1. MESH GRADIENT LAYER */
+.bg-mesh {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    filter: blur(80px);
+    opacity: 0.6;
+    transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bg-mesh__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(50px);
+    transition: all 3s ease-in-out;
+}
+
+/* 2. GRAIN LAYER (Animated Noise) */
+.bg-grain {
+    position: absolute;
+    inset: -200%;
+    width: 400%;
+    height: 400%;
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 2;
+    animation: noise-move 8s steps(10) infinite;
+}
+
+@keyframes noise-move {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-5%, -5%);
+    }
+
+    20% {
+        transform: translate(-10%, 5%);
+    }
+
+    30% {
+        transform: translate(5%, -10%);
+    }
+
+    40% {
+        transform: translate(-5%, 15%);
+    }
+
+    50% {
+        transform: translate(-10%, 5%);
+    }
+
+    60% {
+        transform: translate(15%, 0);
+    }
+
+    70% {
+        transform: translate(0, 10%);
+    }
+
+    80% {
+        transform: translate(-15%, 0);
+    }
+
+    90% {
+        transform: translate(10%, 5%);
+    }
+
+    100% {
+        transform: translate(5%, 0);
+    }
+}
+
+/* 3. GRID OVERLAY */
+.bg-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+/* STAGE SPECIFIC COLORS */
+.bg-engine--hero .bg-mesh {
+    background: radial-gradient(circle at 50% 50%, #1e1e2e, #000);
+}
+
+.bg-engine--origins .bg-mesh {
+    background: radial-gradient(circle at 70% 30%, #064e3b, #000);
+}
+
+.bg-engine--feedback .bg-mesh {
+    background: radial-gradient(circle at 30% 70%, #1e3a8a, #000);
+}
+
+.bg-engine--intent .bg-mesh {
+    background: radial-gradient(circle at 80% 40%, #581c87, #000);
+}
+
+.bg-engine--non-blocking .bg-mesh {
+    background: radial-gradient(circle at 20% 50%, #1d4ed8, #000);
+}
+
+.bg-engine--probabilistic .bg-mesh {
+    background: radial-gradient(circle at 50% 50%, #312e81, #000);
+}
+
+.bg-engine--environment .bg-mesh {
+    background: radial-gradient(circle at 50% 50%, #065f46, #000);
+}
+
+.bg-engine--footer .bg-mesh {
+    background: radial-gradient(circle at 50% 50%, #000, #111827);
+}
+
+/* 4. ATMOSPHERIC LIGHT BEAMS (God Rays) */
+.bg-beams {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.bg-engine--hero .bg-beams {
+    opacity: 1;
+}
+
+.bg-beam {
+    position: absolute;
+    top: -50%;
+    left: 20%;
+    width: 20vw;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+    transform: rotate(-35deg);
+    filter: blur(40px);
+    animation: beam-drift 15s linear infinite;
+}
+
+.bg-beam:nth-child(2) {
+    left: 40%;
+    animation-delay: -5s;
+    opacity: 0.5;
+}
+
+.bg-beam:nth-child(3) {
+    left: 70%;
+    animation-delay: -10s;
+    opacity: 0.7;
+}
+
+@keyframes beam-drift {
+    0% {
+        transform: rotate(-35deg) translateX(-10%);
+    }
+
+    50% {
+        transform: rotate(-35deg) translateX(10%);
+    }
+
+    100% {
+        transform: rotate(-35deg) translateX(-10%);
+    }
+}

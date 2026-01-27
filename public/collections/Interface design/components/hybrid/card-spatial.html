@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spatial Glass Card | UI Evolution</title>
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/chapters/hybrid.css">
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-hybrid);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../index.html">← Back to Library</a>
+            <span class="chapter-badge">Chapter 04 · Hybrid Architecture</span>
+            <h1>Spatial Glass Card</h1>
+            <p class="narrative-text">Combines Glass (blur, translucency) with Fluid (glowing blob background). The blob
+                moves on hover.</p>
+        </div>
+        <div class="demo-stage">
+            <div class="card-hybrid-wrapper">
+                <div class="hybrid-blob-bg"></div>
+                <div class="card-hybrid">
+                    <div class="hybrid-tag">SPATIAL</div>
+                    <div>
+                        <h3 style="margin-bottom: 5px;">Glass + Glow</h3>
+                        <p style="color: #999; font-size: 0.9rem;">Structure meets fluid light.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="code-section">
+            <h2>CSS - Glass Layer</h2>
+            <div class="code-block">
+                <pre>.card-hybrid {
+    background: rgba(20, 20, 25, 0.4);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+}
+
+.card-hybrid:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 
+                inset 0 0 20px rgba(139, 92, 246, 0.1);
+}</pre>
+            </div>
+            <h2>CSS - Fluid Blob</h2>
+            <div class="code-block">
+                <pre>.hybrid-blob-bg {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: var(--accent-hybrid);
+    filter: blur(50px);
+    opacity: 0.4;
+    transition: 0.5s;
+}
+
+.card-hybrid:hover ~ .hybrid-blob-bg {
+    transform: translate(50px, -20px);
+    opacity: 0.6;
+}</pre>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERTEX - Typography Experiment</title>
+
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@400;700;800&family=VT323&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+
+    <!-- Three.js Import Map -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-[#050505] min-h-screen flex flex-col">
+    <!-- Back Link -->
+    <nav class="p-6">
+        <a href="../index.html"
+            class="text-gray-400 hover:text-white transition-colors font-body text-sm uppercase tracking-widest">← Back
+            to Archive</a>
+    </nav>
+
+    <!-- Experiment Container -->
+    <main class="flex-1 flex flex-col items-center justify-center px-4 relative">
+        <span class="font-body text-xs text-gray-500 mb-8 relative z-10">EXP_08</span>
+
+        <div id="canvas-container" class="w-full max-w-4xl h-[50vh] relative"></div>
+
+        <p class="font-body text-lg text-gray-400 mt-8 max-w-md text-center relative z-10">Real-time WebGL 3D geometry
+            rendering.</p>
+        <span class="font-pixel text-xs text-[var(--accent-color)] mt-4">WEBGL</span>
+    </main>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+        import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0x00ffff, 1, 100);
+        pointLight.position.set(10, 10, 10);
+        scene.add(pointLight);
+
+        camera.position.z = 5;
+
+        // Load font and create text
+        const loader = new FontLoader();
+        let textMesh;
+
+        loader.load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', (font) => {
+            const geometry = new TextGeometry('VERTEX', {
+                font: font,
+                size: 1,
+                height: 0.3,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.02,
+                bevelSize: 0.02,
+                bevelSegments: 5
+            });
+
+            geometry.center();
+
+            const material = new THREE.MeshStandardMaterial({
+                color: 0x00ffff,
+                wireframe: true
+            });
+
+            textMesh = new THREE.Mesh(geometry, material);
+            scene.add(textMesh);
+        });
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+            if (textMesh) {
+                textMesh.rotation.y += 0.01;
+                textMesh.rotation.x = Math.sin(Date.now() * 0.001) * 0.2;
+            }
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+    </script>
+</body>
+
+</html>

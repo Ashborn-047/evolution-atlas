@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLITCH - Typography Experiment</title>
+
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@400;700;800&family=VT323&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+
+    <style>
+        :root {
+            --glitch-red: #ff0040;
+            --glitch-cyan: #00ffff;
+        }
+
+        body {
+            background: #050505;
+            overflow: hidden;
+        }
+
+        .glitch-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch-text {
+            font-family: 'Syne', sans-serif;
+            font-size: 18vw;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            color: white;
+            position: relative;
+        }
+
+        /* Hide white text on hover, show only RGB chaos */
+        .glitch-container:hover .glitch-text {
+            opacity: 0;
+        }
+
+        /* Glitch layers */
+        .glitch-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: 'Syne', sans-serif;
+            font-size: 18vw;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .glitch-container:hover .glitch-layer {
+            opacity: 1;
+        }
+
+        .glitch-layer.red {
+            color: var(--glitch-red);
+            animation: glitch-red 0.12s steps(2) infinite;
+        }
+
+        .glitch-layer.cyan {
+            color: var(--glitch-cyan);
+            animation: glitch-cyan 0.10s steps(3) infinite;
+        }
+
+        /* Chaotic fragmented keyframes with multiple slices */
+        @keyframes glitch-red {
+            0% {
+                transform: translate(-20px, 0) skewX(-8deg);
+                clip-path: polygon(0 0%, 100% 0%, 100% 22%, 0 22%,
+                        0 28%, 100% 28%, 100% 40%, 0 40%,
+                        0 55%, 100% 55%, 100% 70%, 0 70%,
+                        0 85%, 100% 85%, 100% 100%, 0 100%);
+            }
+
+            20% {
+                transform: translate(15px, 0) skewX(5deg);
+                clip-path: polygon(0 5%, 100% 5%, 100% 18%, 0 18%,
+                        0 35%, 100% 35%, 100% 50%, 0 50%,
+                        0 62%, 100% 62%, 100% 78%, 0 78%);
+            }
+
+            40% {
+                transform: translate(-12px, 0) skewX(-4deg);
+                clip-path: polygon(0 12%, 100% 12%, 100% 28%, 0 28%,
+                        0 42%, 100% 42%, 100% 58%, 0 58%,
+                        0 72%, 100% 72%, 100% 90%, 0 90%);
+            }
+
+            60% {
+                transform: translate(22px, 0) skewX(6deg);
+                clip-path: polygon(0 0%, 100% 0%, 100% 15%, 0 15%,
+                        0 32%, 100% 32%, 100% 48%, 0 48%,
+                        0 68%, 100% 68%, 100% 85%, 0 85%);
+            }
+
+            80% {
+                transform: translate(-18px, 0) skewX(-6deg);
+                clip-path: polygon(0 8%, 100% 8%, 100% 25%, 0 25%,
+                        0 38%, 100% 38%, 100% 55%, 0 55%,
+                        0 75%, 100% 75%, 100% 95%, 0 95%);
+            }
+
+            100% {
+                transform: translate(10px, 0) skewX(3deg);
+                clip-path: polygon(0 2%, 100% 2%, 100% 20%, 0 20%,
+                        0 45%, 100% 45%, 100% 62%, 0 62%,
+                        0 80%, 100% 80%, 100% 100%, 0 100%);
+            }
+        }
+
+        @keyframes glitch-cyan {
+            0% {
+                transform: translate(18px, 0) skewX(7deg);
+                clip-path: polygon(0 10%, 100% 10%, 100% 25%, 0 25%,
+                        0 32%, 100% 32%, 100% 48%, 0 48%,
+                        0 65%, 100% 65%, 100% 82%, 0 82%);
+            }
+
+            25% {
+                transform: translate(-22px, 0) skewX(-6deg);
+                clip-path: polygon(0 0%, 100% 0%, 100% 18%, 0 18%,
+                        0 38%, 100% 38%, 100% 55%, 0 55%,
+                        0 72%, 100% 72%, 100% 90%, 0 90%);
+            }
+
+            50% {
+                transform: translate(16px, 0) skewX(4deg);
+                clip-path: polygon(0 15%, 100% 15%, 100% 32%, 0 32%,
+                        0 45%, 100% 45%, 100% 60%, 0 60%,
+                        0 78%, 100% 78%, 100% 95%, 0 95%);
+            }
+
+            75% {
+                transform: translate(-14px, 0) skewX(-5deg);
+                clip-path: polygon(0 5%, 100% 5%, 100% 22%, 0 22%,
+                        0 40%, 100% 40%, 100% 58%, 0 58%,
+                        0 70%, 100% 70%, 100% 88%, 0 88%);
+            }
+
+            100% {
+                transform: translate(20px, 0) skewX(5deg);
+                clip-path: polygon(0 8%, 100% 8%, 100% 28%, 0 28%,
+                        0 48%, 100% 48%, 100% 65%, 0 65%,
+                        0 82%, 100% 82%, 100% 100%, 0 100%);
+            }
+        }
+
+        /* Noise overlay */
+        .noise-overlay {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: transparent url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E") repeat;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 100;
+            mix-blend-mode: overlay;
+        }
+
+        .glitch-active .noise-overlay {
+            opacity: 0.2;
+            animation: noise-move 0.15s steps(10) infinite;
+        }
+
+        @keyframes noise-move {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            20% {
+                transform: translate(-5%, -5%);
+            }
+
+            40% {
+                transform: translate(5%, 5%);
+            }
+
+            60% {
+                transform: translate(-8%, 3%);
+            }
+
+            80% {
+                transform: translate(8%, -3%);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        /* Scanlines */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 1px,
+                    rgba(0, 0, 0, 0.4) 1px,
+                    rgba(0, 0, 0, 0.4) 2px);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 99;
+        }
+
+        .glitch-active .scanlines {
+            opacity: 1;
+        }
+
+        /* Random glitch bars */
+        .glitch-bar {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            background: white;
+            opacity: 0;
+            z-index: 50;
+            mix-blend-mode: difference;
+        }
+
+        .glitch-container:hover .glitch-bar {
+            animation: bar-glitch 0.2s steps(1) infinite;
+        }
+
+        .glitch-bar:nth-child(1) {
+            top: 15%;
+            height: 4px;
+            animation-delay: 0s;
+        }
+
+        .glitch-bar:nth-child(2) {
+            top: 35%;
+            height: 3px;
+            animation-delay: 0.03s;
+        }
+
+        .glitch-bar:nth-child(3) {
+            top: 55%;
+            height: 5px;
+            animation-delay: 0.06s;
+        }
+
+        .glitch-bar:nth-child(4) {
+            top: 75%;
+            height: 3px;
+            animation-delay: 0.09s;
+        }
+
+        .glitch-bar:nth-child(5) {
+            top: 90%;
+            height: 4px;
+            animation-delay: 0.12s;
+        }
+
+        @keyframes bar-glitch {
+
+            0%,
+            80%,
+            100% {
+                opacity: 0;
+                transform: translateX(0);
+            }
+
+            5% {
+                opacity: 1;
+                transform: translateX(-30px);
+                width: 70%;
+                background: var(--glitch-cyan);
+            }
+
+            10% {
+                opacity: 0;
+            }
+
+            35% {
+                opacity: 1;
+                transform: translateX(40px);
+                width: 50%;
+                background: var(--glitch-red);
+            }
+
+            40% {
+                opacity: 0;
+            }
+
+            65% {
+                opacity: 1;
+                transform: translateX(-20px);
+                width: 90%;
+                background: white;
+            }
+
+            70% {
+                opacity: 0;
+            }
+        }
+
+        /* Screen flicker */
+        .glitch-active::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            animation: screen-flicker 0.1s infinite;
+            pointer-events: none;
+            z-index: 200;
+        }
+
+        @keyframes screen-flicker {
+
+            0%,
+            100% {
+                background: transparent;
+            }
+
+            5% {
+                background: rgba(255, 0, 64, 0.03);
+            }
+
+            10% {
+                background: transparent;
+            }
+
+            50% {
+                background: rgba(0, 255, 255, 0.02);
+            }
+
+            55% {
+                background: transparent;
+            }
+
+            85% {
+                background: rgba(255, 255, 255, 0.01);
+            }
+
+            90% {
+                background: transparent;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+    <!-- Back Link -->
+    <nav class="p-6 relative z-[300]">
+        <a href="../index.html#archive"
+            class="text-gray-400 hover:text-white transition-colors font-body text-sm uppercase tracking-widest">← Back
+            to Archive</a>
+    </nav>
+
+    <!-- Experiment Container -->
+    <main class="flex-1 flex flex-col items-center justify-center px-4 relative">
+        <span class="font-body text-xs text-gray-500 mb-8 relative z-[300]">EXP_04</span>
+
+        <div class="glitch-container cursor-pointer" id="glitch-zone">
+            <!-- Glitch bars for fragmentation -->
+            <div class="glitch-bar"></div>
+            <div class="glitch-bar"></div>
+            <div class="glitch-bar"></div>
+            <div class="glitch-bar"></div>
+            <div class="glitch-bar"></div>
+
+            <!-- Main text (hidden on hover) -->
+            <span class="glitch-text">GLITCH</span>
+
+            <!-- RGB layers (shown on hover, covering white) -->
+            <span class="glitch-layer red">GLITCH</span>
+            <span class="glitch-layer cyan">GLITCH</span>
+        </div>
+
+        <!-- Noise and scanlines overlays -->
+        <div class="noise-overlay"></div>
+        <div class="scanlines"></div>
+
+        <p class="font-body text-lg text-gray-400 mt-12 max-w-md text-center relative z-[300]">
+            Digital signal corruption. Hover to destroy the signal.
+        </p>
+    </main>
+
+    <script>
+        const glitchContainer = document.querySelector('.glitch-container');
+
+        glitchContainer.addEventListener('mouseenter', () => {
+            document.body.classList.add('glitch-active');
+        });
+
+        glitchContainer.addEventListener('mouseleave', () => {
+            document.body.classList.remove('glitch-active');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Tabs Nav | UI Evolution</title>
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/chapters/solid.css">
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-solid);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../index.html">← Back to Library</a>
+            <span class="chapter-badge">Chapter 01 · Solid State</span>
+            <h1>Retro Tabs</h1>
+            <p class="narrative-text">Navigation modeled after physical filing cabinets. Tabs offer clear, skeletal
+                hierarchy with instant state changes.</p>
+        </div>
+        <div class="demo-stage">
+            <div class="retro-tab-wrapper">
+                <div class="retro-tab-header">
+                    <div class="retro-tab active" onclick="switchTab(this)">SYS</div>
+                    <div class="retro-tab" onclick="switchTab(this)">NET</div>
+                    <div class="retro-tab" onclick="switchTab(this)">I/O</div>
+                </div>
+                <div class="retro-tab-content" id="tabContent">> READY...</div>
+            </div>
+        </div>
+        <div class="code-section">
+            <h2>HTML</h2>
+            <div class="code-block">
+                <pre>&lt;div class="retro-tab-wrapper"&gt;
+    &lt;div class="retro-tab-header"&gt;
+        &lt;div class="retro-tab active"&gt;SYS&lt;/div&gt;
+        &lt;div class="retro-tab"&gt;NET&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="retro-tab-content"&gt;&gt; READY...&lt;/div&gt;
+&lt;/div&gt;</pre>
+            </div>
+            <h2>JavaScript</h2>
+            <div class="code-block">
+                <pre>function switchTab(el) {
+    // Remove active from all tabs
+    document.querySelectorAll('.retro-tab').forEach(t => t.classList.remove('active'));
+    // Add active to clicked tab
+    el.classList.add('active');
+    // Update content
+    document.getElementById('tabContent').textContent = '> ' + el.textContent + ' LOADED';
+}</pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        function switchTab(el) {
+            document.querySelectorAll('.retro-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('tabContent').textContent = '> ' + el.textContent + ' LOADED';
+        }
+    </script>
+</body>
+
+</html>

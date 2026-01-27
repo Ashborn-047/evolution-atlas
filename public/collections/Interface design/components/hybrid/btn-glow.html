@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmospheric Glow Button | UI Evolution</title>
+    <meta name="description"
+        content="Atmospheric Glow Button - Cursor-tracking internal glow using CSS custom properties.">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/chapters/hybrid.css">
+
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .demo-header a:hover {
+            color: white;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-hybrid);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+
+        .highlight {
+            color: var(--accent-hybrid);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../index.html">← Back to Library</a>
+            <span class="chapter-badge">Chapter 04 · Hybrid Architecture</span>
+            <h1>Atmospheric Glow</h1>
+            <p class="narrative-text">
+                Combines a solid button structure with a fluid internal glow that tracks cursor position. Uses CSS
+                custom properties updated via JavaScript to position a radial gradient.
+            </p>
+        </div>
+
+        <div class="demo-stage">
+            <button class="btn-hybrid" id="hybridBtn">
+                <span>Initialize</span>
+            </button>
+        </div>
+
+        <div class="code-section">
+            <h2>HTML Structure</h2>
+            <div class="code-block">
+                <pre>&lt;button class="btn-hybrid" id="hybridBtn"&gt;
+    &lt;span&gt;Initialize&lt;/span&gt;
+&lt;/button&gt;</pre>
+            </div>
+
+            <h2>CSS: Custom Property Glow</h2>
+            <div class="code-block">
+                <pre>.btn-hybrid {
+    position: relative;
+    padding: 16px 40px;
+    background: #050505;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* The glow layer uses CSS custom properties */
+.btn-hybrid<span class="highlight">::before</span> {
+    content: '';
+    position: absolute;
+    inset: 0;
+    
+    /* Radial gradient positioned at --x, --y */
+    background: <span class="highlight">radial-gradient(
+        circle at var(--x, 50%) var(--y, 50%),
+        rgba(139, 92, 246, 0.3),
+        transparent 70%
+    )</span>;
+    
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1;
+}
+
+/* Text stays above glow */
+.btn-hybrid span {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-hybrid:hover::before {
+    opacity: 1;
+}
+
+.btn-hybrid:hover {
+    border-color: var(--accent-hybrid);
+    box-shadow: 0 0 30px -5px rgba(139, 92, 246, 0.4);
+}</pre>
+            </div>
+
+            <h2>JavaScript: Update Custom Properties</h2>
+            <div class="code-block">
+                <pre>const hybridBtn = document.getElementById('hybridBtn');
+
+hybridBtn.addEventListener('mousemove', (e) => {
+    const rect = hybridBtn.getBoundingClientRect();
+    
+    // Calculate mouse position relative to button
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Update CSS custom properties
+    <span class="highlight">hybridBtn.style.setProperty('--x', `${x}px`);</span>
+    <span class="highlight">hybridBtn.style.setProperty('--y', `${y}px`);</span>
+});
+
+/* The CSS radial-gradient reads --x and --y,
+   so the glow center follows the cursor in real-time. */</pre>
+            </div>
+
+            <h2>Why CSS Custom Properties?</h2>
+            <div class="code-block">
+                <pre>/* Benefits of this approach:
+
+   1. No GSAP required - just vanilla JS + CSS
+   2. Hardware accelerated - gradient is GPU-rendered
+   3. Smooth - no layout thrashing
+   4. Default fallback - var(--x, 50%) centers if unset
+   
+   The technique: JS updates the property, CSS applies it
+   instantly to the gradient position. Much smoother than
+   manipulating element positions directly. */</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const hybridBtn = document.getElementById('hybridBtn');
+
+        hybridBtn.addEventListener('mousemove', (e) => {
+            const rect = hybridBtn.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            hybridBtn.style.setProperty('--x', `${x}px`);
+            hybridBtn.style.setProperty('--y', `${y}px`);
+        });
+    </script>
+
+</body>
+
+</html>

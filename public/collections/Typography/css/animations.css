@@ -1,0 +1,29 @@
+/* ==========================================================================
+   ANIMATIONS.CSS
+   Keyframe animations and animated effects
+   ========================================================================== */
+
+/* ==================== GLOW TEXT (Neon Pulse) ==================== */
+.glow-text {
+    text-shadow:
+        0 0 10px var(--accent-color),
+        0 0 20px var(--accent-color);
+    animation: pulse-glow 3s infinite alternate;
+}
+
+@keyframes pulse-glow {
+    from {
+        text-shadow:
+            0 0 10px var(--accent-color),
+            0 0 20px var(--accent-color);
+        opacity: 0.8;
+    }
+
+    to {
+        text-shadow:
+            0 0 20px var(--accent-color),
+            0 0 40px var(--accent-color),
+            0 0 60px var(--accent-color);
+        opacity: 1;
+    }
+}

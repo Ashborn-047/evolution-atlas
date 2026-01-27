@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Ripple Effect | Liquid UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #020617;
+            color: white;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        #liquid-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.7;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(2, 6, 23, 0.8) 100%);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .content {
+            position: relative;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 1.125rem;
+            max-width: 32rem;
+            line-height: 1.7;
+        }
+
+        .hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #64748b;
+            z-index: 20;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- WebGL Canvas -->
+        <canvas id="liquid-canvas"></canvas>
+
+        <!-- Gradient Overlay -->
+        <div class="overlay"></div>
+
+        <!-- Content -->
+        <div class="content">
+            <div class="badge">WebGL Interaction</div>
+            <h1>Interactive<br>Ripple</h1>
+            <p>Gentle WebGL fluid waves that react directly to your mouse movements. Move your cursor to create ripples.
+            </p>
+        </div>
+
+        <div class="hint">Move your mouse to interact</div>
+    </div>
+
+    <style>
+        body.is-standalone .content,
+        body.is-standalone .badge,
+        body.is-standalone .hint {
+            display: none !important;
+        }
+    </style>
+    <script>
+        if (window.location.hash.includes('standalone')) {
+            document.body.classList.add('is-standalone');
+        }
+    </script>
+
+    <!-- Three.js Liquid Effect -->
+    <script type="module">
+        import LiquidBackground from 'https://cdn.jsdelivr.net/npm/threejs-components@0.0.22/build/backgrounds/liquid1.min.js';
+
+        const canvas = document.getElementById('liquid-canvas');
+        const app = LiquidBackground(canvas);
+
+        // Ripple Configuration
+        app.loadImage('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
+        app.liquidPlane.material.metalness = 0.75;
+        app.liquidPlane.material.roughness = 0.25;
+        app.liquidPlane.uniforms.displacementScale.value = 5;
+        app.setRain(false);
+    </script>
+</body>
+
+</html>

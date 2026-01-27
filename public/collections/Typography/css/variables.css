@@ -1,0 +1,18 @@
+/* ==========================================================================
+   VARIABLES.CSS
+   CSS Custom Properties (Design Tokens)
+   ========================================================================== */
+
+:root {
+    /* ---------- Colors ---------- */
+    --bg-color: #050505;
+    --text-color: #f0f0f0;
+    --accent-color: #00e5ff;        /* Cyan */
+    --secondary-accent: #ff0055;    /* Magenta */
+    
+    /* ---------- Typography ---------- */
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-pixel: 'VT323', monospace;
+}

@@ -1,0 +1,121 @@
+/* ============================================
+   LAYOUT.CSS (Spine / Split Screen Strategy)
+   ============================================ */
+
+.section {
+    min-height: 125vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 15vh 0;
+    z-index: 10;
+}
+
+/* Hero Centering Exception */
+#hero.section {
+    min-height: 100vh;
+    padding-top: 0;
+    overflow: hidden;
+    /* Prevent massive text from pushing page layout */
+}
+
+/* 
+   THE PHASE SPACER (Rhythmic Breathing Room)
+   Consistent vertical distance between content blocks
+*/
+.phase-spacer {
+    height: 50vh;
+    width: 100%;
+}
+
+/* 
+   THE DESCENT (End of Journey Buffer)
+   Space between Environment and Footer to stabilize artifacts
+*/
+/* Footer Vertical Dominance */
+#footer.section {
+    min-height: 80vh;
+    padding: 20vh 0;
+    align-items: flex-start;
+}
+
+/* 
+   CONTENT ZONES (Symmetrical Spine Layout)
+   - Left Zone: Ends near center, text aligns Right (towards center)
+   - Right Zone: Starts near center, text aligns Left (towards center)
+   - Gap: 10% central gutter
+*/
+
+/* Centered (Hero/Footer) */
+.section-content-centered {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Left Zone - Content is on the Left, aligns towards Center */
+.section-content-left {
+    width: 40%;
+    margin-left: 8%;
+    padding: 2rem 3rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+}
+
+/* Right Zone - Content is on the Right, aligns towards Center */
+.section-content-right {
+    width: 40%;
+    margin-left: 52%;
+    padding: 2rem 2rem 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+/* Glass Card Variant */
+.glass-container {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    border-radius: 24px;
+    padding: 3rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.section-content-left,
+.section-content-right {
+    z-index: 20;
+}
+
+/* Mobile Stacking */
+@media (max-width: 1024px) {
+
+    .section-content-left,
+    .section-content-right {
+        width: calc(100% - 4rem);
+        margin: 2rem;
+        padding: 4rem 2rem;
+        text-align: center;
+        align-items: center;
+    }
+}
+
+.text-highlight {
+    font-weight: 400;
+    color: inherit;
+    letter-spacing: 0.01em;
+}
+
+/* Smooth reveal for all sections */
+.section {
+    opacity: 1;
+    transition: opacity 0.6s ease-out;
+}

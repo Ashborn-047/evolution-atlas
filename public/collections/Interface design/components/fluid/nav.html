@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Nav | UI Evolution</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/chapters/fluid.css">
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-fluid);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../index.html">← Back to Library</a>
+            <span class="chapter-badge">Chapter 03 · Organic Flow</span>
+            <h1>Liquid Nav</h1>
+            <p class="narrative-text">The "Active State" is a living organism. The blob morphs and swims to the selected
+                item with elastic motion.</p>
+        </div>
+        <div class="demo-stage">
+            <div class="liquid-nav-wrapper">
+                <div class="liquid-blob" id="blob"></div>
+                <div class="liquid-nav-item active" onclick="moveBlob(this)">Home</div>
+                <div class="liquid-nav-item" onclick="moveBlob(this)">Work</div>
+                <div class="liquid-nav-item" onclick="moveBlob(this)">About</div>
+            </div>
+        </div>
+        <div class="code-section">
+            <h2>GSAP Animation</h2>
+            <div class="code-block">
+                <pre>function moveBlob(el) {
+    // Update active state
+    document.querySelectorAll('.liquid-nav-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+    
+    const blob = document.getElementById('blob');
+    
+    // Animate blob to new position
+    gsap.to(blob, {
+        left: el.offsetLeft,
+        width: el.offsetWidth,
+        duration: 0.6,
+        ease: "elastic.out(1, 0.5)"  // Bouncy!
+    });
+}</pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        function moveBlob(el) {
+            document.querySelectorAll('.liquid-nav-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+            gsap.to(document.getElementById('blob'), {
+                left: el.offsetLeft,
+                width: el.offsetWidth,
+                duration: 0.6,
+                ease: "elastic.out(1, 0.5)"
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+/**
+ * ============================================
+ * CHAPTER 1: SOLID STATE - Component Styles
+ * ============================================
+ * 
+ * Era: Mechanical metaphors, rigid borders
+ * Animation: Instant, stepped transitions (steps())
+ * 
+ * Components:
+ * 1.1 Solid Card - Mechanical displacement
+ * 1.2 Retro Tabs - File folder metaphor
+ * 1.3 Chiseled Button - Tactile feedback
+ * 1.4 System Badges - High contrast warning
+ * 1.5 Click Carousel - Projector snap
+ * 1.6 Mechanical Toggle - Circuit breaker
+ */
+
+/* ========== CHAPTER THEME ========== */
+.solid-theme .chapter-header {
+    border-color: var(--accent-solid);
+}
+
+.solid-theme h2 {
+    color: white;
+}
+
+.solid-theme .narrative-title {
+    color: var(--accent-solid);
+}
+
+
+/* ---------- 1.1 SOLID CARD ----------
+ * Effect: Mechanical displacement on hover
+ * CSS Technique: translate + box-shadow shift
+ * Animation: steps(2) for robotic feel
+ */
+.card-solid {
+    background: #1a1a1a;
+    border: 2px solid #333;
+    padding: 2rem;
+    width: 100%;
+    max-width: 300px;
+    transition: all 0.1s steps(2);
+    cursor: crosshair;
+}
+
+.card-solid:hover {
+    background: #ccc;
+    border-color: #fff;
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0 var(--accent-solid);
+}
+
+.card-solid:hover h3,
+.card-solid:hover p {
+    color: black;
+}
+
+.card-solid:active {
+    transform: translate(0, 0);
+    box-shadow: none;
+}
+
+.card-solid h3 {
+    font-family: var(--font-mono);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.card-solid p {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: #666;
+}
+
+
+/* ---------- 1.2 RETRO TABS ----------
+ * Effect: File folder metaphor navigation
+ * CSS Technique: Border manipulation
+ * Animation: None (instant switch)
+ */
+.retro-tab-wrapper {
+    width: 100%;
+    max-width: 320px;
+}
+
+.retro-tab-header {
+    display: flex;
+    border-bottom: 2px solid #333;
+}
+
+.retro-tab {
+    padding: 8px 16px;
+    background: #222;
+    border: 2px solid #333;
+    border-bottom: none;
+    margin-right: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.retro-tab.active {
+    background: var(--accent-solid);
+    color: white;
+    border-color: var(--accent-solid);
+}
+
+.retro-tab-content {
+    background: #111;
+    padding: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    border: 2px solid #333;
+    height: 100px;
+}
+
+
+/* ---------- 1.3 CHISELED BUTTON ----------
+ * Effect: Heavy tactile feedback
+ * CSS Technique: box-shadow as depth
+ * Animation: :active state press
+ */
+.btn-chiseled {
+    background: var(--accent-solid);
+    color: white;
+    font-family: var(--font-mono);
+    font-weight: bold;
+    border: none;
+    padding: 15px 30px;
+    box-shadow: 6px 6px 0px #1e40af;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-chiseled:active {
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px 0px #1e40af;
+}
+
+
+/* ---------- 1.4 SYSTEM BADGES ----------
+ * Effect: High contrast warning lights
+ * CSS Technique: Border + monospace
+ * Animation: None (static)
+ */
+.system-badge-row {
+    display: flex;
+    gap: 10px;
+}
+
+.system-badge {
+    background: #000;
+    border: 1px solid #333;
+    color: var(--accent-solid);
+    padding: 4px 8px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.system-badge.alert {
+    color: #ef4444;
+    border-color: #ef4444;
+}
+
+
+/* ---------- 1.5 CLICK CAROUSEL ----------
+ * Effect: Projector snap (instant switch)
+ * CSS Technique: Static frame + JS content swap
+ * Animation: None
+ */
+.click-carousel-frame {
+    border: 2px solid #333;
+    width: 100%;
+    max-width: 300px;
+    height: 150px;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.click-slide {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.click-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.click-btn {
+    background: #222;
+    border: 1px solid #333;
+    color: white;
+    font-family: var(--font-mono);
+    padding: 5px 10px;
+    cursor: pointer;
+    flex: 1;
+    margin: 0 2px;
+}
+
+.click-btn:active {
+    background: var(--accent-solid);
+}
+
+
+/* ---------- 1.6 MECHANICAL TOGGLE ----------
+ * Effect: Circuit breaker switch
+ * CSS Technique: ::after pseudo-element
+ * Animation: Instant (0s transition)
+ */
+.mech-toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #333;
+    padding: 1rem;
+    background: #000;
+}
+
+.mech-switch {
+    width: 50px;
+    height: 25px;
+    background: #333;
+    position: relative;
+    cursor: pointer;
+}
+
+.mech-switch::after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 21px;
+    height: 21px;
+    background: #888;
+    transition: left 0s;
+    /* Instant! */
+}
+
+.mech-switch.active {
+    background: var(--accent-solid);
+}
+
+.mech-switch.active::after {
+    left: 27px;
+    background: white;
+}

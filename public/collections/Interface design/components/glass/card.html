@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Card | UI Evolution</title>
+    <meta name="description"
+        content="The Glass Card component - 3D tilt effect with parallax using GSAP. Part of the Glass Age era.">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/chapters/glass.css">
+
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .demo-header a:hover {
+            color: white;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-glass);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+
+        .highlight {
+            color: var(--accent-glass);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../../index.html">← Back to Atlas</a>
+            <span class="chapter-badge">Chapter 02 · Glass Age</span>
+            <h1>The Glass Card</h1>
+            <p class="narrative-text">
+                We stopped designing on a 2D plane. By tilting the card and calculating perspective, we created the
+                illusion that the interface exists in a 3D space, making digital objects feel like premium physical
+                artifacts.
+            </p>
+        </div>
+
+        <div class="demo-stage">
+            <div class="glass-card-wrapper">
+                <div class="glass-credit-card" id="glassCard">
+                    <div class="glass-shine"></div>
+                    <div style="font-family: monospace; letter-spacing: 2px;">GLASS_ID</div>
+                    <i class="fas fa-wifi" style="align-self: flex-end;"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-section">
+            <h2>HTML Structure</h2>
+            <div class="code-block">
+                <pre>&lt;!-- Wrapper provides perspective context --&gt;
+&lt;div class="glass-card-wrapper"&gt;
+    &lt;div class="glass-credit-card" id="glassCard"&gt;
+        &lt;div class="glass-shine"&gt;&lt;/div&gt;
+        &lt;!-- Card content --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+            </div>
+
+            <h2>CSS Techniques</h2>
+            <div class="code-block">
+                <pre>/* Parent must set perspective for 3D transforms */
+.glass-card-wrapper {
+    <span class="highlight">perspective: 1000px;</span>
+}
+
+.glass-credit-card {
+    height: 180px;
+    width: 300px;
+    border-radius: 20px;
+    
+    /* Glassmorphism effect */
+    background: linear-gradient(
+        135deg, 
+        rgba(255,255,255,0.1), 
+        rgba(255,255,255,0)
+    );
+    border: 1px solid rgba(255,255,255,0.18);
+    
+    /* The shine layer moves on hover */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shine effect - light reflection that moves */
+.glass-shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        125deg, 
+        transparent 40%, 
+        rgba(255,255,255,0.1) 45%, 
+        transparent 50%
+    );
+    transform: translateX(-100%);
+}</pre>
+            </div>
+
+            <h2>GSAP 3D Tilt Animation</h2>
+            <div class="code-block">
+                <pre>const glassCard = document.getElementById('glassCard');
+const shine = glassCard.querySelector('.glass-shine');
+
+glassCard.addEventListener('mousemove', (e) => {
+    const rect = glassCard.getBoundingClientRect();
+    
+    // Calculate mouse position relative to card center
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const w = rect.width;
+    const h = rect.height;
+    
+    // Convert to rotation degrees (max ±10°)
+    const rotateY = <span class="highlight">((x / w) - 0.5) * 20</span>;
+    const rotateX = <span class="highlight">((y / h) - 0.5) * -20</span>;
+    
+    // Apply 3D rotation with GSAP
+    <span class="highlight">gsap.to(glassCard, {
+        rotationY: rotateY,
+        rotationX: rotateX,
+        duration: 0.5,
+        ease: "power2.out"
+    });</span>
+    
+    // Move shine based on mouse X position
+    shine.style.transform = 
+        `translateX(${(x / w) * 100 - 50}%)`;
+});
+
+// Reset on mouse leave
+glassCard.addEventListener('mouseleave', () => {
+    gsap.to(glassCard, {
+        rotationY: 0,
+        rotationX: 0,
+        duration: 0.5,
+        ease: "power2.out"
+    });
+});</pre>
+            </div>
+
+            <h2>Math Explanation</h2>
+            <div class="code-block">
+                <pre>/* Understanding the rotation calculation:
+
+   1. (x / w) gives a value from 0 to 1
+      - 0 = mouse at left edge
+      - 1 = mouse at right edge
+      
+   2. Subtract 0.5 to center the range: -0.5 to 0.5
+      - -0.5 = left edge
+      - 0 = center
+      - 0.5 = right edge
+      
+   3. Multiply by 20 for ±10 degrees range
+      
+   4. rotateX is negated so tilt direction feels natural
+      (mouse up = card tilts toward you)
+*/</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Glass Card 3D Tilt
+        const glassCard = document.getElementById('glassCard');
+        const shine = glassCard.querySelector('.glass-shine');
+
+        glassCard.addEventListener('mousemove', (e) => {
+            const rect = glassCard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const w = rect.width;
+            const h = rect.height;
+
+            const rotateY = ((x / w) - 0.5) * 20;
+            const rotateX = ((y / h) - 0.5) * -20;
+
+            gsap.to(glassCard, {
+                rotationY: rotateY,
+                rotationX: rotateX,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+
+            shine.style.transform = `translateX(${(x / w) * 100 - 50}%)`;
+        });
+
+        glassCard.addEventListener('mouseleave', () => {
+            gsap.to(glassCard, {
+                rotationY: 0,
+                rotationX: 0,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+        });
+    </script>
+
+</body>
+
+</html>

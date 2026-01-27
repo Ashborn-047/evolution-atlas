@@ -1,0 +1,24 @@
+# Chroma & Kinetics
+
+## Dependencies
+node_modules/
+package-lock.json
+
+## OS files
+.DS_Store
+Thumbs.db
+*.log
+
+## IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+## Build artifacts
+dist/
+build/
+
+## Environment
+.env
+.env.local

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA - Typography Experiment</title>
+
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@400;700;800&family=VT323&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/animations.css">
+</head>
+
+<body class="bg-[#050505] min-h-screen flex flex-col">
+    <!-- Back Link -->
+    <nav class="p-6">
+        <a href="../index.html"
+            class="text-gray-400 hover:text-white transition-colors font-body text-sm uppercase tracking-widest">← Back
+            to Archive</a>
+    </nav>
+
+    <!-- Experiment Container -->
+    <main class="flex-1 flex flex-col items-center justify-center px-4">
+        <span class="font-body text-xs text-gray-500 mb-8">EXP_07</span>
+
+        <div class="text-center cursor-pointer" id="radiance-text">
+            <h1 class="font-display text-[15vw] font-bold uppercase tracking-tighter text-white glow-text">AURA</h1>
+        </div>
+
+        <p class="font-body text-lg text-gray-400 mt-8 max-w-md text-center">Neon luminescence and atmospheric glow.</p>
+    </main>
+
+    <style>
+        .glow-text {
+            text-shadow:
+                0 0 10px var(--accent-color),
+                0 0 20px var(--accent-color),
+                0 0 40px var(--accent-color),
+                0 0 80px var(--accent-color);
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from {
+                text-shadow:
+                    0 0 10px var(--accent-color),
+                    0 0 20px var(--accent-color),
+                    0 0 40px var(--accent-color),
+                    0 0 80px var(--accent-color);
+            }
+
+            to {
+                text-shadow:
+                    0 0 20px var(--accent-color),
+                    0 0 40px var(--accent-color),
+                    0 0 80px var(--accent-color),
+                    0 0 120px var(--accent-color);
+            }
+        }
+    </style>
+</body>
+
+</html>

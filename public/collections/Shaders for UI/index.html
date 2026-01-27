@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHADER[LAB] // Visual Library</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;800&family=Space+Grotesk:wght@300;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Standalone Mode Support */
+        body.is-standalone nav,
+        body.is-standalone #landing-view,
+        body.is-standalone #library-view,
+        body.is-standalone footer {
+            display: none !important;
+        }
+
+        body.is-standalone #shader-view {
+            display: block !important;
+            padding-top: 0 !important;
+        }
+
+        body.is-standalone #shader-view .pt-32 {
+            padding-top: 2rem !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav
+        class="fixed top-0 left-0 w-full z-50 p-4 flex justify-between items-center bg-gradient-to-b from-black/60 to-transparent pointer-events-none">
+        <div class="flex items-center gap-2 cursor-pointer group pointer-events-auto" id="nav-logo">
+            <div
+                class="w-4 h-4 bg-cyan-400 rounded-full shadow-[0_0_10px_#00f3ff] group-hover:scale-125 transition-transform duration-300">
+            </div>
+            <span
+                class="font-mono font-bold tracking-widest text-lg group-hover:text-cyan-400 transition-colors">SHADER<span
+                    class="text-cyan-400">[LAB]</span></span>
+        </div>
+        <div class="flex gap-6 font-mono text-xs md:text-sm text-gray-400 pointer-events-auto">
+            <button id="nav-home"
+                class="hover:text-white hover:text-glow transition-all text-cyan-400 font-bold">HOME_BASE</button>
+            <button id="nav-library" class="hover:text-white hover:text-glow transition-all">LIBRARY_INDEX</button>
+        </div>
+    </nav>
+
+    <!-- LANDING VIEW -->
+    <section id="landing-view"
+        class="view-section active justify-center items-center relative overflow-hidden bg-black">
+        <!-- Background Stack -->
+        <div id="landing-canvas-container" class="absolute inset-0 z-0 opacity-100"></div>
+        <div class="absolute inset-0 z-10 scanlines opacity-10"></div>
+        <div class="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-black opacity-40"></div>
+
+        <!-- The Hero Shield (Readability Layer) -->
+        <div class="hero-shield"></div>
+
+        <!-- Decorative Orbitals -->
+        <div class="absolute inset-0 z-20 pointer-events-none overflow-hidden opacity-30">
+            <div class="absolute top-1/2 left-1/2 w-[120vh] h-[120vh] border border-cyan-500/20 rounded-full ring-spin">
+            </div>
+            <div
+                class="absolute top-1/2 left-1/2 w-[90vh] h-[90vh] border border-dashed border-purple-500/20 rounded-full ring-spin-rev">
+            </div>
+            <div
+                class="absolute top-1/2 left-1/2 w-[60vh] h-[60vh] border border-dotted border-cyan-500/20 rounded-full ring-spin-fast">
+            </div>
+        </div>
+
+        <!-- HUD Decorations (Corner Anchors) -->
+        <div
+            class="absolute left-12 top-32 hidden lg:block font-mono text-[10px] text-cyan-400 opacity-60 leading-tight pointer-events-none select-none z-20 text-contrast-shadow border-l-2 border-cyan-400/30 pl-4">
+            <div class="mb-4 flex items-center gap-2 opacity-50">
+                <div class="w-2 h-[2px] bg-cyan-400"></div>
+                <span>CORE_DUMP</span>
+            </div>
+            <div id="hud-code-binary" class="leading-relaxed min-h-[140px] mb-2"></div>
+            <span class="cursor text-cyan-400 opacity-50"></span>
+        </div>
+
+        <div
+            class="absolute right-12 bottom-32 hidden lg:block font-mono text-[10px] text-purple-400 opacity-60 leading-tight pointer-events-none select-none text-right z-20 text-contrast-shadow border-r-2 border-purple-400/30 pr-4">
+            <div class="mb-4 flex items-center gap-2 justify-end opacity-50">
+                <span>SYSTEM_LOG</span>
+                <div class="w-2 h-[2px] bg-purple-400"></div>
+            </div>
+            <div class="mb-2 text-[11px] text-purple-300 font-bold uppercase tracking-widest">Compilation_Log</div>
+            <div id="hud-compilation-log" class="space-y-1 mb-4"></div>
+            <div class="mt-4 h-[2px] w-full bg-purple-900/50 overflow-hidden relative">
+                <div id="hud-progress-bar"
+                    class="h-full bg-purple-400 w-0 shadow-[0_0_10px_rgba(188,19,254,0.5)] transition-all duration-1000">
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Content (Highest Layer) -->
+        <!-- Hero Content (Highest Layer) -->
+        <div
+            class="z-30 relative pt-32 pb-20 px-6 group text-center max-w-6xl mx-auto flex flex-col items-center justify-center min-h-[90vh]">
+
+            <div class="mb-12 inline-flex items-center gap-6">
+                <div
+                    class="px-4 py-1.5 border border-cyan-400/60 bg-black/60 text-cyan-400 font-mono text-[11px] font-bold tracking-[0.3em] uppercase backdrop-blur-xl shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                    <span
+                        class="w-2 h-2 bg-green-500 rounded-full inline-block mr-2 animate-pulse shadow-[0_0_10px_#0f0]"></span>
+                    SYSTEM_ACTIVE : V2.3
+                </div>
+                <div class="h-[1px] w-12 bg-cyan-400/40"></div>
+                <div
+                    class="font-mono text-[11px] text-cyan-100/80 tracking-[0.4em] uppercase text-contrast-shadow font-bold">
+                    Procedural_Gen</div>
+            </div>
+
+            <h1 class="text-7xl md:text-[11rem] font-black mb-6 tracking-tighter leading-[0.8] select-none scale-105">
+                <span class="block text-outline opacity-60 relative left-[-8px]">SHADER</span>
+                <span class="block text-white hero-glow relative left-[8px]">LABORATORY</span>
+            </h1>
+
+            <div
+                class="w-full max-w-xl mx-auto h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent my-16 shadow-[0_0_15px_rgba(0,243,255,0.3)]">
+            </div>
+
+            <p
+                class="text-white text-xl md:text-3xl font-mono mb-20 max-w-4xl mx-auto leading-relaxed tracking-wide text-contrast-shadow">
+                High-performance <span class="text-cyan-400 border-b-2 border-cyan-400/60 pb-1 font-bold">GLSL
+                    micro-kernels</span>.
+                <br><span
+                    class="text-sm text-cyan-200/90 mt-5 block font-extrabold uppercase tracking-[0.5em]">Mathematics //
+                    Light // Code // Reality</span>
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-12 justify-center items-center">
+                <button id="cta-library"
+                    class="relative px-20 py-8 bg-black/60 border-2 border-cyan-400 text-cyan-400 font-black text-xl overflow-hidden transition-all hover:bg-cyan-400 hover:text-black hover:shadow-[0_0_80px_rgba(0,243,255,0.5)] tracking-[0.2em] group/btn w-full md:w-auto backdrop-blur-xl">
+                    <span class="relative z-10 flex items-center justify-center gap-4 uppercase">
+                        Access_Terminal
+                        <svg class="w-6 h-6 group-hover/btn:translate-x-3 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </span>
+                </button>
+
+                <button onclick="window.open('https://github.com/mrdoob/three.js', '_blank')"
+                    class="px-12 py-8 text-white font-mono text-sm font-bold hover:text-cyan-400 transition-all uppercase tracking-[0.4em] border border-white/20 hover:border-cyan-400/50 hover:bg-cyan-400/5 backdrop-blur-md">
+                    GIT_SOURCE // BROWSE
+                </button>
+            </div>
+
+            <div
+                class="mt-20 font-mono text-[11px] text-cyan-400 font-black uppercase tracking-[0.6em] text-contrast-shadow">
+                WEBGL_2.0 &bull; 60FPS_SYNC &bull; GLSL_ES_3.0
+            </div>
+        </div>
+
+        <div
+            class="absolute bottom-0 w-full h-1/2 bg-[linear-gradient(to_top,rgba(0,243,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,243,255,0.05)_1px,transparent_1px)] bg-[size:60px_60px] [transform:perspective(1000px)_rotateX(60deg)] pointer-events-none origin-bottom">
+        </div>
+    </section>
+
+    <!-- LIBRARY VIEW -->
+    <section id="library-view" class="view-section pt-24 pb-20 px-4 md:px-12">
+        <div class="max-w-7xl mx-auto w-full">
+            <header class="mb-12 border-b border-gray-800 pb-8 flex flex-col md:flex-row justify-between items-end">
+                <div>
+                    <h2 class="text-4xl font-bold mb-2 text-white">COMPONENT <span class="text-cyan-400">DATABASE</span>
+                    </h2>
+                    <p class="font-mono text-gray-500 text-sm tracking-widest">SELECT A SHADER TO INSPECT // REAL-TIME
+                        RENDERING</p>
+                </div>
+                <div class="mt-4 md:mt-0 font-mono text-xs text-gray-600">
+                    STATUS: <span class="text-green-500">ONLINE</span>
+                </div>
+            </header>
+
+            <div id="shader-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will populate this -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SHADER DETAIL VIEW -->
+    <section id="shader-view" class="view-section relative h-screen w-screen overflow-hidden">
+        <div id="fullscreen-canvas-container" class="absolute inset-0 z-0"></div>
+
+        <div class="absolute inset-0 z-10 pointer-events-none flex flex-col justify-between p-6 md:p-12 pt-32">
+
+            <div class="flex justify-between items-start">
+                <div class="pointer-events-auto flex flex-col gap-2">
+                    <button id="btn-return"
+                        class="glass-panel px-4 py-2 flex items-center gap-2 text-sm hover:bg-white/10 transition border border-white/10 hover:border-cyan-400 hover:text-cyan-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                        RETURN_GRID
+                    </button>
+                    <button id="btn-view-source"
+                        class="glass-panel px-4 py-2 flex items-center gap-2 text-sm hover:bg-white/10 transition border border-white/10 hover:border-purple-400 hover:text-purple-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                        VIEW_SOURCE
+                    </button>
+                </div>
+                <div class="text-right pointer-events-auto">
+                    <h2 id="active-shader-title" class="text-4xl font-bold text-glow uppercase">SHADER NAME</h2>
+                    <p class="font-mono text-cyan-400 text-sm mt-1 tracking-widest">T_VAL: <span
+                            id="time-display">0.00</span></p>
+                </div>
+            </div>
+
+            <div
+                class="pointer-events-auto glass-panel p-6 rounded-none max-w-md backdrop-blur-xl border border-white/10 border-l-4 border-l-cyan-400">
+                <h3
+                    class="font-mono text-xs text-gray-400 mb-2 uppercase tracking-widest border-b border-gray-700 pb-2">
+                    Diagnostic Data</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between text-sm font-mono">
+                        <span>INTERACTION</span>
+                        <span class="text-green-400 animate-pulse">ACTIVE [MOUSE_DETECTED]</span>
+                    </div>
+                    <p id="active-shader-desc" class="text-sm text-gray-300 leading-relaxed font-sans">
+                        Description of the shader logic goes here.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOURCE MODAL -->
+    <div id="source-modal" class="source-modal">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold font-mono text-purple-400">// SHADER_SOURCE_CACHED</h3>
+                <button id="btn-close-source"
+                    class="text-gray-500 hover:text-white font-mono uppercase tracking-widest text-xs border border-gray-800 px-4 py-2">CLOSE_TERMINAL
+                    [ESC]</button>
+            </div>
+            <pre id="source-content"></pre>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-gray-900 py-12 px-6 text-center z-50 relative">
+        <div class="max-w-4xl mx-auto flex flex-col items-center gap-6">
+            <div class="font-mono text-2xl font-bold tracking-widest text-gray-700">SHADER<span
+                    class="text-cyan-900">[LAB]</span></div>
+            <div class="flex gap-4 text-gray-500 text-xs font-mono uppercase tracking-widest">
+                <a href="#" class="hover:text-cyan-400 transition">GitHub</a>
+                <span>//</span>
+                <a href="#" class="hover:text-cyan-400 transition">Twitter</a>
+                <span>//</span>
+                <a href="#" class="hover:text-cyan-400 transition">License</a>
+            </div>
+            <p class="text-gray-800 text-[10px] font-mono">
+                Running Three.js. WebGL 2.0 Enabled.<br>
+                &copy; 2024 ShaderLab Industries. All pixels reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+    <script>
+        // Standalone routing
+        function checkStandalone() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#standalone')) {
+                document.body.classList.add('is-standalone');
+
+                // If a specific shader is targeted: #standalone-Plasma Ball
+                if (hash.includes('-')) {
+                    const shaderName = decodeURIComponent(hash.split('-')[1]);
+                    // Wait for main.js to populate shaders if needed, or trigger via custom event
+                    window.dispatchEvent(new CustomEvent('activate-shader', { detail: { name: shaderName } }));
+                }
+            }
+        }
+        window.addEventListener('hashchange', checkStandalone);
+        // Small delay to let main.js initialize
+        setTimeout(checkStandalone, 100);
+    </script>
+</body>
+
+</html>

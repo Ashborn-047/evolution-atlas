@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living Badge | UI Evolution</title>
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/core/animations.css">
+    <link rel="stylesheet" href="../../css/chapters/fluid.css">
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-fluid);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../index.html">← Back to Library</a>
+            <span class="chapter-badge">Chapter 03 · Organic Flow</span>
+            <h1>Living Badge</h1>
+            <p class="narrative-text">A pulsing badge says "System Alive." The heartbeat provides subconscious assurance
+                of real-time, active data.</p>
+        </div>
+        <div class="demo-stage">
+            <span class="living-badge">ALIVE</span>
+        </div>
+        <div class="code-section">
+            <h2>CSS</h2>
+            <div class="code-block">
+                <pre>.living-badge {
+    padding: 10px 25px;
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--accent-fluid);
+    border: 1px solid var(--accent-fluid);
+    border-radius: 30px;
+    position: relative;
+}
+
+/* The pulsing ring */
+.living-badge::before {
+    content: '';
+    position: absolute;
+    top: -5px; left: -5px; right: -5px; bottom: -5px;
+    border-radius: 30px;
+    border: 1px solid var(--accent-fluid);
+    opacity: 0.4;
+    animation: pulse-border 2s infinite;
+}
+
+@keyframes pulse-border {
+    0% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.05); opacity: 0; }
+    100% { transform: scale(1); opacity: 0.4; }
+}</pre>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

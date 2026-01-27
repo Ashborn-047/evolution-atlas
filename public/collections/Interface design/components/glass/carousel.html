@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacked Cards | UI Evolution</title>
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/chapters/glass.css">
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-glass);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../index.html">← Back to Library</a>
+            <span class="chapter-badge">Chapter 02 · Glass Age</span>
+            <h1>Stacked Cards</h1>
+            <p class="narrative-text">The carousel evolved into a deck. Hover to expand and see all cards using blur and
+                scale on background items.</p>
+        </div>
+        <div class="demo-stage">
+            <div class="stack-wrapper">
+                <div class="stack-card">Message 1</div>
+                <div class="stack-card">Message 2</div>
+                <div class="stack-card">Message 3</div>
+            </div>
+        </div>
+        <div class="code-section">
+            <h2>CSS</h2>
+            <div class="code-block">
+                <pre>.stack-wrapper {
+    position: relative;
+    width: 300px;
+    height: 160px;
+}
+
+.stack-card {
+    position: absolute;
+    width: 100%;
+    height: 70px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Stacked state */
+.stack-card:nth-child(1) { transform: translateY(0) scale(1); z-index: 3; }
+.stack-card:nth-child(2) { transform: translateY(15px) scale(0.92); opacity: 0.6; }
+.stack-card:nth-child(3) { transform: translateY(30px) scale(0.84); opacity: 0.3; }
+
+/* Expanded on hover */
+.stack-wrapper:hover .stack-card:nth-child(2) { 
+    transform: translateY(80px) scale(1); 
+    opacity: 1; 
+}
+.stack-wrapper:hover .stack-card:nth-child(3) { 
+    transform: translateY(160px) scale(1); 
+    opacity: 1; 
+}</pre>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

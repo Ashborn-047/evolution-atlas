@@ -1,0 +1,104 @@
+/* =====================================================
+   CHROMA & KINETICS - Base Styles
+   Reset, Typography, Layout
+   ===================================================== */
+
+/* === RESET === */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* === BODY === */
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-base-dark);
+    color: var(--color-text-primary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* === TYPOGRAPHY === */
+h1,
+h2,
+h3,
+h4,
+.heading-font {
+    font-family: var(--font-heading);
+}
+
+.serif-font {
+    font-family: var(--font-serif);
+}
+
+/* === GRID BACKGROUND === */
+.grid-bg {
+    background-size: 50px 50px;
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* === GLASSMORPHISM === */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-lg);
+}
+
+/* === SMOOTH COLOR TRANSITIONS === */
+.color-transition {
+    transition:
+        background-color var(--transition-slow),
+        color var(--transition-slow),
+        border-color var(--transition-slow),
+        box-shadow var(--transition-slow);
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* === UTILITY STATES === */
+.btn-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+.active-sys {
+    border-color: var(--color-blue-500) !important;
+    background-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+.active-motion-btn {
+    border-color: var(--color-purple-500) !important;
+    background-color: rgba(168, 85, 247, 0.2) !important;
+    color: white !important;
+}
+
+/* === TRANSFORM STYLES === */
+.transform-style-3d {
+    transform-style: preserve-3d;
+}

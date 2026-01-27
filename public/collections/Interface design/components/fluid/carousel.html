@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squeeze Carousel | UI Evolution</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/chapters/fluid.css">
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-fluid);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../index.html">← Back to Library</a>
+            <span class="chapter-badge">Chapter 03 · Organic Flow</span>
+            <h1>Squeeze Carousel</h1>
+            <p class="narrative-text">Simulating soft-body physics. Items compress and skew based on drag velocity - the
+                faster you drag, the more they squash.</p>
+        </div>
+        <div class="demo-stage">
+            <div class="squeeze-carousel-wrapper">
+                <div class="squeeze-track" id="squeezeTrack">
+                    <div class="squeeze-item">1</div>
+                    <div class="squeeze-item">2</div>
+                    <div class="squeeze-item">3</div>
+                    <div class="squeeze-item">4</div>
+                </div>
+            </div>
+        </div>
+        <div class="code-section">
+            <h2>GSAP Draggable</h2>
+            <div class="code-block">
+                <pre>const track = document.getElementById('squeezeTrack');
+const items = track.querySelectorAll('.squeeze-item');
+
+Draggable.create(track, {
+    type: "x",
+    bounds: { minX: -200, maxX: 0 },
+    inertia: true,
+    
+    onDrag: function() {
+        // Calculate velocity-based squeeze
+        const velocity = this.getDirection() === "left" ? -1 : 1;
+        const squeeze = Math.min(Math.abs(this.deltaX) / 10, 0.3);
+        
+        items.forEach(item => {
+            gsap.to(item, {
+                scaleX: 1 - squeeze * 0.5,
+                skewX: velocity * squeeze * 15,
+                duration: 0.1
+            });
+        });
+    },
+    
+    onDragEnd: function() {
+        // Elastic reset
+        items.forEach(item => {
+            gsap.to(item, {
+                scaleX: 1,
+                skewX: 0,
+                duration: 0.8,
+                ease: "elastic.out(1, 0.3)"
+            });
+        });
+    }
+});</pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        gsap.registerPlugin(Draggable);
+        const track = document.getElementById('squeezeTrack');
+        const items = track.querySelectorAll('.squeeze-item');
+        Draggable.create(track, {
+            type: "x",
+            bounds: { minX: -200, maxX: 0 },
+            inertia: true,
+            onDrag: function () {
+                const squeeze = Math.min(Math.abs(this.deltaX) / 10, 0.3);
+                items.forEach(item => {
+                    gsap.to(item, { scaleX: 1 - squeeze * 0.5, skewX: (this.deltaX > 0 ? 1 : -1) * squeeze * 15, duration: 0.1 });
+                });
+            },
+            onDragEnd: function () {
+                items.forEach(item => {
+                    gsap.to(item, { scaleX: 1, skewX: 0, duration: 0.8, ease: "elastic.out(1, 0.3)" });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

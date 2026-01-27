@@ -1,0 +1,82 @@
+/* =====================================================
+   CHROMA & KINETICS - Animations
+   Reusable @keyframes definitions
+   ===================================================== */
+
+/* === FLOATING ANIMATION === */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(20px, -20px);
+    }
+}
+
+/* === GRADIENT FLOW === */
+@keyframes gradient-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* === PULSE GLOW === */
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+    }
+}
+
+/* === FADE IN UP === */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === DYNAMIC GRADIENT TEXT === */
+.dynamic-gradient-text {
+    background-size: 200% auto;
+    animation: gradient-flow 3s linear infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* === DYNAMIC GRADIENT BACKGROUND === */
+.dynamic-gradient-bg {
+    background-size: 200% 200%;
+    animation: gradient-flow 4s ease infinite;
+}
+
+/* === LANDING BLOB === */
+.landing-blob {
+    position: absolute;
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: 0;
+    animation: float 10s infinite ease-in-out;
+}

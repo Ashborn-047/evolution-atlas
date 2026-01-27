@@ -1,0 +1,23 @@
+/* =====================================================
+   CHROMA & KINETICS - Landing Page Styles
+   Hero, Timeline, Background Elements
+   ===================================================== */
+
+/* === TIMELINE LINE === */
+.timeline-line {
+    background: linear-gradient(to bottom,
+            #22c55e 0%,
+            #3b82f6 33%,
+            #f97316 66%,
+            #a855f7 100%);
+}
+
+/* === TIMELINE CARDS === */
+.timeline-card {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* === TIMELINE ITEM TRANSITIONS === */
+.timeline-content {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}

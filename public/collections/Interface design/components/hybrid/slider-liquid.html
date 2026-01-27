@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Slider | UI Evolution</title>
+    <meta name="description"
+        content="Liquid Slider - Draggable thumb that deforms like a liquid droplet using GSAP Draggable.">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/chapters/hybrid.css">
+
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .demo-header a:hover {
+            color: white;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-hybrid);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+
+        .highlight {
+            color: var(--accent-hybrid);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../index.html">← Back to Library</a>
+            <span class="chapter-badge">Chapter 04 · Hybrid Architecture</span>
+            <h1>Liquid Slider</h1>
+            <p class="narrative-text">
+                A slider thumb that deforms like a liquid droplet when dragged. Combines a solid track with fluid
+                physics using GSAP Draggable's border-radius morphing.
+            </p>
+        </div>
+
+        <div class="demo-stage">
+            <div class="liquid-slider-track">
+                <div class="liquid-slider-thumb" id="liquidThumb"></div>
+            </div>
+        </div>
+
+        <div class="code-section">
+            <h2>HTML Structure</h2>
+            <div class="code-block">
+                <pre>&lt;div class="liquid-slider-track"&gt;
+    &lt;div class="liquid-slider-thumb" id="liquidThumb"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+            </div>
+
+            <h2>CSS: Track and Thumb</h2>
+            <div class="code-block">
+                <pre>.liquid-slider-track {
+    width: 250px;
+    height: 10px;
+    background: #333;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.liquid-slider-thumb {
+    width: 30px;
+    height: 30px;
+    background: var(--accent-hybrid);  /* Purple */
+    <span class="highlight">border-radius: 50%;</span>  /* Circle by default */
+    position: absolute;
+    top: 50%; left: 0;
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    box-shadow: 0 0 15px var(--accent-hybrid);
+    
+    /* Smooth radius transitions */
+    transition: border-radius 0.2s;
+}</pre>
+            </div>
+
+            <h2>GSAP Draggable with Deformation</h2>
+            <div class="code-block">
+                <pre>Draggable.create("#liquidThumb", {
+    type: "x",
+    bounds: ".liquid-slider-track",
+    
+    <span class="highlight">onDragStart</span>: function() {
+        // Deform to droplet shape
+        gsap.to(this.target, {
+            borderRadius: "40% 60% 60% 40% / 40% 50% 50% 60%",
+            scale: 1.2,
+            duration: 0.2
+        });
+    },
+    
+    <span class="highlight">onDragEnd</span>: function() {
+        // Return to circle
+        gsap.to(this.target, {
+            borderRadius: "50%",
+            scale: 1,
+            duration: 0.4,
+            ease: "elastic.out(1, 0.5)"
+        });
+    }
+});</pre>
+            </div>
+
+            <h2>Border-Radius Deformation</h2>
+            <div class="code-block">
+                <pre>/* Complex border-radius syntax:
+   
+   border-radius: TL TR BR BL / TL TR BR BL;
+                  ──────────────  ──────────────
+                  Horizontal      Vertical
+                  radii           radii
+   
+   "40% 60% 60% 40% / 40% 50% 50% 60%"
+   
+   This creates an asymmetric blob shape that looks
+   like a water droplet being dragged.
+   
+   When released, elastic.out bounces it back to 50%
+   (a perfect circle) with a satisfying wobble. */</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        gsap.registerPlugin(Draggable);
+
+        Draggable.create("#liquidThumb", {
+            type: "x",
+            bounds: ".liquid-slider-track",
+
+            onDragStart: function () {
+                gsap.to(this.target, {
+                    borderRadius: "40% 60% 60% 40% / 40% 50% 50% 60%",
+                    scale: 1.2,
+                    duration: 0.2
+                });
+            },
+
+            onDragEnd: function () {
+                gsap.to(this.target, {
+                    borderRadius: "50%",
+                    scale: 1,
+                    duration: 0.4,
+                    ease: "elastic.out(1, 0.5)"
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

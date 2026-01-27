@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chroma & Kinetics | Design System Lab</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS: Core -->
+    <link rel="stylesheet" href="css/core/variables.css">
+    <link rel="stylesheet" href="css/core/base.css">
+    <link rel="stylesheet" href="css/core/animations.css">
+
+    <!-- CSS: Sections -->
+    <link rel="stylesheet" href="css/sections/landing.css">
+    <link rel="stylesheet" href="css/sections/lab.css">
+
+    <!-- CSS: Components -->
+    <link rel="stylesheet" href="css/components/effects.css">
+    <link rel="stylesheet" href="css/sections/carousel.css">
+    <link rel="stylesheet" href="css/sections/controls.css">
+</head>
+
+<body class="grid-bg min-h-screen flex flex-col relative text-sm overflow-hidden" id="main-body">
+
+    <!-- ============================================ -->
+    <!-- EXTENDED LANDING PAGE (Scrollable) -->
+    <!-- ============================================ -->
+    <div id="landing-page" class="fixed inset-0 z-[100] flex flex-col bg-[#020617] overflow-y-auto scroll-smooth">
+        <!-- Background Elements -->
+        <div class="fixed inset-0 pointer-events-none">
+            <div
+                class="landing-blob w-96 h-96 bg-blue-600 rounded-full top-1/4 left-1/4 mix-blend-screen animate-pulse">
+            </div>
+            <div class="landing-blob w-80 h-80 bg-purple-600 rounded-full bottom-1/4 right-1/4 mix-blend-screen"
+                style="animation-delay: 2s;"></div>
+        </div>
+
+        <!-- SECTION 1: HERO -->
+        <section class="min-h-screen flex flex-col items-center justify-center text-center p-6 relative z-10">
+            <div class="space-y-4 opacity-0 translate-y-10" id="landing-text">
+                <p class="text-xs font-mono text-blue-400 tracking-[0.3em] uppercase mb-4">Design System Simulation v5.0
+                </p>
+                <h1 class="text-6xl md:text-8xl font-bold text-white heading-font tracking-tighter leading-[0.9]">
+                    Chroma <br> <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">&
+                        Kinetics.</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 serif-font italic max-w-2xl mx-auto mt-6">
+                    "Where algorithm meets aesthetic."
+                </p>
+            </div>
+
+            <div class="mt-12 opacity-0 translate-y-10 flex flex-col items-center gap-4" id="landing-controls">
+                <span class="text-xs text-gray-500 uppercase tracking-widest animate-bounce mt-8">Scroll to Explore
+                    History</span>
+            </div>
+
+        </section>
+
+        <!-- SECTION 2: TIMELINE -->
+        <section class="relative z-10 w-full max-w-5xl mx-auto px-6 py-20">
+            <div class="text-center mb-24">
+                <h2 class="text-4xl md:text-5xl font-bold heading-font mb-4 text-white">The Evolution of Chroma</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg serif-font italic">Before we manipulate the spectrum,
+                    we must understand how color shaped the digital frontier.</p>
+            </div>
+
+            <div class="relative">
+                <!-- Center Line -->
+                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px timeline-line"></div>
+
+                <!-- ERA 1: 1995 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between mb-24 timeline-item">
+                    <div class="md:w-5/12 mb-6 md:mb-0 order-2 md:order-1 timeline-content text-right pr-0 md:pr-12">
+                        <h3 class="text-2xl font-bold text-green-400 heading-font mb-2">1995: The Safe Colors</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            In the era of 8-bit monitors and CRT screens, designers were limited to <strong>216 "Web
+                                Safe" colors</strong>. Design was dictated by hardware limitations. High contrast neon
+                            text on black backgrounds wasn't just a style; it was a necessity for legibility on
+                            flickering screens.
+                        </p>
+                    </div>
+                    <div
+                        class="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-green-500 rounded-full border-4 border-[#020617] z-20">
+                    </div>
+                    <div class="md:w-5/12 order-1 md:order-2 pl-12 md:pl-12">
+                        <div class="timeline-card p-4 rounded-lg border-green-500/30 border">
+                            <div class="font-mono text-xs text-green-500 mb-2">&lt;body bgcolor="#000000"&gt;</div>
+                            <div class="grid grid-cols-6 gap-1">
+                                <div class="h-4 bg-[#FF00FF]"></div>
+                                <div class="h-4 bg-[#00FF00]"></div>
+                                <div class="h-4 bg-[#00FFFF]"></div>
+                                <div class="h-4 bg-[#FFFF00]"></div>
+                                <div class="h-4 bg-[#FFFFFF]"></div>
+                                <div class="h-4 bg-[#0000FF]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ERA 2: 2005 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between mb-24 timeline-item">
+                    <div class="md:w-5/12 order-1 pr-12 md:pr-12 text-right md:text-left">
+                        <div
+                            class="timeline-card p-6 rounded-xl border-blue-500/30 border bg-gradient-to-b from-[#1e293b] to-[#0f172a]">
+                            <button
+                                class="w-full py-3 rounded-full bg-gradient-to-b from-blue-400 to-blue-600 shadow-[0_4px_6px_rgba(0,0,0,0.3)] border-t border-blue-300 text-white font-bold text-sm">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full border-4 border-[#020617] z-20">
+                    </div>
+                    <div class="md:w-5/12 mb-6 md:mb-0 order-2 pl-12 timeline-content">
+                        <h3 class="text-2xl font-bold text-blue-400 heading-font mb-2">2005: Skeuomorphism</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            With the rise of Web 2.0 and the iPhone, color was used to mimic reality. <strong>Gradients,
+                                drop shadows, and glossy reflections</strong> taught users how to interact with digital
+                            interfaces by making them look like physical buttons. Color served the purpose of
+                            affordance.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ERA 3: 2013 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between mb-24 timeline-item">
+                    <div class="md:w-5/12 mb-6 md:mb-0 order-2 md:order-1 timeline-content text-right pr-0 md:pr-12">
+                        <h3 class="text-2xl font-bold text-orange-400 heading-font mb-2">2013: The Flat Revolution</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Apple's iOS 7 and Google's Material Design stripped away the textures. We entered an era of
+                            <strong>bold, solid colors</strong> and minimalism. Color became the primary tool for
+                            hierarchy, removing the noise to focus purely on content and typography.
+                        </p>
+                    </div>
+                    <div
+                        class="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-[#020617] z-20">
+                    </div>
+                    <div class="md:w-5/12 order-1 md:order-2 pl-12 md:pl-12">
+                        <div class="timeline-card p-6 rounded-lg flex gap-4 items-center">
+                            <div
+                                class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white shadow-lg font-bold">
+                                F</div>
+                            <div class="h-2 w-24 bg-gray-700 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ERA 4: 2025 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between mb-32 timeline-item">
+                    <div class="md:w-5/12 order-1 pr-12 md:pr-12">
+                        <div class="timeline-card p-6 rounded-2xl border border-white/10 backdrop-blur-xl bg-white/5">
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="w-8 h-8 rounded-lg bg-purple-500"></div>
+                                <div class="px-2 py-1 rounded border border-white/20 text-[10px]">Dark Mode</div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="h-2 w-full bg-white/10 rounded animate-pulse"></div>
+                                <div class="h-2 w-2/3 bg-white/10 rounded animate-pulse"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-purple-500 rounded-full border-4 border-[#020617] z-20">
+                    </div>
+                    <div class="md:w-5/12 mb-6 md:mb-0 order-2 pl-12 timeline-content">
+                        <h3 class="text-2xl font-bold text-purple-400 heading-font mb-2">2025+: Adaptive Systems</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Today, color is dynamic. <strong>Semantic tokens, dark mode adaptation, and generative
+                                palettes</strong> (like Material You) mean color is no longer static; it reacts to the
+                            user's environment and preferences. We design systems, not just pages.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom CTA -->
+            <div class="text-center pb-20">
+                <p class="text-gray-500 mb-6 uppercase tracking-widest text-xs">You are ready to build.</p>
+                <button onclick="enterLab()"
+                    class="px-12 py-4 bg-white text-black font-bold rounded-full transition-transform hover:scale-105 shadow-2xl">
+                    Enter the Laboratory
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <footer class="border-t border-white/5 pt-16 pb-8 px-4">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Footer Top -->
+                    <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-12">
+                        <!-- Brand -->
+                        <div class="max-w-sm">
+                            <h3 class="text-2xl font-bold text-white mb-3">Chroma & <span
+                                    class="text-gray-500">Kinetics</span></h3>
+                            <p class="text-gray-500 text-sm leading-relaxed">
+                                Exploring the intersection of color theory and dynamic design systems.
+                                A study in computational aesthetics.
+                            </p>
+                        </div>
+
+                        <!-- Links -->
+                        <div class="flex gap-16">
+                            <div>
+                                <h4 class="text-xs uppercase font-bold text-gray-400 tracking-widest mb-4">Explore</h4>
+                                <ul class="space-y-2">
+                                    <li><a href="#"
+                                            class="text-gray-500 hover:text-white text-sm transition-colors">Timeline</a>
+                                    </li>
+                                    <li><a href="#" onclick="enterLab()"
+                                            class="text-gray-500 hover:text-white text-sm transition-colors">Laboratory</a>
+                                    </li>
+                                    <li><a href="#"
+                                            class="text-gray-500 hover:text-white text-sm transition-colors">Philosophy</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-xs uppercase font-bold text-gray-400 tracking-widest mb-4">Resources
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li><a href="https://github.com" target="_blank"
+                                            class="text-gray-500 hover:text-white text-sm transition-colors">GitHub</a>
+                                    </li>
+                                    <li><a href="#"
+                                            class="text-gray-500 hover:text-white text-sm transition-colors">Documentation</a>
+                                    </li>
+                                    <li><a href="#"
+                                            class="text-gray-500 hover:text-white text-sm transition-colors">Credits</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Bottom -->
+                    <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5">
+                        <p class="text-gray-600 text-xs">© 2025 Chroma & Kinetics. Design System Study.</p>
+                        <div class="flex items-center gap-4 mt-4 md:mt-0">
+                            <span class="text-gray-600 text-xs">Built with</span>
+                            <div class="flex gap-2">
+                                <span
+                                    class="text-[10px] px-2 py-1 rounded bg-white/5 text-gray-400 border border-white/10">Tailwind</span>
+                                <span
+                                    class="text-[10px] px-2 py-1 rounded bg-white/5 text-gray-400 border border-white/10">GSAP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- MAIN APP INTERFACE -->
+    <!-- ============================================ -->
+    <div id="app-interface"
+        class="opacity-0 pointer-events-none fixed inset-0 flex flex-col bg-[#020617] transition-opacity duration-1000">
+
+        <!-- Navbar -->
+        <nav
+            class="w-full h-16 border-b border-white/5 bg-[#020617]/80 backdrop-blur-md flex justify-between items-center px-6 sticky top-0 z-50">
+            <div class="flex items-center gap-4">
+                <button onclick="exitLab()"
+                    class="p-2 rounded-full border border-white/10 hover:bg-white/10 text-gray-400 hover:text-white transition-colors group"
+                    title="Back to Start">
+                    <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                </button>
+                <div class="flex items-center gap-3 border-l border-white/10 pl-4">
+                    <div class="w-6 h-6 rounded bg-gradient-to-br from-blue-500 to-purple-600"></div>
+                    <span class="text-lg font-bold tracking-tight heading-font">Chroma<span
+                            class="opacity-50">Lab</span></span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <!-- Hybrid Toggle -->
+                <div
+                    class="flex items-center gap-3 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 cursor-pointer hover:bg-white/10 transition-colors">
+                    <span class="text-xs uppercase font-bold text-gray-400 hidden md:inline">Hybrid Lab</span>
+                    <span class="text-xs uppercase font-bold text-gray-400 md:hidden">Hybrid</span>
+                    <div
+                        class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                        <input type="checkbox" name="toggle" id="hybridToggle"
+                            class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer transition-all duration-300 left-0" />
+                        <label for="hybridToggle"
+                            class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-700 cursor-pointer transition-colors duration-300"></label>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Layout -->
+        <div class="flex flex-col lg:flex-row lg:h-[calc(100vh-64px)] lg:overflow-hidden">
+
+            <!-- LEFT PANEL -->
+            <aside
+                class="w-full lg:w-[400px] shrink-0 border-r border-white/5 bg-[#020617]/50 backdrop-blur-sm flex flex-col lg:h-full lg:overflow-y-auto">
+                <div class="p-6 space-y-8">
+                    <!-- Base Architecture -->
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Base Architecture</h3>
+                            <span id="base-label"
+                                class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded border border-blue-500/30">Structure</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="setBase('monochromatic')"
+                                class="base-btn p-3 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-left transition-all active-sys"><span
+                                    class="block text-xs font-bold mb-1">Monochromatic</span>
+                                <div
+                                    class="h-1 w-full bg-gradient-to-r from-blue-500 to-blue-900 rounded-full opacity-50">
+                                </div>
+                            </button>
+                            <button onclick="setBase('analogous')"
+                                class="base-btn p-3 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-left transition-all"><span
+                                    class="block text-xs font-bold mb-1">Analogous</span>
+                                <div
+                                    class="h-1 w-full bg-gradient-to-r from-teal-400 to-green-500 rounded-full opacity-50">
+                                </div>
+                            </button>
+                            <button onclick="setBase('complementary')"
+                                class="base-btn p-3 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-left transition-all"><span
+                                    class="block text-xs font-bold mb-1">Complementary</span>
+                                <div
+                                    class="h-1 w-full bg-gradient-to-r from-orange-500 to-blue-600 rounded-full opacity-50">
+                                </div>
+                            </button>
+                            <button onclick="setBase('triadic')"
+                                class="base-btn p-3 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-left transition-all"><span
+                                    class="block text-xs font-bold mb-1">Triadic</span>
+                                <div
+                                    class="h-1 w-full bg-gradient-to-r from-purple-500 via-yellow-500 to-cyan-500 rounded-full opacity-50">
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hybrid & Variant Controls -->
+                    <div id="hybrid-controls" class="hidden overflow-hidden transition-all duration-500">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Accent Dynamics
+                            </h3>
+                            <span
+                                class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30">Interaction</span>
+                        </div>
+                        <div class="grid grid-cols-4 gap-2">
+                            <button onclick="setMix('monochromatic')"
+                                class="mix-btn p-2 rounded border border-white/10 hover:bg-white/5 text-[10px] font-bold text-center transition-all">Mono</button>
+                            <button onclick="setMix('analogous')"
+                                class="mix-btn p-2 rounded border border-white/10 hover:bg-white/5 text-[10px] font-bold text-center transition-all">Ana</button>
+                            <button onclick="setMix('complementary')"
+                                class="mix-btn p-2 rounded border border-white/10 hover:bg-white/5 text-[10px] font-bold text-center transition-all">Comp</button>
+                            <button onclick="setMix('triadic')"
+                                class="mix-btn p-2 rounded border border-white/10 hover:bg-white/5 text-[10px] font-bold text-center transition-all">Tri</button>
+                        </div>
+                    </div>
+
+                    <!-- Motion Era & Element Controls -->
+                    <div id="motion-controls" class="hidden overflow-hidden transition-all duration-500">
+                        <!-- Motion Era Selector -->
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-xs font-bold text-purple-400 uppercase tracking-widest">Motion Era</h3>
+                                <button id="auto-recommend-btn" onclick="toggleAutoRecommend()"
+                                    class="text-[9px] bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded border border-purple-500/30 hover:bg-purple-500/30 transition-colors">
+                                    🔄 Auto
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2">
+                                <button onclick="setMotionEra('solid')"
+                                    class="era-btn p-2 rounded border border-white/10 hover:bg-white/5 text-[10px] font-bold text-center transition-all text-gray-400"
+                                    data-era="solid">Solid</button>
+                                <button onclick="setMotionEra('glass')"
+                                    class="era-btn p-2 rounded border border-white/10 hover:bg-white/5 text-[10px] font-bold text-center transition-all text-gray-400"
+                                    data-era="glass">Glass</button>
+                                <button onclick="setMotionEra('organic')"
+                                    class="era-btn p-2 rounded border border-white/10 hover:bg-white/5 text-[10px] font-bold text-center transition-all text-gray-400"
+                                    data-era="organic">Organic</button>
+                                <button onclick="setMotionEra('hybrid')"
+                                    class="era-btn active-era-btn p-2 rounded border border-purple-500 bg-purple-500/20 text-[10px] font-bold text-center transition-all text-white"
+                                    data-era="hybrid">Hybrid</button>
+                            </div>
+                        </div>
+
+                        <!-- Element Controls Header -->
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-widest">Element Animation</h3>
+                            <span
+                                class="text-[10px] bg-cyan-500/20 text-cyan-400 px-2 py-0.5 rounded border border-cyan-500/30">6
+                                Components</span>
+                        </div>
+
+                        <!-- 6 Element Category Buttons -->
+                        <div class="grid grid-cols-3 gap-2 mb-4">
+                            <button onclick="openElementPanel('card')"
+                                class="element-btn p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-center transition-all hover:border-cyan-500/50">
+                                <span class="text-[10px] font-bold text-white">Card</span>
+                            </button>
+                            <button onclick="openElementPanel('button')"
+                                class="element-btn p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-center transition-all hover:border-cyan-500/50">
+                                <span class="text-[10px] font-bold text-white">Button</span>
+                            </button>
+                            <button onclick="openElementPanel('typography')"
+                                class="element-btn p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-center transition-all hover:border-cyan-500/50">
+                                <span class="text-[10px] font-bold text-white">Type</span>
+                            </button>
+                            <button onclick="openElementPanel('navigation')"
+                                class="element-btn p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-center transition-all hover:border-cyan-500/50">
+                                <span class="text-[10px] font-bold text-white">Nav</span>
+                            </button>
+                            <button onclick="openElementPanel('carousel')"
+                                class="element-btn p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-center transition-all hover:border-cyan-500/50">
+                                <span class="text-[10px] font-bold text-white">Carousel</span>
+                            </button>
+                            <button onclick="openElementPanel('toggle')"
+                                class="element-btn p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-center transition-all hover:border-cyan-500/50">
+                                <span class="text-[10px] font-bold text-white">Toggle</span>
+                            </button>
+                        </div>
+
+                        <!-- Active Element Panel (dynamic content) -->
+                        <div id="element-params-panel"
+                            class="hidden p-3 rounded-lg bg-white/[0.02] border border-cyan-500/20">
+                            <div class="flex justify-between items-center mb-3">
+                                <span id="element-panel-title"
+                                    class="text-[11px] font-bold text-cyan-400 uppercase"></span>
+                                <button onclick="closeElementPanel()"
+                                    class="text-gray-500 hover:text-white text-sm">✕</button>
+                            </div>
+                            <div id="element-panel-content"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-end mb-4">
+                            <div>
+                                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest">Theme Variant</h3>
+                                <h2 id="variant-title" class="text-xl font-bold mt-1 text-white">Cyberpunk Neon</h2>
+                            </div>
+                            <span id="variant-counter" class="text-xs font-mono text-gray-400">01/10</span>
+                        </div>
+                        <input type="range" min="0" max="9" value="0" id="variantSlider"
+                            class="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-white">
+                        <div class="flex justify-between text-[10px] text-gray-600 mt-2 font-mono">
+                            <span>Mute</span>
+                            <span>Vibrant</span>
+                            <span>Dark</span>
+                            <span>Light</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Generated Spectrum
+                        </h3>
+                        <div class="grid grid-cols-5 gap-2" id="spectrum-grid"></div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Palette Architecture
+                        </h3>
+                        <div id="hierarchy-panel" class="space-y-3"></div>
+                    </div>
+
+                    <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                        <h4 class="text-xs font-bold text-white mb-2 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            System Logic
+                        </h4>
+                        <p id="narrative-text" class="text-xs text-gray-400 leading-relaxed">Loading...</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT PANEL: PREVIEW CANVAS -->
+            <main
+                class="flex-grow bg-[#0f172a] relative overflow-y-auto scroll-smooth color-transition min-h-[500px] perspective-[1000px]"
+                id="preview-canvas">
+                <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30">
+                    <div id="shapes-container"></div>
+                </div>
+
+                <div class="relative z-10 max-w-5xl mx-auto p-8 lg:p-12 space-y-20">
+                    <header class="text-center space-y-6 py-10">
+                        <span id="hero-badge"
+                            class="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border color-transition">
+                            System V.5.0
+                        </span>
+                        <h1 id="hero-title"
+                            class="text-6xl md:text-8xl font-bold tracking-tighter color-transition heading-font">
+                            Design <br> Language.
+                        </h1>
+                        <p id="hero-subtitle" class="text-xl max-w-2xl mx-auto opacity-70 serif-font italic">
+                            Exploring the intersection of algorithm and aesthetics through dynamic color theory.
+                        </p>
+                    </header>
+
+                    <!-- TYPOGRAPHY -->
+                    <section>
+                        <div class="flex items-center gap-4 mb-8 border-b border-white/10 pb-4">
+                            <span class="text-xs font-mono opacity-50">01</span>
+                            <h2 class="text-xl font-bold uppercase tracking-widest">Typography</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            <div class="space-y-8">
+                                <div><span class="text-[10px] uppercase opacity-50 mb-2 block">Display H1</span>
+                                    <h1 class="text-5xl font-bold heading-font color-transition typo-h1">The quick brown
+                                        fox.</h1>
+                                </div>
+                                <div><span class="text-[10px] uppercase opacity-50 mb-2 block">Heading H2</span>
+                                    <h2 class="text-3xl font-bold heading-font color-transition typo-h2">Jumps over the
+                                        lazy dog.</h2>
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <div><span class="text-[10px] uppercase opacity-50 mb-2 block">Body Large</span>
+                                    <p class="text-lg leading-relaxed opacity-80 serif-font color-transition typo-body">
+                                        "Color does not add a pleasant quality to design - it reinforces it." - Pierre
+                                        Bonnard.</p>
+                                </div>
+                                <blockquote class="pl-4 border-l-2 color-transition quote-box">
+                                    <p class="italic opacity-90">"Good design is obvious. Great design is transparent."
+                                    </p>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SURFACES -->
+                    <section>
+                        <div class="flex items-center gap-4 mb-8 border-b border-white/10 pb-4">
+                            <span class="text-xs font-mono opacity-50">02</span>
+                            <h2 class="text-xl font-bold uppercase tracking-widest">Surfaces</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div
+                                class="p-6 rounded-2xl border color-transition card-solid group transition-all duration-300 transform-style-3d">
+                                <div
+                                    class="w-10 h-10 rounded-full mb-4 flex items-center justify-center color-transition icon-bg">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-bold mb-2 heading-font">Solid Surface</h3>
+                                <p class="text-sm opacity-60 mb-4">High contrast container.</p>
+                            </div>
+                            <div
+                                class="p-6 rounded-2xl border backdrop-blur-md color-transition card-glass group transition-all duration-300 transform-style-3d">
+                                <div
+                                    class="w-10 h-10 rounded-full mb-4 flex items-center justify-center color-transition icon-bg">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-bold mb-2 heading-font">Glass Surface</h3>
+                                <p class="text-sm opacity-60 mb-4">Subtle background integration.</p>
+                            </div>
+                            <div
+                                class="p-6 rounded-2xl border-2 border-dashed color-transition card-outline group transition-all duration-300 transform-style-3d">
+                                <div
+                                    class="w-10 h-10 rounded-full mb-4 flex items-center justify-center color-transition icon-bg">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-bold mb-2 heading-font">Bordered</h3>
+                                <p class="text-sm opacity-60 mb-4">Structural boundaries.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- CAROUSEL (DUAL MODE) -->
+                    <section id="carousel-section">
+                        <div class="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xs font-mono opacity-50">03</span>
+                                <h2 class="text-xl font-bold uppercase tracking-widest">Carousel</h2>
+                            </div>
+                            <!-- Static Controls -->
+                            <div id="carousel-controls" class="flex gap-2">
+                                <button onclick="scrollCarousel(-1)"
+                                    class="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors"><svg
+                                        class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 19l-7-7 7-7"></path>
+                                    </svg></button>
+                                <button onclick="scrollCarousel(1)"
+                                    class="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors"><svg
+                                        class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7"></path>
+                                    </svg></button>
+                            </div>
+                        </div>
+
+                        <!-- Container: JS switches content between Static Grid and 3D Pivot -->
+                        <div id="carousel-wrapper"
+                            class="w-full min-h-[400px] relative flex items-center justify-center">
+                            <!-- Injected by JS -->
+                        </div>
+                    </section>
+
+                    <section class="pb-20">
+                        <div class="flex items-center gap-4 mb-8 border-b border-white/10 pb-4">
+                            <span class="text-xs font-mono opacity-50">04</span>
+                            <h2 class="text-xl font-bold uppercase tracking-widest">Controls & Inputs</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                            <div class="space-y-6">
+                                <div class="relative group">
+                                    <label
+                                        class="text-xs font-bold uppercase tracking-widest mb-2 block opacity-60">User
+                                        Email</label>
+                                    <input type="text" placeholder="name@company.com"
+                                        class="w-full bg-transparent border-b py-3 text-lg focus:outline-none color-transition input-field">
+                                    <div
+                                        class="absolute bottom-0 left-0 h-[2px] w-0 transition-all duration-300 group-hover:w-full input-highlight">
+                                    </div>
+                                </div>
+                                <div class="flex gap-4 pt-4">
+                                    <button
+                                        class="px-8 py-3 rounded-lg font-bold shadow-lg transform hover:-translate-y-1 transition-all btn-primary color-transition">Primary</button>
+                                    <button
+                                        class="px-8 py-3 rounded-lg font-bold border transform hover:-translate-y-1 transition-all btn-secondary color-transition">Secondary</button>
+                                </div>
+                            </div>
+                            <div class="space-y-6 p-6 rounded-xl border color-transition status-panel">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold">System Notifications</span>
+                                    <div
+                                        class="w-12 h-6 rounded-full relative cursor-pointer color-transition toggle-bg">
+                                        <div
+                                            class="absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow-sm toggle-dot transition-all">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <span
+                                        class="px-3 py-1 rounded-full text-xs font-bold border color-transition tag-success">Active</span>
+                                    <span
+                                        class="px-3 py-1 rounded-full text-xs font-bold border color-transition tag-warning">Pending</span>
+                                    <span
+                                        class="px-3 py-1 rounded-full text-xs font-bold border color-transition tag-error">Error</span>
+                                </div>
+                                <div class="w-full bg-black/20 h-2 rounded-full overflow-hidden mt-4">
+                                    <div class="h-full w-[65%] color-transition progress-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- JS: Core -->
+    <script src="js/core/utils.js"></script>
+
+    <!-- JS: Data - Palettes (load individual files first, then index) -->
+    <script src="js/data/palettes/monochromatic.js"></script>
+    <script src="js/data/palettes/analogous.js"></script>
+    <script src="js/data/palettes/complementary.js"></script>
+    <script src="js/data/palettes/triadic.js"></script>
+    <script src="js/data/palettes/hybrid.js"></script>
+    <script src="js/data/palettes/index.js"></script>
+    <script src="js/data/philosophy.js"></script>
+
+    <!-- JS: Data - Motions (load eras and elements first, then index) -->
+    <script src="js/data/motions/eras/solid.js"></script>
+    <script src="js/data/motions/eras/glass.js"></script>
+    <script src="js/data/motions/eras/organic.js"></script>
+    <script src="js/data/motions/eras/hybrid.js"></script>
+    <script src="js/data/motions/elements/card.js"></script>
+    <script src="js/data/motions/elements/button.js"></script>
+    <script src="js/data/motions/elements/typography.js"></script>
+    <script src="js/data/motions/elements/navigation.js"></script>
+    <script src="js/data/motions/elements/carousel.js"></script>
+    <script src="js/data/motions/elements/toggle.js"></script>
+    <script src="js/data/motions/index.js"></script>
+
+    <!-- JS: Sections -->
+    <script src="js/sections/landing.js"></script>
+    <script src="js/sections/lab.js"></script>
+    <script src="js/sections/carousel.js"></script>
+    <script src="js/sections/canvas.js"></script>
+    <script src="js/sections/animations.js"></script>
+
+    <!-- JS: Main -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

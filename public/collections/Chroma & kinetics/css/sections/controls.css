@@ -1,0 +1,54 @@
+/* =====================================================
+   CHROMA & KINETICS - Controls & Preview Canvas Styles
+   Buttons, Inputs, Status Panels, Cards
+   ===================================================== */
+
+/* === CARD SURFACES === */
+.card-solid,
+.card-glass,
+.card-outline {
+    transition: all var(--transition-normal);
+}
+
+/* === INPUT HIGHLIGHT === */
+.input-highlight {
+    height: 2px;
+    width: 0;
+    transition: width var(--transition-normal);
+}
+
+.group:hover .input-highlight {
+    width: 100%;
+}
+
+/* === BUTTON STATES === */
+.btn-primary,
+.btn-secondary {
+    transition: all var(--transition-normal);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: translateY(-4px);
+}
+
+/* === STATUS TAGS === */
+.tag-success,
+.tag-warning,
+.tag-error {
+    transition: all var(--transition-fast);
+}
+
+/* === TOGGLE COMPONENT === */
+.toggle-bg {
+    transition: background-color var(--transition-normal);
+}
+
+.toggle-dot {
+    transition: all var(--transition-normal);
+}
+
+/* === PROGRESS BAR === */
+.progress-bar {
+    transition: width var(--transition-slow), background-color var(--transition-slow);
+}

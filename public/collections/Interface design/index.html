@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Evolution of UI | Component Atlas</title>
+    <meta name="description"
+        content="A categorized breakdown of User Interface history. Witness how specific components mutated over three distinct eras of digital design.">
+
+    <!-- GSAP Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="css/core/variables.css">
+    <link rel="stylesheet" href="css/core/base.css">
+    <link rel="stylesheet" href="css/core/animations.css">
+
+    <!-- Chapter CSS (load only what's needed per page) -->
+    <link rel="stylesheet" href="css/chapters/solid.css">
+    <link rel="stylesheet" href="css/chapters/glass.css">
+    <link rel="stylesheet" href="css/chapters/fluid.css">
+    <link rel="stylesheet" href="css/chapters/hybrid.css">
+    <link rel="stylesheet" href="css/chapters/shared.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/chapters/hero.css">
+    <style>
+        /* Standalone Mode Support */
+        body.is-standalone .hero,
+        body.is-standalone nav,
+        body.is-standalone .footer-trigger,
+        body.is-standalone footer,
+        body.is-standalone section:not(.active-standalone) {
+            display: none !important;
+        }
+
+        body.is-standalone section.active-standalone {
+            padding-top: 60px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">DESIGN CHRONICLES</div>
+        <a href="components/index.html"
+            style="font-size: 0.9rem; opacity: 0.6; color: white; text-decoration: none; pointer-events: auto;">Component
+            Library →</a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <!-- Animated Background Blobs -->
+        <div class="hero-bg">
+            <div class="hero-blob"></div>
+            <div class="hero-blob"></div>
+            <div class="hero-blob"></div>
+            <div class="hero-blob"></div>
+        </div>
+        <div class="hero-grid"></div>
+
+        <!-- Main Content -->
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="glow-text">Interface</span>
+                <span class="evolution-text">Evolution.</span>
+            </h1>
+            <p class="hero-subtitle">
+                A categorized breakdown of User Interface history. Witness how specific components—Cards, Navigation,
+                Controls—mutated over three distinct eras of digital design.
+            </p>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="hero-scroll">Scroll</div>
+    </section>
+
+    <!-- CHAPTER 1: SOLID STATE -->
+    <section class="solid-theme">
+        <div class="container">
+            <div class="chapter-header">
+                <span class="chapter-badge">Chapter 01</span>
+                <h2>The Solid State</h2>
+                <p class="narrative-text">Era of mechanical metaphors. High contrast, rigid borders, and physical click
+                    states.</p>
+            </div>
+
+            <div class="component-grid">
+                <!-- 1. CARD -->
+                <div class="showcase-item">
+                    <span class="component-label">01. The Card</span>
+                    <div class="component-stage">
+                        <div class="card-solid">
+                            <h3>File Record</h3>
+                            <p>Content contained in rigid boxes. Hover triggers a mechanical shift and negative filter.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Mechanical Displacement</span>
+                        <p class="narrative-desc">
+                            In the early web, "depth" was a binary illusion. Cards didn't float; they physically shifted
+                            position on X/Y axes to mimic a depressed button.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2. NAV -->
+                <div class="showcase-item">
+                    <span class="component-label">02. Navigation</span>
+                    <div class="component-stage">
+                        <div class="retro-tab-wrapper">
+                            <div class="retro-tab-header">
+                                <div class="retro-tab active" onclick="switchTab(this)">SYS</div>
+                                <div class="retro-tab" onclick="switchTab(this)">NET</div>
+                                <div class="retro-tab" onclick="switchTab(this)">I/O</div>
+                            </div>
+                            <div class="retro-tab-content">> READY...</div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">The File Folder Metaphor</span>
+                        <p class="narrative-desc">
+                            Navigation was modeled after physical filing cabinets. Tabs offered a clear, skeletal
+                            hierarchy.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3. BUTTON -->
+                <div class="showcase-item">
+                    <span class="component-label">03. The Button</span>
+                    <div class="component-stage">
+                        <button class="btn-chiseled">EXECUTE</button>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Tactile Feedback</span>
+                        <p class="narrative-desc">
+                            Buttons were designed to look heavy. The "chiseled" shadow effect told users: "This is
+                            clickable."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 4. BADGE -->
+                <div class="showcase-item">
+                    <span class="component-label">04. Status Tags</span>
+                    <div class="component-stage">
+                        <div class="system-badge-row">
+                            <div class="system-badge">V 1.0</div>
+                            <div class="system-badge alert">ERR</div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">High Contrast Warning</span>
+                        <p class="narrative-desc">
+                            Status indicators functioned like dashboard warning lights. Pure contrast, monospaced fonts.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 5. CAROUSEL -->
+                <div class="showcase-item">
+                    <span class="component-label">05. The Carousel</span>
+                    <div class="component-stage">
+                        <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+                            <div class="click-carousel-frame">
+                                <div class="click-slide" id="clickSlide">IMG_01</div>
+                            </div>
+                            <div class="click-controls">
+                                <button class="click-btn" onclick="changeSlide(-1)">&lt;&lt;</button>
+                                <button class="click-btn" onclick="changeSlide(1)">&gt;&gt;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">The Projector Snap</span>
+                        <p class="narrative-desc">
+                            Before touchscreens, carousels were rigid slideshows. Navigation required precise clicks.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 6. INPUT -->
+                <div class="showcase-item">
+                    <span class="component-label">06. Control Input</span>
+                    <div class="component-stage">
+                        <div class="mech-toggle-row">
+                            <span style="font-family: var(--font-mono); font-size: 0.8rem;">POWER</span>
+                            <div class="mech-switch active" onclick="this.classList.toggle('active')"></div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">The Circuit Breaker</span>
+                        <p class="narrative-desc">
+                            Toggles weren't smooth sliders; they were switches borrowed from hardware electronics.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHAPTER 2: GLASS AGE -->
+    <section class="glass-theme">
+        <div class="container">
+            <div class="chapter-header">
+                <span class="chapter-badge">Chapter 02</span>
+                <h2>The Glass Age</h2>
+                <p class="narrative-text">Era of light and depth. Interfaces became layers of frosted glass floating in
+                    3D space.</p>
+            </div>
+
+            <div class="component-grid">
+                <!-- 1. CARD -->
+                <div class="showcase-item">
+                    <span class="component-label">01. The Card</span>
+                    <div class="component-stage glass-card-wrapper">
+                        <div class="glass-credit-card" id="glassCard">
+                            <div class="glass-shine"></div>
+                            <div style="font-family: monospace; letter-spacing: 2px;">GLASS_ID</div>
+                            <i class="fas fa-wifi" style="align-self: flex-end;"></i>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Parallax Depth</span>
+                        <p class="narrative-desc">
+                            By tilting the card and calculating perspective, we created the illusion of 3D space.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2. NAV -->
+                <div class="showcase-item">
+                    <span class="component-label">02. Navigation</span>
+                    <div class="component-stage">
+                        <div class="dock-container">
+                            <div class="dock-item"><i class="fas fa-home"></i></div>
+                            <div class="dock-item"><i class="fas fa-search"></i></div>
+                            <div class="dock-item"><i class="fas fa-user"></i></div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Magnified Focus</span>
+                        <p class="narrative-desc">
+                            Navigation creates a "fisheye" lens effect expanding the hit area of active elements.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3. BUTTON -->
+                <div class="showcase-item">
+                    <span class="component-label">03. The Button</span>
+                    <div class="component-stage">
+                        <button class="btn-prism">Explore</button>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Refractive Light</span>
+                        <p class="narrative-desc">
+                            Instead of heavy shadows, we used light. The "Prism" button catches a gradient shine on
+                            hover.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 4. BADGE -->
+                <div class="showcase-item">
+                    <span class="component-label">04. Status Tags</span>
+                    <div class="component-stage">
+                        <div style="display: flex;">
+                            <div class="glass-badge">Beta</div>
+                            <div class="glass-badge">Live</div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Luminescent Context</span>
+                        <p class="narrative-desc">
+                            Badges became light sources using semi-transparent backgrounds and inner glows.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 5. CAROUSEL -->
+                <div class="showcase-item">
+                    <span class="component-label">05. The Carousel</span>
+                    <div class="component-stage">
+                        <div class="stack-wrapper">
+                            <div class="stack-card">Message 3</div>
+                            <div class="stack-card">Message 2</div>
+                            <div class="stack-card">Message 1</div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Z-Index Stacking</span>
+                        <p class="narrative-desc">
+                            The carousel evolved into a deck using blur and scale on background items.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 6. INPUT -->
+                <div class="showcase-item">
+                    <span class="component-label">06. Control Input</span>
+                    <div class="component-stage">
+                        <div class="glass-slider-track">
+                            <div class="glass-slider-fill"></div>
+                            <div class="glass-slider-thumb"></div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Frosted Friction</span>
+                        <p class="narrative-desc">
+                            The slider thumb casts a soft shadow, simulating a physical knob on frosted glass.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHAPTER 3: FLUID ERA -->
+    <section class="fluid-theme">
+        <div class="container">
+            <div class="chapter-header">
+                <span class="chapter-badge">Chapter 03</span>
+                <h2>The Organic Flow</h2>
+                <p class="narrative-text">Era of biology. Interfaces that breathe, morph, and react elastically to human
+                    intent.</p>
+            </div>
+
+            <div class="component-grid">
+                <!-- 1. CARD -->
+                <div class="showcase-item">
+                    <span class="component-label">01. The Card</span>
+                    <div class="component-stage">
+                        <div class="card-fluid" id="elasticCard">
+                            <div style="font-size: 2rem;">🎈</div>
+                            <p style="margin-top: 10px;">Elastic Surface</p>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Viscous Response</span>
+                        <p class="narrative-desc">
+                            This card mimics surface tension. When you interact, it stretches towards your cursor.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2. NAV -->
+                <div class="showcase-item">
+                    <span class="component-label">02. Navigation</span>
+                    <div class="component-stage">
+                        <div class="liquid-nav-wrapper">
+                            <div class="liquid-blob"></div>
+                            <div class="liquid-nav-item active" onclick="moveBlob(this)">Home</div>
+                            <div class="liquid-nav-item" onclick="moveBlob(this)">Work</div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Liquid State</span>
+                        <p class="narrative-desc">
+                            The "Active State" is a living organism. It morphs and swims to the selected item.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3. BUTTON -->
+                <div class="showcase-item">
+                    <span class="component-label">03. The Button</span>
+                    <div class="component-stage">
+                        <button class="btn-jelly" id="jellyBtn">Squish Me</button>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Biological Recoil</span>
+                        <p class="narrative-desc">
+                            Newton's laws applied to UI. The button absorbs the click energy and wobbles.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 4. BADGE -->
+                <div class="showcase-item">
+                    <span class="component-label">04. Status Tags</span>
+                    <div class="component-stage">
+                        <span class="living-badge">ALIVE</span>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">The Heartbeat</span>
+                        <p class="narrative-desc">
+                            A pulsing badge says "System Alive" providing subconscious assurance of real-time data.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 5. CAROUSEL -->
+                <div class="showcase-item">
+                    <span class="component-label">05. The Carousel</span>
+                    <div class="component-stage">
+                        <div class="squeeze-carousel-wrapper" id="squeezeWrapper">
+                            <div class="squeeze-track">
+                                <div class="squeeze-item">1</div>
+                                <div class="squeeze-item">2</div>
+                                <div class="squeeze-item">3</div>
+                                <div class="squeeze-item">4</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Inertial Squeeze</span>
+                        <p class="narrative-desc">
+                            Simulating soft-body physics. Items compress based on drag velocity.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 6. INPUT -->
+                <div class="showcase-item">
+                    <span class="component-label">06. Control Input</span>
+                    <div class="component-stage">
+                        <div class="magnetic-area" id="magArea">
+                            <button class="btn-magnetic" id="magBtn">PULL</button>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Magnetic Intent</span>
+                        <p class="narrative-desc">
+                            The interface meets you halfway. The button pulls itself towards the user.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHAPTER 4: HYBRID ARCHITECTURE -->
+    <section class="hybrid-theme">
+        <div class="container">
+            <div class="chapter-header">
+                <span class="chapter-badge">Chapter 04</span>
+                <h2>Hybrid Architecture</h2>
+                <p class="narrative-text">
+                    The convergence of eras. We now mix & match solid structure, glass depth, and fluid physics.
+                </p>
+            </div>
+
+            <div class="component-grid">
+                <!-- 1. CARD HYBRIDS -->
+                <div class="showcase-item">
+                    <span class="component-label">01. Card Architecture</span>
+                    <div class="component-stage">
+                        <span class="variant-label">Spatial Glass</span>
+                        <div class="card-hybrid-wrapper">
+                            <div class="hybrid-blob-bg"></div>
+                            <div class="card-hybrid">
+                                <div class="hybrid-tag">SPATIAL</div>
+                                <div>
+                                    <h3 style="margin-bottom: 5px;">Glass + Glow</h3>
+                                    <p style="color: #999; font-size: 0.9rem;">Structure meets fluid light.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <span class="variant-label">Liquid Solid</span>
+                        <div class="card-liquid-solid">
+                            <span>Solid + Morph</span>
+                        </div>
+
+                        <span class="variant-label">Neon Depth</span>
+                        <div class="card-neon-depth">
+                            <h3>Neon Breath</h3>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Hybrid Surface Theory</span>
+                        <p class="narrative-desc">
+                            Cards that bridge material and energy. Spatial Glass uses fluid light. Liquid Solid morphs.
+                            Neon Breath uses breathing borders.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2. NAV HYBRIDS -->
+                <div class="showcase-item">
+                    <span class="component-label">02. Navigation Models</span>
+                    <div class="component-stage">
+                        <span class="variant-label">Dynamic Island</span>
+                        <div class="hybrid-nav">
+                            <div class="hybrid-nav-indicator" id="hybridNavBlob"></div>
+                            <div class="hybrid-nav-item" onclick="moveHybridBlob(this)">Overview</div>
+                            <div class="hybrid-nav-item" onclick="moveHybridBlob(this)">Activity</div>
+                        </div>
+
+                        <span class="variant-label">Magnetic Frost</span>
+                        <div class="nav-magnetic-frost">
+                            <div class="nav-mag-link">Glass</div>
+                            <div class="nav-mag-link">Magnet</div>
+                            <div class="nav-mag-link">Fusion</div>
+                        </div>
+
+                        <span class="variant-label">Worm Line</span>
+                        <div class="nav-worm">
+                            <div class="worm-line" id="wormLine"></div>
+                            <div class="nav-worm-item" onmouseenter="moveWorm(this)">Product</div>
+                            <div class="nav-worm-item" onmouseenter="moveWorm(this)">Solutions</div>
+                            <div class="nav-worm-item" onmouseenter="moveWorm(this)">Pricing</div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Adaptive Navigation</span>
+                        <p class="narrative-desc">
+                            Dynamic Island traps fluid in solid. Magnetic Frost combines glass with physics. Worm Line
+                            crawls between items.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3. BUTTON HYBRIDS -->
+                <div class="showcase-item">
+                    <span class="component-label">03. Action Triggers</span>
+                    <div class="component-stage">
+                        <span class="variant-label">Atmospheric Glow</span>
+                        <button class="btn-hybrid" id="hybridBtn">
+                            <span>Initialize</span>
+                        </button>
+
+                        <span class="variant-label">Glazed Jelly</span>
+                        <button class="btn-glazed-jelly" id="glazedBtn">Squish + Shine</button>
+
+                        <span class="variant-label">Ripple Glass</span>
+                        <button class="btn-ripple-glass" onclick="createRipple(event)">Click Effect</button>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Tangible Action</span>
+                        <p class="narrative-desc">
+                            Initialize tracks your mouse. Glazed Jelly combines glass with squish. Ripple Glass provides
+                            expanding feedback.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 4. BADGE HYBRIDS -->
+                <div class="showcase-item">
+                    <span class="component-label">04. Feedback Indicators</span>
+                    <div class="component-stage">
+                        <span class="variant-label">Status Orb</span>
+                        <div class="hybrid-badge-container">
+                            <div class="status-orb"></div>
+                            <span style="font-size: 0.9rem; font-weight: 600; color: #fff;">Operational</span>
+                        </div>
+
+                        <span class="variant-label">Chiseled Glass</span>
+                        <div class="badge-chiseled-glass">CRYSTAL_HARD</div>
+
+                        <span class="variant-label">Holographic</span>
+                        <div class="badge-holo">HOLOGRAPHIC</div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Material Fusion</span>
+                        <p class="narrative-desc">
+                            Operational contains a pulsing heart in glass. Crystal Hard uses retro edges in glass.
+                            Holographic shifts light.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 5. CAROUSEL HYBRIDS -->
+                <div class="showcase-item">
+                    <span class="component-label">05. Collection Layouts</span>
+                    <div class="component-stage">
+                        <span class="variant-label">Fluid Stream</span>
+                        <div class="hybrid-stream">
+                            <div class="stream-card"><i class="fas fa-image"></i></div>
+                            <div class="stream-card"><i class="fas fa-video"></i></div>
+                            <div class="stream-card"><i class="fas fa-music"></i></div>
+                        </div>
+
+                        <span class="variant-label">Snap Blur</span>
+                        <div class="snap-blur-wrapper">
+                            <div class="snap-blur-track">
+                                <div class="snap-blur-item" style="background: linear-gradient(45deg, #111, #333);">
+                                    <span>Slide 1</span>
+                                    <div class="snap-overlay">View</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <span class="variant-label">Accordion Deck</span>
+                        <div class="acc-deck">
+                            <div class="acc-card">A</div>
+                            <div class="acc-card">B</div>
+                            <div class="acc-card">C</div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Responsive Lists</span>
+                        <p class="narrative-desc">
+                            Fluid Stream uses 3D tilt. Snap Blur combines mechanical scroll with frost. Accordion
+                            expands on hover.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 6. INPUT HYBRIDS -->
+                <div class="showcase-item">
+                    <span class="component-label">06. Control Controls</span>
+                    <div class="component-stage">
+                        <span class="variant-label">Morphing Field</span>
+                        <div class="hybrid-input-group">
+                            <input type="text" class="hybrid-input" placeholder=" " id="hybridInput">
+                            <label class="hybrid-label" for="hybridInput">Search...</label>
+                        </div>
+
+                        <span class="variant-label">Liquid Slider</span>
+                        <div class="liquid-slider-track">
+                            <div class="liquid-slider-thumb"></div>
+                        </div>
+
+                        <span class="variant-label">Rotary Knob</span>
+                        <div class="rotary-container" id="rotaryKnob">
+                            <div class="rotary-knob">
+                                <div class="rotary-marker"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-narrative">
+                        <span class="narrative-title">Living Inputs</span>
+                        <p class="narrative-desc">
+                            Search expands from a line. Liquid Slider thumb deforms. Rotary Knob brings dial feedback to
+                            screen.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE SCROLL SECTION -->
+    <section class="timeline-section" id="timelineSection">
+        <div class="timeline-track" id="timelineTrack">
+            <!-- Rendered by timeline.js -->
+        </div>
+    </section>
+
+    <!-- FOOTER TRIGGER BUTTON (sits above footer) -->
+    <div class="footer-trigger" id="footerTrigger">
+        <button class="btn-ignite" id="igniteBtn">Thank You ♡</button>
+    </div>
+
+    <!-- INTERACTIVE FOOTER (hidden initially) -->
+    <footer id="footer">
+        <div class="footer-blobs">
+            <div class="footer-blob" style="left: 30%;"></div>
+            <div class="footer-blob" style="left: 70%; background: var(--accent-cyan);"></div>
+        </div>
+        <div class="footer-glass-overlay"></div>
+
+        <div class="footer-inner">
+            <div class="footer-logo">DESIGN CHRONICLES</div>
+            <p class="footer-message">
+                Thank you for exploring the archives. <br>
+                <span style="color: var(--accent-hybrid);">Build what comes next.</span>
+            </p>
+            <div class="footer-links">
+                <span>© 2025 Component Atlas</span>
+                <a href="components/index.html">Component Library</a>
+                <a href="#">Github</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL OVERLAY -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content" id="modalContent">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h2 id="modalTitle" style="font-size: 2.5rem; margin-bottom: 1rem;">Title</h2>
+            <div style="border-bottom: 1px solid rgba(255,255,255,0.2); margin-bottom: 1.5rem; padding-bottom: 0.5rem;">
+                <span id="modalYear" style="font-family: monospace; color: var(--text-muted);">YEAR</span>
+            </div>
+            <p id="modalDesc" style="line-height: 1.6; color: #ddd; font-size: 1.1rem; margin-bottom: 1.5rem;">
+                Description
+            </p>
+
+            <!-- Component Showcase Grid -->
+            <div class="modal-showcase" id="modalShowcase">
+                <div class="showcase-row">
+                    <div class="showcase-slot" data-type="nav">
+                        <span class="slot-label">Navigation</span>
+                        <div class="slot-demo" id="demoNav"></div>
+                    </div>
+                    <div class="showcase-slot" data-type="button">
+                        <span class="slot-label">Button</span>
+                        <div class="slot-demo" id="demoButton"></div>
+                    </div>
+                </div>
+                <div class="showcase-row">
+                    <div class="showcase-slot" data-type="badge">
+                        <span class="slot-label">Badge</span>
+                        <div class="slot-demo" id="demoBadge"></div>
+                    </div>
+                    <div class="showcase-slot" data-type="input">
+                        <span class="slot-label">Input</span>
+                        <div class="slot-demo" id="demoInput"></div>
+                    </div>
+                </div>
+                <div class="showcase-row showcase-row-full">
+                    <div class="showcase-slot showcase-slot-wide" data-type="carousel">
+                        <span class="slot-label">Carousel</span>
+                        <div class="slot-demo" id="demoCarousel"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core JavaScript -->
+    <script src="js/core/utils.js"></script>
+    <script src="js/core/cursor.js"></script>
+
+    <!-- Chapter JavaScript -->
+    <script src="js/chapters/solid.js"></script>
+    <script src="js/chapters/glass.js"></script>
+    <script src="js/chapters/fluid.js"></script>
+    <script src="js/chapters/hybrid.js"></script>
+
+    <!-- Shared Features -->
+    <script src="js/timeline.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/modal-demos.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/hero.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Standalone routing
+        function checkStandalone() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#standalone-')) {
+                document.body.classList.add('is-standalone');
+                const slug = hash.replace('#standalone-', '');
+                const sections = {
+                    'solid': '.solid-theme',
+                    'glass': '.glass-theme',
+                    'fluid': '.fluid-theme',
+                    'hybrid': '.hybrid-theme'
+                };
+                const selector = sections[slug];
+                if (selector) {
+                    document.querySelectorAll('section').forEach(s => s.classList.remove('active-standalone'));
+                    document.querySelector(selector).classList.add('active-standalone');
+                }
+            }
+        }
+        window.addEventListener('hashchange', checkStandalone);
+        checkStandalone();
+    </script>
+</body>
+
+</html>

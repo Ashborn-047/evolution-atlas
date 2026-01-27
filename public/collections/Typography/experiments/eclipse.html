@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECLIPSE - Typography Experiment</title>
+
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@400;700;800&family=VT323&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body class="bg-[#050505] min-h-screen flex flex-col">
+    <!-- Back Link -->
+    <nav class="p-6">
+        <a href="../index.html"
+            class="text-gray-400 hover:text-white transition-colors font-body text-sm uppercase tracking-widest">← Back
+            to Archive</a>
+    </nav>
+
+    <!-- Experiment Container -->
+    <main class="flex-1 flex flex-col items-center justify-center px-4">
+        <span class="font-body text-xs text-gray-500 mb-8">EXP_03</span>
+
+        <div class="text-center cursor-pointer" id="eclipse-text">
+            <h1 class="font-display text-[15vw] font-bold uppercase tracking-tighter text-white">ECLIPSE</h1>
+        </div>
+
+        <p class="font-body text-lg text-gray-400 mt-8 max-w-md text-center">3D rotation casting directional shadows.
+        </p>
+    </main>
+
+    <script src="../js/utils.js"></script>
+    <script>
+        const eclipseContainer = document.querySelector('#eclipse-text');
+        const eclipseChars = splitTextWithShadow(eclipseContainer.querySelector('h1'));
+
+        eclipseContainer.addEventListener('mousemove', (e) => {
+            eclipseChars.forEach(char => {
+                const charBounds = char.getBoundingClientRect();
+                const distX = e.clientX - (charBounds.left + charBounds.width / 2);
+
+                gsap.to(char, {
+                    rotationY: gsap.utils.clamp(-45, 45, distX * 0.2),
+                    z: 30,
+                    duration: 0.5
+                });
+
+                const shadow = char.querySelector('.eclipse-shadow');
+                if (shadow) {
+                    gsap.to(shadow, {
+                        x: -distX * 0.2,
+                        opacity: 0.8 - Math.abs(distX) / 200,
+                        duration: 0.5
+                    });
+                }
+            });
+        });
+
+        eclipseContainer.addEventListener('mouseleave', () => {
+            eclipseChars.forEach(char => {
+                gsap.to(char, { rotationY: 0, z: 0, duration: 0.5 });
+                const shadow = char.querySelector('.eclipse-shadow');
+                if (shadow) {
+                    gsap.to(shadow, { x: 0, opacity: 0, duration: 0.5 });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

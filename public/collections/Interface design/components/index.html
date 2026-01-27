@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Library | UI Evolution</title>
+    <link rel="stylesheet" href="../css/core/variables.css">
+    <link rel="stylesheet" href="../css/core/base.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .library-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .library-header {
+            margin-bottom: 4rem;
+        }
+
+        .library-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .library-header a:hover {
+            color: white;
+        }
+
+        .library-header h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #8b5cf6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .chapter-section {
+            margin-bottom: 4rem;
+        }
+
+        .chapter-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chapter-title h2 {
+            font-size: 1.5rem;
+        }
+
+        .era-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .solid-dot {
+            background: var(--accent-solid);
+            color: var(--accent-solid);
+        }
+
+        .glass-dot {
+            background: var(--accent-glass);
+            color: var(--accent-glass);
+        }
+
+        .fluid-dot {
+            background: var(--accent-fluid);
+            color: var(--accent-fluid);
+        }
+
+        .hybrid-dot {
+            background: var(--accent-hybrid);
+            color: var(--accent-hybrid);
+        }
+
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .component-link {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            background: none;
+            border: none;
+            border-radius: 16px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .component-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        .component-link .icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .component-link .icon svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 1.5;
+        }
+
+        /* Era-specific icon colors */
+        .solid-icon {
+            color: var(--accent-solid);
+        }
+
+        .glass-icon {
+            color: var(--accent-glass);
+        }
+
+        .fluid-icon {
+            color: var(--accent-fluid);
+        }
+
+        .hybrid-icon {
+            color: var(--accent-hybrid);
+        }
+
+        .component-link .name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .component-link .desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .count-badge {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #666;
+            margin: 2rem 0 1rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="library-container">
+        <div class="library-header">
+            <a href="../index.html"><i data-lucide="arrow-left"></i> Back to Atlas</a>
+            <h1>Component Library</h1>
+            <p class="narrative-text">All 36 components with full HTML, CSS, and GSAP code documentation.</p>
+        </div>
+
+        <!-- CHAPTER 1: SOLID (6) -->
+        <div class="chapter-section">
+            <div class="chapter-title">
+                <div class="era-dot solid-dot"></div>
+                <h2>Chapter 01 · Solid State</h2>
+            </div>
+            <div class="count-badge">6 components</div>
+            <div class="component-grid">
+                <a href="solid/card.html" class="component-link">
+                    <span class="icon solid-icon"><i data-lucide="square"></i></span>
+                    <span class="name">Card</span>
+                    <span class="desc">Mechanical shift</span>
+                </a>
+                <a href="solid/nav.html" class="component-link">
+                    <span class="icon solid-icon"><i data-lucide="folder"></i></span>
+                    <span class="name">Navigation</span>
+                    <span class="desc">Retro tabs</span>
+                </a>
+                <a href="solid/button.html" class="component-link">
+                    <span class="icon solid-icon"><i data-lucide="keyboard"></i></span>
+                    <span class="name">Button</span>
+                    <span class="desc">Chiseled press</span>
+                </a>
+                <a href="solid/badge.html" class="component-link">
+                    <span class="icon solid-icon"><i data-lucide="tag"></i></span>
+                    <span class="name">Badge</span>
+                    <span class="desc">System tags</span>
+                </a>
+                <a href="solid/carousel.html" class="component-link">
+                    <span class="icon solid-icon"><i data-lucide="film"></i></span>
+                    <span class="name">Carousel</span>
+                    <span class="desc">Click snap</span>
+                </a>
+                <a href="solid/input.html" class="component-link">
+                    <span class="icon solid-icon"><i data-lucide="toggle-left"></i></span>
+                    <span class="name">Input</span>
+                    <span class="desc">Mech toggle</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- CHAPTER 2: GLASS (6) -->
+        <div class="chapter-section">
+            <div class="chapter-title">
+                <div class="era-dot glass-dot"></div>
+                <h2>Chapter 02 · Glass Age</h2>
+            </div>
+            <div class="count-badge">6 components</div>
+            <div class="component-grid">
+                <a href="glass/card.html" class="component-link">
+                    <span class="icon glass-icon"><i data-lucide="credit-card"></i></span>
+                    <span class="name">Card</span>
+                    <span class="desc">3D tilt</span>
+                </a>
+                <a href="glass/nav.html" class="component-link">
+                    <span class="icon glass-icon"><i data-lucide="layout-grid"></i></span>
+                    <span class="name">Navigation</span>
+                    <span class="desc">Dock magnify</span>
+                </a>
+                <a href="glass/button.html" class="component-link">
+                    <span class="icon glass-icon"><i data-lucide="gem"></i></span>
+                    <span class="name">Button</span>
+                    <span class="desc">Prism shine</span>
+                </a>
+                <a href="glass/badge.html" class="component-link">
+                    <span class="icon glass-icon"><i data-lucide="sparkles"></i></span>
+                    <span class="name">Badge</span>
+                    <span class="desc">Glass glow</span>
+                </a>
+                <a href="glass/carousel.html" class="component-link">
+                    <span class="icon glass-icon"><i data-lucide="layers"></i></span>
+                    <span class="name">Carousel</span>
+                    <span class="desc">Stacked cards</span>
+                </a>
+                <a href="glass/input.html" class="component-link">
+                    <span class="icon glass-icon"><i data-lucide="sliders"></i></span>
+                    <span class="name">Input</span>
+                    <span class="desc">Glass slider</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- CHAPTER 3: FLUID (6) -->
+        <div class="chapter-section">
+            <div class="chapter-title">
+                <div class="era-dot fluid-dot"></div>
+                <h2>Chapter 03 · Organic Flow</h2>
+            </div>
+            <div class="count-badge">6 components</div>
+            <div class="component-grid">
+                <a href="fluid/card.html" class="component-link">
+                    <span class="icon fluid-icon"><i data-lucide="move"></i></span>
+                    <span class="name">Card</span>
+                    <span class="desc">Elastic stretch</span>
+                </a>
+                <a href="fluid/nav.html" class="component-link">
+                    <span class="icon fluid-icon"><i data-lucide="droplet"></i></span>
+                    <span class="name">Navigation</span>
+                    <span class="desc">Liquid blob</span>
+                </a>
+                <a href="fluid/button.html" class="component-link">
+                    <span class="icon fluid-icon"><i data-lucide="circle"></i></span>
+                    <span class="name">Button</span>
+                    <span class="desc">Jelly squish</span>
+                </a>
+                <a href="fluid/badge.html" class="component-link">
+                    <span class="icon fluid-icon"><i data-lucide="heart-pulse"></i></span>
+                    <span class="name">Badge</span>
+                    <span class="desc">Living pulse</span>
+                </a>
+                <a href="fluid/carousel.html" class="component-link">
+                    <span class="icon fluid-icon"><i data-lucide="grip-horizontal"></i></span>
+                    <span class="name">Carousel</span>
+                    <span class="desc">Squeeze drag</span>
+                </a>
+                <a href="fluid/input.html" class="component-link">
+                    <span class="icon fluid-icon"><i data-lucide="magnet"></i></span>
+                    <span class="name">Input</span>
+                    <span class="desc">Magnetic pull</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- CHAPTER 4: HYBRID (18) -->
+        <div class="chapter-section">
+            <div class="chapter-title">
+                <div class="era-dot hybrid-dot"></div>
+                <h2>Chapter 04 · Hybrid Architecture</h2>
+            </div>
+            <div class="count-badge">18 variants combining all eras</div>
+
+            <h3 class="category-title">Cards (3)</h3>
+            <div class="component-grid">
+                <a href="hybrid/card-spatial.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="box"></i></span>
+                    <span class="name">Spatial Glass</span>
+                    <span class="desc">Glass + blob</span>
+                </a>
+                <a href="hybrid/card-liquid.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="hexagon"></i></span>
+                    <span class="name">Liquid Solid</span>
+                    <span class="desc">Morph shape</span>
+                </a>
+                <a href="hybrid/card-neon.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="zap"></i></span>
+                    <span class="name">Neon Depth</span>
+                    <span class="desc">Rotating border</span>
+                </a>
+            </div>
+
+            <h3 class="category-title">Navigation (3)</h3>
+            <div class="component-grid">
+                <a href="hybrid/nav-island.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="layout"></i></span>
+                    <span class="name">Dynamic Island</span>
+                    <span class="desc">Sliding blob</span>
+                </a>
+                <a href="hybrid/nav-magnetic.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="crosshair"></i></span>
+                    <span class="name">Magnetic Frost</span>
+                    <span class="desc">Cursor pull</span>
+                </a>
+                <a href="hybrid/nav-worm.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="activity"></i></span>
+                    <span class="name">Worm Line</span>
+                    <span class="desc">Crawling line</span>
+                </a>
+            </div>
+
+            <h3 class="category-title">Buttons (3)</h3>
+            <div class="component-grid">
+                <a href="hybrid/btn-glow.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="sun"></i></span>
+                    <span class="name">Atmospheric</span>
+                    <span class="desc">Cursor glow</span>
+                </a>
+                <a href="hybrid/btn-glazed.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="cookie"></i></span>
+                    <span class="name">Glazed Jelly</span>
+                    <span class="desc">Glass + squish</span>
+                </a>
+                <a href="hybrid/btn-ripple.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="waves"></i></span>
+                    <span class="name">Ripple Glass</span>
+                    <span class="desc">Material ripple</span>
+                </a>
+            </div>
+
+            <h3 class="category-title">Badges (3)</h3>
+            <div class="component-grid">
+                <a href="hybrid/badge-orb.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="radio"></i></span>
+                    <span class="name">Status Orb</span>
+                    <span class="desc">Pulsing heart</span>
+                </a>
+                <a href="hybrid/badge-chiseled.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="diamond"></i></span>
+                    <span class="name">Chiseled Glass</span>
+                    <span class="desc">Offset shadow</span>
+                </a>
+                <a href="hybrid/badge-holo.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="rainbow"></i></span>
+                    <span class="name">Holographic</span>
+                    <span class="desc">Light sweep</span>
+                </a>
+            </div>
+
+            <h3 class="category-title">Carousels (3)</h3>
+            <div class="component-grid">
+                <a href="hybrid/carousel-stream.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="wind"></i></span>
+                    <span class="name">Fluid Stream</span>
+                    <span class="desc">3D tilt push</span>
+                </a>
+                <a href="hybrid/carousel-snap.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="camera"></i></span>
+                    <span class="name">Snap Blur</span>
+                    <span class="desc">Blur overlay</span>
+                </a>
+                <a href="hybrid/carousel-accordion.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="align-justify"></i></span>
+                    <span class="name">Accordion</span>
+                    <span class="desc">Flex expand</span>
+                </a>
+            </div>
+
+            <h3 class="category-title">Inputs (3)</h3>
+            <div class="component-grid">
+                <a href="hybrid/input-morph.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="edit-3"></i></span>
+                    <span class="name">Morphing Field</span>
+                    <span class="desc">Float label</span>
+                </a>
+                <a href="hybrid/slider-liquid.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="git-commit"></i></span>
+                    <span class="name">Liquid Slider</span>
+                    <span class="desc">Deform thumb</span>
+                </a>
+                <a href="hybrid/rotary-knob.html" class="component-link">
+                    <span class="icon hybrid-icon"><i data-lucide="disc"></i></span>
+                    <span class="name">Rotary Knob</span>
+                    <span class="desc">Dial control</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

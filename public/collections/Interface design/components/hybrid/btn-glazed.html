@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glazed Jelly Button | UI Evolution</title>
+    <meta name="description"
+        content="Glazed Jelly Button - Combines glass gradient with fluid squish effect using GSAP timeline.">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/chapters/hybrid.css">
+
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .demo-header a:hover {
+            color: white;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-hybrid);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+
+        .highlight {
+            color: var(--accent-hybrid);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../index.html">← Back to Library</a>
+            <span class="chapter-badge">Chapter 04 · Hybrid Architecture</span>
+            <h1>Glazed Jelly</h1>
+            <p class="narrative-text">
+                The perfect hybrid: combines the glossy gradient shine of the Glass Age with the satisfying squish
+                physics of the Organic Flow era. Click it to feel the jelly!
+            </p>
+        </div>
+
+        <div class="demo-stage">
+            <button class="btn-glazed-jelly" id="glazedBtn">Squish + Shine</button>
+        </div>
+
+        <div class="code-section">
+            <h2>HTML Structure</h2>
+            <div class="code-block">
+                <pre>&lt;button class="btn-glazed-jelly" id="glazedBtn"&gt;
+    Squish + Shine
+&lt;/button&gt;</pre>
+            </div>
+
+            <h2>CSS: Glass + Gradient</h2>
+            <div class="code-block">
+                <pre>.btn-glazed-jelly {
+    /* Glass Era: Gradient background */
+    background: <span class="highlight">linear-gradient</span>(
+        135deg, 
+        rgba(139, 92, 246, 0.8),   /* Purple */
+        rgba(6, 182, 212, 0.8)     /* Cyan */
+    );
+    
+    padding: 16px 40px;
+    border-radius: 50px;
+    
+    /* Glass Era: Semi-transparent border */
+    border: 1px solid rgba(255,255,255,0.4);
+    
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+    
+    /* Glass Era: Layered shadows for depth */
+    box-shadow: 
+        0 10px 20px rgba(139, 92, 246, 0.3),  /* Outer glow */
+        <span class="highlight">inset 0 2px 0 rgba(255,255,255,0.4)</span>;   /* Top shine */
+    
+    /* Glass Era: Blur behind */
+    backdrop-filter: blur(5px);
+    
+    /* Fluid Era: Transform origin for squish */
+    transform-origin: center center;
+}</pre>
+            </div>
+
+            <h2>GSAP: Jelly Squish Animation</h2>
+            <div class="code-block">
+                <pre>const glazedBtn = document.getElementById('glazedBtn');
+
+glazedBtn.addEventListener('click', () => {
+    <span class="highlight">gsap.timeline()</span>
+        // Stage 1: SQUASH (compress on impact)
+        .to(glazedBtn, { 
+            scaleX: 1.2,      // Wider
+            scaleY: 0.8,      // Shorter
+            duration: 0.1 
+        })
+        // Stage 2: STRETCH (elastic recoil)
+        .to(glazedBtn, { 
+            scaleX: 0.9,      // Narrower
+            scaleY: 1.1,      // Taller
+            duration: 0.1 
+        })
+        // Stage 3: SETTLE (wobble back)
+        .to(glazedBtn, { 
+            scaleX: 1, 
+            scaleY: 1, 
+            duration: 0.8,
+            <span class="highlight">ease: "elastic.out(1, 0.3)"</span>
+        });
+});
+
+/* elastic.out(amplitude, period):
+   - amplitude: 1 = normal overshoot
+   - period: 0.3 = faster oscillation (more wobbles)
+   
+   Lower period = more jelly-like wobble */</pre>
+            </div>
+
+            <h2>The Hybrid Philosophy</h2>
+            <div class="code-block">
+                <pre>/* This button combines two eras:
+
+   GLASS AGE Techniques:
+   ├── linear-gradient background
+   ├── Semi-transparent border
+   ├── Layered box-shadows (outer + inset)
+   └── backdrop-filter: blur()
+   
+   FLUID ERA Techniques:
+   ├── GSAP timeline animation
+   ├── scaleX/scaleY deformation
+   └── elastic.out easing
+   
+   Result: A button that LOOKS premium (glass)
+   and FEELS alive (fluid). */</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const glazedBtn = document.getElementById('glazedBtn');
+
+        glazedBtn.addEventListener('click', () => {
+            gsap.timeline()
+                .to(glazedBtn, { scaleX: 1.2, scaleY: 0.8, duration: 0.1 })
+                .to(glazedBtn, { scaleX: 0.9, scaleY: 1.1, duration: 0.1 })
+                .to(glazedBtn, {
+                    scaleX: 1,
+                    scaleY: 1,
+                    duration: 0.8,
+                    ease: "elastic.out(1, 0.3)"
+                });
+        });
+    </script>
+
+</body>
+
+</html>

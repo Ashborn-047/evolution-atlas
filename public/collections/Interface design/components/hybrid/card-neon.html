@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Depth Card | UI Evolution</title>
+    <meta name="description"
+        content="Neon Depth Card - Rotating conic gradient border effect. Combines solid structure with animated neon glow.">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/core/animations.css">
+    <link rel="stylesheet" href="../../css/chapters/hybrid.css">
+
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .demo-header a:hover {
+            color: white;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-cyan);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+
+        .highlight {
+            color: var(--accent-cyan);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../index.html">← Back to Library</a>
+            <span class="chapter-badge">Chapter 04 · Hybrid Architecture</span>
+            <h1>Neon Depth Card</h1>
+            <p class="narrative-text">
+                Combines a solid dark container with a continuously rotating conic gradient that creates a neon border
+                effect on hover. The rotating light simulates energy flowing through the card.
+            </p>
+        </div>
+
+        <div class="demo-stage">
+            <div class="card-neon-depth">
+                <h3>Neon Breath</h3>
+            </div>
+        </div>
+
+        <div class="code-section">
+            <h2>HTML Structure</h2>
+            <div class="code-block">
+                <pre>&lt;div class="card-neon-depth"&gt;
+    &lt;h3&gt;Neon Breath&lt;/h3&gt;
+&lt;/div&gt;</pre>
+            </div>
+
+            <h2>CSS Technique: Rotating Border</h2>
+            <div class="code-block">
+                <pre>.card-neon-depth {
+    width: 300px;
+    height: 180px;
+    background: #050505;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* The rotating gradient - hidden by default */
+.card-neon-depth<span class="highlight">::before</span> {
+    content: '';
+    position: absolute;
+    <span class="highlight">top: -50%; left: -50%;</span>
+    <span class="highlight">width: 200%; height: 200%;</span>
+    
+    /* Conic gradient creates the sweep effect */
+    background: <span class="highlight">conic-gradient</span>(
+        transparent, 
+        var(--accent-cyan),  /* The neon color */
+        transparent 30%
+    );
+    
+    /* Continuous rotation */
+    animation: <span class="highlight">rotate 4s linear infinite</span>;
+    
+    /* Hidden until hover */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Show on hover */
+.card-neon-depth:hover::before {
+    opacity: 1;
+}
+
+/* Inner card covers the center, leaving only border visible */
+.card-neon-depth<span class="highlight">::after</span> {
+    content: '';
+    position: absolute;
+    <span class="highlight">inset: 2px;</span>  /* 2px gap = border width */
+    background: #111;
+    border-radius: 18px;
+    z-index: 1;
+}</pre>
+            </div>
+
+            <h2>Animation Keyframe</h2>
+            <div class="code-block">
+                <pre>@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(<span class="highlight">1turn</span>);  /* Same as 360deg */
+    }
+}
+
+/* The ::before pseudo-element is 200% the size of the card
+   and rotates around its center, creating the sweep effect.
+   
+   The ::after element covers everything except the 2px edge,
+   so only the rotating gradient edge is visible as a border. */</pre>
+            </div>
+
+            <h2>Why This Works</h2>
+            <div class="code-block">
+                <pre>/* Layering order:
+   
+   1. Base card (.card-neon-depth) - dark background
+   2. ::before - Large rotating conic gradient (z-index: 0)
+   3. ::after - Inner cover that hides center (z-index: 1)
+   4. Content (h3) - Uses position: relative (z-index: 2)
+   
+   The conic-gradient only has color in ~30% of its arc,
+   so as it rotates, it looks like a light beam sweeping
+   around the border.
+   
+   No JavaScript required - pure CSS animation! */</pre>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

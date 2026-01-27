@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELASTIC - Typography Experiment</title>
+
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@400;700;800&family=VT323&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body class="bg-[#050505] min-h-screen flex flex-col">
+    <!-- Back Link -->
+    <nav class="p-6">
+        <a href="../index.html"
+            class="text-gray-400 hover:text-white transition-colors font-body text-sm uppercase tracking-widest">← Back
+            to Archive</a>
+    </nav>
+
+    <!-- Experiment Container -->
+    <main class="flex-1 flex flex-col items-center justify-center px-4">
+        <span class="font-body text-xs text-gray-500 mb-8">EXP_01</span>
+
+        <div class="text-center cursor-pointer" id="elastic-text">
+            <h1
+                class="font-display text-[15vw] font-bold uppercase tracking-tighter text-white transition-colors hover:text-[var(--accent-color)]">
+                ELASTIC</h1>
+        </div>
+
+        <p class="font-body text-lg text-gray-400 mt-8 max-w-md text-center">Letters react to cursor proximity with
+            rubber-like physics.</p>
+    </main>
+
+    <!-- Utils & Script -->
+    <script src="../js/utils.js"></script>
+    <script>
+        const elasticContainer = document.querySelector('#elastic-text');
+        const elasticChars = splitText(elasticContainer.querySelector('h1'));
+
+        elasticContainer.addEventListener('mousemove', (e) => {
+            const bounds = elasticContainer.getBoundingClientRect();
+            const mouseX = e.clientX - bounds.left;
+            const mouseY = e.clientY - bounds.top;
+
+            elasticChars.forEach(char => {
+                const charBounds = char.getBoundingClientRect();
+                const charCenterX = charBounds.left + charBounds.width / 2 - bounds.left;
+                const charCenterY = charBounds.top + charBounds.height / 2 - bounds.top;
+                const dist = Math.abs(mouseX - charCenterX);
+
+                if (dist < 150) {
+                    const strength = (150 - dist) / 150;
+                    gsap.to(char, {
+                        y: (mouseY - charCenterY) * strength * 0.3,
+                        scaleX: 1 - strength * 0.2,
+                        scaleY: 1 + strength * 0.3,
+                        color: '#ccff00',
+                        duration: 0.3
+                    });
+                } else {
+                    gsap.to(char, { y: 0, scaleX: 1, scaleY: 1, color: 'white', duration: 0.5 });
+                }
+            });
+        });
+
+        elasticContainer.addEventListener('mouseleave', () => {
+            gsap.to(elasticChars, { y: 0, scaleX: 1, scaleY: 1, color: 'white', duration: 0.5 });
+        });
+    </script>
+</body>
+
+</html>

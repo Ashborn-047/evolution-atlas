@@ -1,0 +1,35 @@
+/* =====================================================
+   CHROMA & KINETICS - Carousel Styles
+   Static and 3D Dynamic Carousel Modes
+   ===================================================== */
+
+/* === STATIC CAROUSEL - SNAP SCROLLING === */
+.snap-x {
+    scroll-snap-type: x mandatory;
+}
+
+.snap-center {
+    scroll-snap-align: center;
+}
+
+/* === 3D CAROUSEL SCENE === */
+.carousel-scene {
+    perspective: 1200px;
+    overflow: visible;
+}
+
+.carousel-pivot {
+    transform-style: preserve-3d;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-card-3d {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-left: -140px;
+    backface-visibility: visible;
+    transform-style: preserve-3d;
+}

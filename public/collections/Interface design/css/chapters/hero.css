@@ -1,0 +1,311 @@
+/* =============================================
+   HERO SECTION STYLES
+   Premium centered hero with typography effects
+   and animated background
+   ============================================= */
+
+/* Hero Section Container */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+}
+
+/* Animated Background - Multiple Organic Blobs */
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Four organic blobs with different colors */
+.hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.35;
+    mix-blend-mode: screen;
+}
+
+.hero-blob:nth-child(1) {
+    width: 600px;
+    height: 600px;
+    background: var(--accent-hybrid);
+    top: -20%;
+    left: -15%;
+    animation: blob-float-1 20s ease-in-out infinite;
+}
+
+.hero-blob:nth-child(2) {
+    width: 500px;
+    height: 500px;
+    background: var(--accent-cyan);
+    bottom: -25%;
+    right: -10%;
+    animation: blob-float-2 25s ease-in-out infinite;
+}
+
+.hero-blob:nth-child(3) {
+    width: 450px;
+    height: 450px;
+    background: var(--accent-glass);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: blob-float-3 22s ease-in-out infinite;
+}
+
+.hero-blob:nth-child(4) {
+    width: 350px;
+    height: 350px;
+    background: var(--accent-fluid);
+    top: 60%;
+    left: 10%;
+    animation: blob-float-4 18s ease-in-out infinite;
+}
+
+/* Organic movement keyframes - each blob moves differently */
+@keyframes blob-float-1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    20% {
+        transform: translate(80px, 60px) scale(1.1);
+    }
+
+    40% {
+        transform: translate(120px, 30px) scale(0.95);
+    }
+
+    60% {
+        transform: translate(50px, 90px) scale(1.05);
+    }
+
+    80% {
+        transform: translate(-30px, 40px) scale(1);
+    }
+}
+
+@keyframes blob-float-2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(-70px, -50px) scale(1.05);
+    }
+
+    50% {
+        transform: translate(-100px, 30px) scale(0.9);
+    }
+
+    75% {
+        transform: translate(-40px, -80px) scale(1.1);
+    }
+}
+
+@keyframes blob-float-3 {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    33% {
+        transform: translate(-40%, -60%) scale(1.15);
+    }
+
+    66% {
+        transform: translate(-60%, -40%) scale(0.85);
+    }
+}
+
+@keyframes blob-float-4 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    30% {
+        transform: translate(60px, -40px) scale(1.1);
+    }
+
+    60% {
+        transform: translate(-50px, 60px) scale(0.95);
+    }
+}
+
+/* Grid Lines Overlay */
+.hero-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Main Content */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+}
+
+/* Archive Badge */
+.hero .chapter-badge {
+    margin-bottom: 2rem;
+    animation: fadeSlideUp 0.8s ease-out 0.2s both;
+}
+
+/* Main Title */
+.hero-title {
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 900;
+    line-height: 0.95;
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+}
+
+/* Glowing Text Effect */
+.hero-title .glow-text {
+    background: linear-gradient(135deg, #fff 0%, #8b5cf6 50%, #06b6d4 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 5s ease infinite, fadeSlideUp 0.8s ease-out 0.4s both;
+}
+
+/* Muted Evolution Text */
+.hero-title .evolution-text {
+    display: block;
+    color: var(--text-muted);
+    -webkit-text-fill-color: var(--text-muted);
+    position: relative;
+    animation: fadeSlideUp 0.8s ease-out 0.6s both;
+}
+
+/* Subtle underline animation on Evolution */
+.hero-title .evolution-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-hybrid), transparent);
+    animation: expandLine 1.2s ease-out 1.2s forwards;
+}
+
+@keyframes expandLine {
+    to {
+        width: 60%;
+    }
+}
+
+@keyframes gradient-shift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Subtitle */
+.hero-subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    animation: fadeSlideUp 0.8s ease-out 0.8s both;
+}
+
+/* Scroll Indicator */
+.hero-scroll {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    animation: fadeSlideUp 0.8s ease-out 1s both;
+}
+
+.hero-scroll::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--text-muted), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scaleY(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scaleY(1.2);
+    }
+}
+
+/* Floating Particles (for JS enhancement) */
+.hero-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(139, 92, 246, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+}

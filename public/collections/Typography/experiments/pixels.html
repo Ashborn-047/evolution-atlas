@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIXELS - Typography Experiment</title>
+
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@400;700;800&family=VT323&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body class="bg-[#050505] min-h-screen flex flex-col">
+    <!-- Back Link -->
+    <nav class="p-6">
+        <a href="../index.html"
+            class="text-gray-400 hover:text-white transition-colors font-body text-sm uppercase tracking-widest">← Back
+            to Archive</a>
+    </nav>
+
+    <!-- Experiment Container -->
+    <main class="flex-1 flex flex-col items-center justify-center px-4">
+        <span class="font-body text-xs text-gray-500 mb-8">EXP_06</span>
+
+        <div class="text-center cursor-pointer" id="pixel-kinetic-text">
+            <h1
+                class="font-pixel text-[15vw] text-white uppercase tracking-widest hover:text-[var(--accent-color)] transition-colors">
+                PIXELS</h1>
+        </div>
+
+        <p class="font-body text-lg text-gray-400 mt-8 max-w-md text-center">Character scrambling into raw data blocks.
+        </p>
+    </main>
+
+    <script>
+        const pixelKinetic = document.querySelector('#pixel-kinetic-text h1');
+        const pixelContainer = document.querySelector('#pixel-kinetic-text');
+        const pixelOriginal = "PIXELS";
+        const archivePixelChars = "█▓▒░01<!>_";
+        let pixInt;
+
+        pixelContainer.addEventListener('mouseenter', () => {
+            let iteration = 0;
+            clearInterval(pixInt);
+
+            pixInt = setInterval(() => {
+                pixelKinetic.innerText = pixelOriginal
+                    .split('')
+                    .map((char, i) => {
+                        if (i < iteration) return pixelOriginal[i];
+                        return archivePixelChars[Math.floor(Math.random() * archivePixelChars.length)];
+                    })
+                    .join('');
+
+                if (iteration >= pixelOriginal.length) {
+                    clearInterval(pixInt);
+                    pixelKinetic.innerText = pixelOriginal;
+                }
+                iteration += 1 / 3;
+            }, 30);
+        });
+
+        pixelContainer.addEventListener('mouseleave', () => {
+            clearInterval(pixInt);
+            pixelKinetic.innerText = pixelOriginal;
+        });
+    </script>
+</body>
+
+</html>

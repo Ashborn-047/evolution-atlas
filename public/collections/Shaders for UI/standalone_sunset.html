@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Sunset Standalone // Shader[LAB]</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            overflow: hidden;
+            font-family: monospace;
+        }
+
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+    <div id="info">NEON SUNSET // RENDERER: THREE.JS</div>
+
+    <!-- 
+      FRAGMENT SHADER 
+      Rolled back to previous version (Prominent Grid + Original Speed/Position)
+    -->
+    <script id="fragmentShader" type="x-shader/x-fragment">
+        uniform vec2 u_resolution;
+        uniform float u_time;
+
+        void main() {
+            vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution.xy) / u_resolution.y;
+            vec3 col = vec3(0.01, 0.0, 0.03); // Deep space background
+
+            // --- 1. Grid & Floor ---
+            float horizonY = -0.15; 
+            if (uv.y < horizonY) {
+                // Projection
+                float z = 1.0 / abs(uv.y - horizonY);
+                vec2 gridUv = vec2(uv.x * z, z);
+                
+                // Animation
+                // RESTORED: Speed back to 2.0
+                gridUv.y += u_time * 2.0;
+                
+                // Grid Logic
+                float scale = 1.3; 
+                vec2 g = fract(gridUv * scale);
+                
+                // VISIBILITY FIX: Thicker lines and correct smoothstep order
+                vec2 wrapped = abs(g - 0.5);
+                
+                // Use fwidth for anti-aliasing, but multiply for thickness
+                vec2 range = fwidth(gridUv * scale) * 2.0;
+                
+                // Add base thickness (0.02) so lines are always visible
+                float thickness = 0.02; 
+                
+                // Logic: 0.5 is the edge of the cell. We want 1.0 there.
+                // FIXED: smoothstep requires matching types for edges. 
+                vec2 lines = smoothstep(vec2(0.5) - thickness - range, vec2(0.5), wrapped);
+                
+                float grid = max(lines.x, lines.y);
+                
+                // Distance Fade
+                float fade = smoothstep(0.0, 0.6, abs(uv.y - horizonY));
+                
+                // Color mixing
+                vec3 gridCol = mix(vec3(1.0, 0.0, 0.6), vec3(0.0, 0.8, 1.0), 0.5 + 0.5 * sin(gridUv.y * 0.1));
+                
+                // VISIBILITY FIX: Use additive mixing for neon glow and boost intensity (3.0)
+                col += gridCol * grid * 3.0 * fade;
+                
+                // Lower floor glow slightly so lines pop more
+                col += gridCol * 0.05 * fade;
+            } else {
+                // --- 2. Sky ---
+                // Stars
+                float stars = pow(fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453), 22.0);
+                col += stars * 0.3 * smoothstep(horizonY, horizonY + 0.3, uv.y);
+                
+                // Gradient
+                vec3 skyColTop = vec3(0.04, 0.01, 0.08);
+                vec3 skyColBot = vec3(0.12, 0.0, 0.25);
+                col += mix(skyColBot, skyColTop, (uv.y - horizonY) * 1.5);
+            }
+
+            // --- 3. Sun ---
+            // RESTORED: Position back to +0.22
+            vec2 sunPos = vec2(0.0, horizonY + 0.22);
+            float sDist = length(uv - sunPos);
+            float sSize = 0.42;
+            
+            if (sDist < sSize) {
+                float scanlineFreq = 16.0;
+                // RESTORED: Speed back to 0.5
+                float scanlineSpeed = 0.5;
+                float hLines = fract(uv.y * scanlineFreq - u_time * scanlineSpeed);
+                
+                // Dynamic cuts
+                float cutThreshold = smoothstep(-0.1, 0.6, (sunPos.y - uv.y) / sSize);
+                cutThreshold = pow(cutThreshold, 1.8) * 0.85;
+                
+                // Render Sun
+                if (uv.y > horizonY && (uv.y > sunPos.y || hLines > cutThreshold)) {
+                    vec3 sColTop = vec3(1.0, 0.92, 0.1);
+                    vec3 sColMid = vec3(1.0, 0.15, 0.45);
+                    vec3 sColBot = vec3(0.6, 0.0, 1.0);
+                    
+                    float gradPos = (uv.y - sunPos.y + sSize) / (sSize * 2.0);
+                    vec3 sFinalCol = mix(sColBot, mix(sColMid, sColTop, smoothstep(0.4, 0.85, gradPos)), smoothstep(0.0, 0.4, gradPos));
+                    
+                    sFinalCol += 0.12 * pow(1.0 - sDist/sSize, 3.0);
+                    col = sFinalCol;
+                }
+            }
+
+            // --- 4. Post-Processing / Glows ---
+            float horizonGlow = smoothstep(0.08, 0.0, abs(uv.y - horizonY));
+            col += vec3(0.0, 0.9, 1.0) * horizonGlow * 0.35; 
+            col += vec3(1.0, 0.1, 0.5) * 0.15 * exp(-sDist * 3.0); 
+
+            // Scanlines overlay
+            col *= 0.92 + 0.08 * sin(gl_FragCoord.y * 2.5 + u_time * 10.0);
+
+            gl_FragColor = vec4(col, 1.0);
+        }
+    </script>
+
+    <!-- 
+      VERTEX SHADER 
+    -->
+    <script id="vertexShader" type="x-shader/x-vertex">
+        void main() {
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+    </script>
+
+    <script>
+        let scene, camera, renderer, material, mesh;
+
+        function init() {
+            // 1. Setup Scene
+            scene = new THREE.Scene();
+
+            // 2. Setup Camera (Orthographic is best for 2D Shader planes)
+            camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+            // 3. Geometry (Full screen quad)
+            const geometry = new THREE.PlaneGeometry(2, 2);
+
+            // 4. Material
+            material = new THREE.ShaderMaterial({
+                uniforms: {
+                    u_time: { value: 0 },
+                    u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
+                },
+                vertexShader: document.getElementById('vertexShader').textContent,
+                fragmentShader: document.getElementById('fragmentShader').textContent,
+                // CRITICAL: This enables 'fwidth' support in WebGL 1
+                extensions: {
+                    derivatives: true
+                }
+            });
+
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            // 5. Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('container').appendChild(renderer.domElement);
+
+            // 6. Events
+            window.addEventListener('resize', onWindowResize, false);
+
+            // 7. Start
+            animate();
+        }
+
+        function onWindowResize() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            renderer.setSize(width, height);
+            material.uniforms.u_resolution.value.set(width, height);
+        }
+
+        function animate(time) {
+            requestAnimationFrame(animate);
+            // Protect against undefined 'time' on first frame
+            if (time === undefined) time = 0;
+
+            material.uniforms.u_time.value = time * 0.001;
+            renderer.render(scene, camera);
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+/**
+ * ============================================
+ * CSS ANIMATIONS - @keyframes Definitions
+ * ============================================
+ * 
+ * All CSS keyframe animations in one place.
+ * These are reusable across components.
+ * 
+ * Note: GSAP animations are in the JS files.
+ * This file contains CSS-only animations.
+ */
+
+/* ========== PULSE BORDER ========== 
+ * Used by: Living Badge, Status Orb
+ * Effect: Expanding ring that fades out
+ */
+@keyframes pulse-border {
+    0% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: scale(1.1);
+        opacity: 0;
+    }
+}
+
+/* ========== ROTATE ========== 
+ * Used by: Neon Depth Card
+ * Effect: Continuous 360° rotation for conic gradient
+ */
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+/* ========== RIPPLE ========== 
+ * Used by: Ripple Glass Button
+ * Effect: Expanding circle on click
+ */
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* ========== FLOAT BLOB ========== 
+ * Used by: Footer blobs
+ * Effect: Gentle floating motion
+ */
+@keyframes floatBlob {
+    0% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) translateY(-30px);
+    }
+}
+
+/* ========== GLOW PULSE ========== 
+ * Used by: Neon elements
+ * Effect: Pulsing glow intensity
+ */
+@keyframes glow-pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px currentColor;
+    }
+
+    50% {
+        box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+    }
+}
+
+/* ========== SCAN LINE ========== 
+ * Used by: Retro effects (optional)
+ * Effect: CRT monitor scan line
+ */
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100vh);
+    }
+}

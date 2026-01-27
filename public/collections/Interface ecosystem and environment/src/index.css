@@ -1,0 +1,120 @@
+:root {
+  --font-main: 'IBM Plex Mono', monospace;
+  --font-display: 'Space Grotesk', sans-serif;
+
+  --color-bg: #000;
+  --color-text: #fff;
+  --color-text-dim: rgba(255, 255, 255, 0.5);
+
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: blur(20px);
+
+  font-family: var(--font-main);
+  line-height: 1.6;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: var(--color-bg);
+  font-family: var(--font-main);
+  color: var(--color-text);
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+h1 {
+  font-size: clamp(3rem, 8.5vw, 18rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  z-index: 10;
+  position: relative;
+  line-height: 1;
+  white-space: nowrap;
+  letter-spacing: -0.05em;
+}
+
+h1 span {
+  font-weight: 700 !important;
+  color: inherit;
+}
+
+h2 {
+  font-size: clamp(3rem, 8vw, 10rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: clamp(1.5rem, 4vw, 5rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-dim);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+}

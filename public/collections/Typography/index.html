@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typography: Form & Motion</title>
+
+    <!-- ==================== EXTERNAL STYLES ==================== -->
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@400;700;800&family=VT323&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <!-- ==================== EXTERNAL SCRIPTS ==================== -->
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
+
+    <!-- Three.js Import Map -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+
+<body class="antialiased selection:bg-cyan-500 selection:text-black">
+
+    <!-- ==================== SVG FILTERS ==================== -->
+    <svg width="0" height="0" style="position: absolute;">
+        <defs>
+            <!-- Original turbulence-based distortion (for wobbly effect in archive) -->
+            <filter id="ink-distortion">
+                <feTurbulence type="fractalNoise" baseFrequency="0" numOctaves="2" result="warp"></feTurbulence>
+                <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="20" in="SourceGraphic" in2="warp">
+                </feDisplacementMap>
+            </filter>
+
+            <!-- Smooth ink bleed effect -->
+            <filter id="ink-bleed" x="-20%" y="-20%" width="140%" height="140%">
+                <!-- Create base turbulence for organic edges -->
+                <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" seed="5" result="noise">
+                </feTurbulence>
+
+                <!-- Use noise to displace the edges slightly -->
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G"
+                    result="displaced"></feDisplacementMap>
+
+                <!-- Add subtle blur for ink bleeding effect -->
+                <feGaussianBlur in="displaced" stdDeviation="0.5" result="blur"></feGaussianBlur>
+
+                <!-- Sharpen edges back with contrast -->
+                <feComponentTransfer in="blur" result="sharp">
+                    <feFuncA type="linear" slope="2" intercept="-0.3"></feFuncA>
+                </feComponentTransfer>
+
+                <!-- Merge with original for clean result -->
+                <feMerge>
+                    <feMergeNode in="sharp"></feMergeNode>
+                </feMerge>
+            </filter>
+
+            <!-- Animated ink spread effect -->
+            <filter id="ink-spread" x="-30%" y="-30%" width="160%" height="160%">
+                <feTurbulence id="ink-turbulence" type="fractalNoise" baseFrequency="0.008" numOctaves="4" seed="15"
+                    result="noise">
+                    <animate attributeName="baseFrequency" dur="8s" values="0.008;0.012;0.008" repeatCount="indefinite">
+                    </animate>
+                </feTurbulence>
+                <feDisplacementMap id="ink-displacement" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R"
+                    yChannelSelector="G" result="displaced"></feDisplacementMap>
+                <feGaussianBlur id="ink-blur" in="displaced" stdDeviation="0" result="blur"></feGaussianBlur>
+                <feMorphology id="ink-morph" in="blur" operator="dilate" radius="0" result="thick"></feMorphology>
+                <feMerge>
+                    <feMergeNode in="thick"></feMergeNode>
+                </feMerge>
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- ==================== CUSTOM CURSOR ==================== -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav
+        class="fixed top-0 left-0 w-full p-6 flex justify-between items-center z-50 bg-black/80 backdrop-blur-sm border-b border-white/5">
+        <div id="nav-logo" class="text-xl font-bold font-display uppercase tracking-wider group">
+            Type<span
+                class="text-[var(--accent-color)] inline-block transition-transform duration-300 group-hover:scale-125">x</span>Motion
+        </div>
+    </nav>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main>
+
+        <!-- ========== SECTION: HERO ========== -->
+        <section
+            class="h-screen w-full flex flex-col justify-center items-center relative overflow-hidden px-4 bg-[#050505] z-10">
+            <div class="text-center z-10 mix-blend-difference flex flex-col items-center">
+                <p class="font-body text-xs md:text-sm uppercase tracking-[0.5em] mb-4 text-gray-400 reveal-type">The
+                    Evolution</p>
+
+                <div class="relative w-fit mx-auto pb-4">
+                    <div class="cursor-pointer group relative z-10" id="hero-ink-trigger">
+                        <h1 class="hero-line font-display text-huge font-extrabold text-white leading-[0.8] mb-0">INK
+                        </h1>
+                    </div>
+                    <div class="cursor-pointer group absolute bottom-0 right-0 z-20 translate-y-1/2 translate-x-2"
+                        id="hero-pixel-trigger">
+                        <h1 class="hero-line font-serif text-[4vw] italic font-light text-[var(--accent-color)] transition-all duration-300"
+                            id="pixel-text">To Pixels</h1>
+                    </div>
+                </div>
+
+                <div
+                    class="font-body text-xs md:text-sm uppercase tracking-widest text-gray-500 mt-24 reveal-type text-center whitespace-nowrap">
+                    How motion transforms the written word from information into an experience.</div>
+            </div>
+            <div class="absolute bottom-10 text-xs font-body tracking-widest uppercase opacity-50 reveal-type">Study the
+                Shift</div>
+        </section>
+
+        <!-- ========== SECTION: CHAPTER 1 - THE STATIC STATE ========== -->
+        <section
+            class="min-h-screen py-24 px-6 md:px-24 bg-[#080808] flex flex-col justify-center relative border-t border-gray-900 overflow-hidden">
+            <div class="story-marker">I. The Static</div>
+            <div class="w-full md:w-3/4 mx-auto text-center space-y-16">
+                <div class="relative">
+                    <p
+                        class="font-serif text-2xl md:text-4xl lg:text-5xl leading-tight text-gray-400 reveal-type whitespace-nowrap">
+                        "In its resting state, typography is silent."</p>
+                </div>
+                <div class="relative">
+                    <p
+                        class="font-display text-3xl md:text-5xl lg:text-6xl leading-tight text-white font-bold reveal-type whitespace-nowrap">
+                        IT IS PURE <span class="text-outline">FUNCTION.</span></p>
+                </div>
+                <div class="relative">
+                    <p
+                        class="font-body text-xs md:text-sm leading-relaxed text-gray-500 mx-auto mt-8 reveal-type whitespace-nowrap">
+                        When static, the font relies solely on weight, kerning, and shape to convey meaning.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECTION: CHAPTER 2 - THE STRUCTURE ========== -->
+        <section class="min-h-screen py-24 bg-black border-y border-gray-800 text-white relative overflow-hidden">
+            <div class="story-marker" style="color: var(--accent-color); border-color: var(--accent-color);">II. The
+                Grid</div>
+            <div class="pl-16 md:pl-24 pr-6 mb-12">
+                <h2 class="font-body text-sm uppercase tracking-widest text-gray-500 mb-2 reveal-type">The Container
+                </h2>
+                <p class="font-display text-2xl md:text-4xl reveal-type">We organize type to create hierarchy.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full border-t border-l border-gray-800">
+                <!-- Grid Item: ALIGN -->
+                <div
+                    class="border-r border-b border-gray-800 h-64 md:h-96 p-6 flex flex-col justify-between group hover:bg-white hover:text-black transition-colors duration-300 relative overflow-hidden">
+                    <span class="font-body text-xs reveal-type relative z-10">LAYOUT</span>
+                    <h3 class="font-body text-4xl font-bold uppercase reveal-type relative z-10">Align</h3>
+                    <div
+                        class="absolute right-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <!-- Lines start scattered, align on hover -->
+                        <div class="flex flex-col gap-2 w-24">
+                            <!-- Line 1: starts offset right, aligns left -->
+                            <div
+                                class="h-1.5 bg-black w-20 transform translate-x-6 group-hover:translate-x-0 transition-transform duration-500 ease-out">
+                            </div>
+                            <!-- Line 2: starts offset left, aligns left -->
+                            <div
+                                class="h-1.5 bg-black w-14 transform -translate-x-3 group-hover:translate-x-0 transition-transform duration-500 delay-75 ease-out">
+                            </div>
+                            <!-- Line 3: starts offset right, aligns left -->
+                            <div class="h-1.5 bg-black w-18 transform translate-x-4 group-hover:translate-x-0 transition-transform duration-500 delay-150 ease-out"
+                                style="width: 72px;"></div>
+                            <!-- Line 4: starts offset left, aligns left -->
+                            <div
+                                class="h-1.5 bg-black w-10 transform -translate-x-5 group-hover:translate-x-0 transition-transform duration-500 delay-200 ease-out">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Grid Item: MARGIN -->
+                <div
+                    class="border-r border-b border-gray-800 h-64 md:h-96 p-6 flex flex-col justify-between group hover:bg-white hover:text-black transition-colors duration-300 relative overflow-hidden">
+                    <span class="font-body text-xs reveal-type relative z-10">SPACE</span>
+                    <h3 class="font-body text-4xl font-bold uppercase reveal-type relative z-10">Margin</h3>
+                    <div
+                        class="absolute right-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <div class="w-20 h-20 border border-black flex items-center justify-center relative">
+                            <div
+                                class="bg-black w-full h-full transform scale-100 group-hover:scale-50 transition-transform duration-500 ease-in-out">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Grid Item: SIZE -->
+                <div
+                    class="border-r border-b border-gray-800 h-64 md:h-96 p-6 flex flex-col justify-between group hover:bg-white hover:text-black transition-colors duration-300 relative overflow-hidden">
+                    <span class="font-body text-xs reveal-type relative z-10">SCALE</span>
+                    <h3 class="font-body text-4xl font-bold uppercase reveal-type relative z-10">Size</h3>
+                    <div
+                        class="absolute right-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <div class="flex items-end gap-2 h-20">
+                            <div class="w-3 bg-black h-4 group-hover:h-8 transition-all duration-500 ease-out"></div>
+                            <div
+                                class="w-3 bg-black h-8 group-hover:h-14 transition-all duration-500 delay-100 ease-out">
+                            </div>
+                            <div
+                                class="w-3 bg-black h-12 group-hover:h-full transition-all duration-500 delay-200 ease-out">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Grid Item: READ -->
+                <div
+                    class="border-r border-b border-gray-800 h-64 md:h-96 p-6 flex flex-col justify-between group hover:bg-white hover:text-black transition-colors duration-300 relative overflow-hidden">
+                    <span class="font-body text-xs reveal-type relative z-10">FLOW</span>
+                    <h3 class="font-body text-4xl font-bold uppercase reveal-type relative z-10">Read</h3>
+                    <div
+                        class="absolute right-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <!-- Highlight scanning down like reading/selection -->
+                        <div class="flex flex-col gap-3 w-24">
+                            <!-- Line 1: highlight sweeps across -->
+                            <div class="relative h-2 bg-gray-600 w-full overflow-hidden">
+                                <div
+                                    class="absolute inset-0 bg-[var(--accent-color)] transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out">
+                                </div>
+                            </div>
+                            <!-- Line 2: highlight sweeps with delay -->
+                            <div class="relative h-2 bg-gray-600 w-full overflow-hidden">
+                                <div
+                                    class="absolute inset-0 bg-[var(--accent-color)] transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 delay-200 ease-out">
+                                </div>
+                            </div>
+                            <!-- Line 3: highlight sweeps with delay -->
+                            <div class="relative h-2 bg-gray-600 w-5/6 overflow-hidden">
+                                <div
+                                    class="absolute inset-0 bg-[var(--accent-color)] transform -translate-x-full group-hover:translate-x-full transition-transform duration-600 delay-400 ease-out">
+                                </div>
+                            </div>
+                            <!-- Line 4: partial line -->
+                            <div class="relative h-2 bg-gray-600 w-1/2 overflow-hidden">
+                                <div
+                                    class="absolute inset-0 bg-[var(--accent-color)] transform -translate-x-full group-hover:translate-x-full transition-transform duration-500 delay-500 ease-out">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="mt-12 px-16 md:px-24 font-body text-xl md:text-2xl text-[var(--accent-color)] font-mono opacity-70">
+                > structure_loaded: <span id="typer"></span><span class="animate-pulse">_</span>
+            </div>
+        </section>
+
+        <!-- ========== SECTION: CHAPTER 3 - THE KINETIC ARCHIVE ========== -->
+        <section class="min-h-screen py-24 bg-[#050505] border-b border-gray-800 text-white relative overflow-hidden">
+            <div class="story-marker text-white border-white/10">III. Archive</div>
+            <div class="pl-16 md:pl-24 pr-6 mb-12">
+                <h2 class="font-body text-sm uppercase tracking-widest text-gray-500 mb-2 reveal-type">The Experiments
+                </h2>
+                <p class="font-display text-2xl md:text-4xl reveal-type">A categorized collection of typographic
+                    behaviors.</p>
+            </div>
+
+            <!-- THE ARCHIVE GRID (3x3 layout) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full border-t border-l border-gray-800">
+
+                <!-- EXP_01: ELASTIC -->
+                <div class="archive-item group cursor-pointer" id="elastic-text">
+                    <span class="absolute top-4 left-6 font-body text-xs text-gray-500">EXP_01</span>
+                    <h2
+                        class="font-display text-6xl md:text-8xl font-bold uppercase tracking-tighter text-white transition-colors group-hover:text-[var(--accent-color)]">
+                        ELASTIC</h2>
+                    <p
+                        class="font-body text-sm text-gray-400 mt-4 max-w-[200px] text-center opacity-70 group-hover:opacity-100 transition-opacity">
+                        Letters react to cursor proximity with rubber-like physics.</p>
+                    <a href="experiments/elastic.html"
+                        class="absolute bottom-4 right-6 font-body text-xs text-gray-600 hover:text-[var(--accent-color)] transition-colors">View
+                        Experiment →</a>
+                </div>
+
+                <!-- EXP_02: LAYERS -->
+                <div class="archive-item group cursor-pointer" id="dimension-text">
+                    <span class="absolute top-4 left-6 font-body text-xs text-gray-500">EXP_02</span>
+                    <div class="relative">
+                        <h2
+                            class="font-display text-6xl md:text-8xl font-bold uppercase tracking-tighter text-white relative z-20">
+                            LAYERS</h2>
+                        <h2
+                            class="layer-clone font-display text-6xl md:text-8xl font-bold uppercase tracking-tighter text-[var(--accent-color)] z-10">
+                            LAYERS</h2>
+                        <h2
+                            class="layer-clone font-display text-6xl md:text-8xl font-bold uppercase tracking-tighter text-[var(--secondary-accent)] z-0">
+                            LAYERS</h2>
+                    </div>
+                    <p
+                        class="font-body text-sm text-gray-400 mt-4 max-w-[200px] text-center opacity-70 group-hover:opacity-100 transition-opacity">
+                        Chromatic aberration split on mouse movement.</p>
+                    <a href="experiments/layers.html"
+                        class="absolute bottom-4 right-6 font-body text-xs text-gray-600 hover:text-[var(--accent-color)] transition-colors">View
+                        Experiment →</a>
+                </div>
+
+                <!-- EXP_03: ECLIPSE -->
+                <div class="archive-item group cursor-pointer" id="eclipse-text">
+                    <span class="absolute top-4 left-6 font-body text-xs text-gray-500">EXP_03</span>
+                    <h2
+                        class="font-display text-6xl md:text-8xl font-bold uppercase tracking-tighter text-white transition-colors duration-300">
+                        ECLIPSE</h2>
+                    <p
+                        class="font-body text-sm text-gray-400 mt-4 max-w-[200px] text-center opacity-70 group-hover:opacity-100 transition-opacity">
+                        3D rotation casting directional shadows.</p>
+                    <a href="experiments/eclipse.html"
+                        class="absolute bottom-4 right-6 font-body text-xs text-gray-600 hover:text-[var(--accent-color)] transition-colors">View
+                        Experiment →</a>
+                </div>
+
+                <!-- EXP_04: GLITCH -->
+                <div class="archive-item group cursor-pointer" id="glitch-text">
+                    <span class="absolute top-4 left-6 font-body text-xs text-gray-500">EXP_04</span>
+                    <div class="relative glitch-wrapper">
+                        <h2
+                            class="glitch-main font-display text-6xl md:text-8xl font-bold uppercase tracking-tighter text-white relative z-10">
+                            GLITCH</h2>
+                        <h2
+                            class="glitch-layer red font-display text-6xl md:text-8xl font-bold uppercase tracking-tighter z-30">
+                            GLITCH</h2>
+                        <h2
+                            class="glitch-layer cyan font-display text-6xl md:text-8xl font-bold uppercase tracking-tighter z-30">
+                            GLITCH</h2>
+                    </div>
+                    <p
+                        class="font-body text-sm text-gray-400 mt-4 max-w-[200px] text-center opacity-70 group-hover:opacity-100 transition-opacity">
+                        Digital signal decay and RGB displacement.</p>
+                    <a href="experiments/glitch.html"
+                        class="absolute bottom-4 right-6 font-body text-xs text-gray-600 hover:text-[var(--accent-color)] transition-colors">View
+                        Experiment →</a>
+                </div>
+
+                <!-- EXP_05: VAPOR (Ghosting Trail) -->
+                <div class="archive-item group cursor-pointer" id="vapor-text">
+                    <span class="absolute top-4 left-6 font-body text-xs text-gray-500">EXP_05</span>
+                    <h2
+                        class="font-display text-6xl md:text-8xl font-bold uppercase tracking-tighter text-white opacity-80 group-hover:opacity-100 transition-opacity">
+                        VAPOR</h2>
+                    <p
+                        class="font-body text-sm text-gray-400 mt-4 max-w-[200px] text-center opacity-70 group-hover:opacity-100 transition-opacity">
+                        Ghosting trail effect with blur filters.</p>
+                    <a href="experiments/vapor.html"
+                        class="absolute bottom-4 right-6 font-body text-xs text-gray-600 hover:text-[var(--accent-color)] transition-colors">View
+                        Experiment →</a>
+                </div>
+
+                <!-- EXP_06: PIXELS -->
+                <div class="archive-item group cursor-pointer" id="pixel-kinetic-text">
+                    <span class="absolute top-4 left-6 font-body text-xs text-gray-500">EXP_06</span>
+                    <h2
+                        class="font-pixel text-6xl md:text-8xl text-white uppercase tracking-widest group-hover:text-[var(--accent-color)] transition-colors">
+                        PIXELS</h2>
+                    <p
+                        class="font-body text-sm text-gray-400 mt-4 max-w-[200px] text-center opacity-70 group-hover:opacity-100 transition-opacity">
+                        Character scrambling into raw data blocks.</p>
+                    <a href="experiments/pixels.html"
+                        class="absolute bottom-4 right-6 font-body text-xs text-gray-600 hover:text-[var(--accent-color)] transition-colors">View
+                        Experiment →</a>
+                </div>
+
+                <!-- EXP_07: AURA -->
+                <div class="archive-item group cursor-pointer overflow-visible z-10" id="radiance-text">
+                    <span class="absolute top-4 left-6 font-body text-xs text-gray-500">EXP_07</span>
+                    <h2
+                        class="font-display text-6xl md:text-8xl font-bold uppercase tracking-tighter text-white glow-text">
+                        AURA</h2>
+                    <p
+                        class="font-body text-sm text-gray-400 mt-4 max-w-[200px] text-center opacity-70 group-hover:opacity-100 transition-opacity">
+                        Neon luminescence and atmospheric glow.</p>
+                    <a href="experiments/aura.html"
+                        class="absolute bottom-4 right-6 font-body text-xs text-gray-600 hover:text-[var(--accent-color)] transition-colors">View
+                        Experiment →</a>
+                </div>
+
+                <!-- EXP_08: VERTEX (3D) -->
+                <div class="archive-item group cursor-pointer relative" id="vertex-container">
+                    <span class="absolute top-4 left-6 font-body text-xs text-gray-500 z-20">EXP_08</span>
+                    <div id="canvas-mini" class="w-full h-48 absolute top-10 left-0 z-10"></div>
+                    <div class="relative z-20 mt-40">
+                        <p
+                            class="font-body text-sm text-gray-400 mt-12 max-w-[200px] text-center opacity-70 group-hover:opacity-100 transition-opacity">
+                            Real-time WebGL 3D geometry rendering.</p>
+                    </div>
+                    <a href="experiments/vertex.html"
+                        class="absolute bottom-4 right-6 font-body text-xs text-gray-600 hover:text-[var(--accent-color)] transition-colors z-30">View
+                        Experiment →</a>
+                    <div class="absolute bottom-4 left-6 font-pixel text-xs text-[var(--accent-color)] z-20">WEBGL</div>
+                </div>
+
+                <!-- EXP_09: FLUID (Wobbly Distortion) -->
+                <div class="archive-item group cursor-pointer" id="fluid-text">
+                    <span class="absolute top-4 left-6 font-body text-xs text-gray-500">EXP_09</span>
+                    <h2
+                        class="font-display text-6xl md:text-8xl font-bold uppercase tracking-tighter text-white transition-all">
+                        FLUID</h2>
+                    <p
+                        class="font-body text-sm text-gray-400 mt-4 max-w-[200px] text-center opacity-70 group-hover:opacity-100 transition-opacity">
+                        Turbulent wave distortion like liquid ink.</p>
+                    <a href="experiments/fluid.html"
+                        class="absolute bottom-4 right-6 font-body text-xs text-gray-600 hover:text-[var(--accent-color)] transition-colors">View
+                        Experiment →</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========== FOOTER ========== -->
+        <footer
+            class="py-20 bg-black text-white text-center font-body border-t border-gray-900 relative z-10 overflow-hidden">
+
+            <p class="font-serif italic text-2xl md:text-3xl text-gray-400 mb-6">
+                <span id="footer-typewriter"></span><span class="animate-pulse text-[var(--accent-color)]">|</span>
+            </p>
+            <p class="text-lg text-[var(--accent-color)] tracking-widest font-body mb-12">IT IS A LIVING SIGNAL.</p>
+
+            <!-- Decorative element -->
+            <div class="flex items-center justify-center gap-4 mb-12">
+                <div class="w-8 h-px bg-gray-800"></div>
+                <div class="w-2 h-2 rounded-full bg-[var(--accent-color)] animate-pulse"></div>
+                <div class="w-8 h-px bg-gray-800"></div>
+            </div>
+
+            <p class="text-xs text-gray-600 tracking-widest">© 2025 KINETIC TYPE STUDY</p>
+        </footer>
+
+    </main>
+
+    <!-- ==================== JAVASCRIPT MODULES ==================== -->
+    <!-- Three.js 3D Scene -->
+    <script type="module" src="js/three-scene.js"></script>
+
+    <!-- Utility Functions -->
+    <script src="js/utils.js"></script>
+
+    <!-- Custom Cursor -->
+    <script src="js/cursor.js"></script>
+
+    <!-- Hero Section Interactions -->
+    <script src="js/hero.js"></script>
+
+    <!-- Archive Grid Interactions -->
+    <script src="js/archive.js"></script>
+
+    <!-- Typewriter Effect -->
+    <script src="js/typewriter.js"></script>
+
+    <!-- Scroll Animations (GSAP) -->
+    <script src="js/scroll-animations.js"></script>
+
+</body>
+
+</html>

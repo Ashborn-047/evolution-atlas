@@ -1,0 +1,35 @@
+/* =====================================================
+   CHROMA & KINETICS - Lab Interface Styles
+   Sidebar, Controls Panel, Spectrum Grid
+   ===================================================== */
+
+/* === SWATCH HOVER === */
+.swatch {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.swatch:hover {
+    transform: scale(1.1);
+    z-index: var(--z-elevated);
+}
+
+/* === ANALYSIS CARD === */
+.analysis-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 2px solid transparent;
+    transition: all var(--transition-normal);
+}
+
+.analysis-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* === TOGGLE SWITCH === */
+.toggle-checkbox:checked {
+    right: 0;
+    border-color: var(--color-emerald-500);
+}
+
+.toggle-checkbox:checked+.toggle-label {
+    background-color: var(--color-emerald-500);
+}

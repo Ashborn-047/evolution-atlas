@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnetic Button | UI Evolution</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/chapters/fluid.css">
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-fluid);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../index.html">← Back to Library</a>
+            <span class="chapter-badge">Chapter 03 · Organic Flow</span>
+            <h1>Magnetic Button</h1>
+            <p class="narrative-text">The interface meets you halfway. The button pulls itself towards the cursor as if
+                magnetized.</p>
+        </div>
+        <div class="demo-stage">
+            <div class="magnetic-area" id="magArea">
+                <button class="btn-magnetic" id="magBtn">PULL</button>
+            </div>
+        </div>
+        <div class="code-section">
+            <h2>GSAP Animation</h2>
+            <div class="code-block">
+                <pre>const area = document.getElementById('magArea');
+const btn = document.getElementById('magBtn');
+
+area.addEventListener('mousemove', (e) => {
+    const rect = area.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Calculate pull distance (capped)
+    const deltaX = (e.clientX - centerX) * 0.4;
+    const deltaY = (e.clientY - centerY) * 0.4;
+    
+    gsap.to(btn, {
+        x: deltaX,
+        y: deltaY,
+        duration: 0.3,
+        ease: "power2.out"
+    });
+});
+
+area.addEventListener('mouseleave', () => {
+    // Snap back with elastic
+    gsap.to(btn, {
+        x: 0,
+        y: 0,
+        duration: 0.8,
+        ease: "elastic.out(1, 0.3)"
+    });
+});</pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        const area = document.getElementById('magArea');
+        const btn = document.getElementById('magBtn');
+        area.addEventListener('mousemove', (e) => {
+            const rect = area.getBoundingClientRect();
+            const deltaX = (e.clientX - rect.left - rect.width / 2) * 0.4;
+            const deltaY = (e.clientY - rect.top - rect.height / 2) * 0.4;
+            gsap.to(btn, { x: deltaX, y: deltaY, duration: 0.3, ease: "power2.out" });
+        });
+        area.addEventListener('mouseleave', () => {
+            gsap.to(btn, { x: 0, y: 0, duration: 0.8, ease: "elastic.out(1, 0.3)" });
+        });
+    </script>
+</body>
+
+</html>

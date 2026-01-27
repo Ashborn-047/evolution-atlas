@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solid Card | UI Evolution</title>
+    <meta name="description"
+        content="The Solid Card component - Mechanical displacement effect on hover. Part of the Solid State era.">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/chapters/solid.css">
+
+    <style>
+        /* Demo Page Layout */
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-header a:hover {
+            color: white;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-solid);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+
+        .code-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../../index.html">← Back to Atlas</a>
+            <span class="chapter-badge">Chapter 01 · Solid State</span>
+            <h1>The Card</h1>
+            <p class="narrative-text">
+                In the early web, "depth" was a binary illusion. Cards didn't float; they physically shifted position on
+                X/Y axes to mimic a depressed button. This hard-edge feedback confirmed interaction reliability on slow
+                connections.
+            </p>
+        </div>
+
+        <div class="demo-stage">
+            <div class="card-solid">
+                <h3>File Record</h3>
+                <p>Content contained in rigid boxes. Hover triggers a mechanical shift and negative filter.</p>
+            </div>
+        </div>
+
+        <div class="code-section">
+            <h2>HTML Structure</h2>
+            <div class="code-block">
+                <pre>&lt;div class="card-solid"&gt;
+    &lt;h3&gt;File Record&lt;/h3&gt;
+    &lt;p&gt;Card description text.&lt;/p&gt;
+&lt;/div&gt;</pre>
+            </div>
+
+            <h2>CSS Techniques</h2>
+            <p class="code-label">Key Properties</p>
+            <div class="code-block">
+                <pre>.card-solid {
+    /* Base styling */
+    background: #1a1a1a;
+    border: 2px solid #333;
+    padding: 2rem;
+    
+    /* Stepped transition for mechanical feel */
+    transition: all 0.1s steps(2);
+    cursor: crosshair;
+}
+
+.card-solid:hover {
+    /* Invert colors */
+    background: #ccc;
+    border-color: #fff;
+    
+    /* Mechanical displacement */
+    transform: translate(-4px, -4px);
+    
+    /* Hard shadow offset */
+    box-shadow: 8px 8px 0 var(--accent-solid);
+}
+
+.card-solid:active {
+    /* Press-in state */
+    transform: translate(0, 0);
+    box-shadow: none;
+}</pre>
+            </div>
+
+            <h2>Animation Notes</h2>
+            <div class="code-block">
+                <pre>/* The key technique here is `steps(2)` in the transition.
+   
+   Instead of smooth interpolation, this creates a 
+   robotic, mechanical feel by jumping between states.
+   
+   Combined with the hard box-shadow offset, it mimics
+   physical button behavior from early UI systems. */</pre>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

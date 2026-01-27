@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainy Window Effect | Liquid UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #020617;
+            color: white;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .background-image {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?q=80&w=2574&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px);
+            transform: scale(1.1);
+            opacity: 0.5;
+        }
+
+        #rain-canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(2, 6, 23, 0.8) 100%);
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .content {
+            position: relative;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 1.125rem;
+            max-width: 32rem;
+            line-height: 1.7;
+        }
+
+        .hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #64748b;
+            z-index: 20;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Blurred Background -->
+        <div class="background-image"></div>
+
+        <!-- Rain Canvas -->
+        <canvas id="rain-canvas"></canvas>
+
+        <!-- Gradient Overlay -->
+        <div class="overlay"></div>
+
+        <!-- Content -->
+        <div class="content">
+            <div class="badge">Canvas Overlay</div>
+            <h1>Rainy<br>Window</h1>
+            <p>A steady glass pane view with rain falling outside. Uses Canvas 2D for performant raindrop animation.</p>
+        </div>
+
+        <div class="hint">Watch the raindrops fall</div>
+    </div>
+
+    <style>
+        body.is-standalone .content,
+        body.is-standalone .badge,
+        body.is-standalone .hint {
+            display: none !important;
+        }
+    </style>
+    <script>
+        if (window.location.hash.includes('standalone')) {
+            document.body.classList.add('is-standalone');
+        }
+    </script>
+
+    <!-- Canvas 2D Rain Effect -->
+    <script>
+        const canvas = document.getElementById('rain-canvas');
+        const ctx = canvas.getContext('2d');
+        const density = 0.5;
+
+        let drops = [];
+        let staticDrops = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        }
+
+        function init() {
+            drops = [];
+            staticDrops = [];
+
+            // Falling rain streaks
+            const count = Math.floor((canvas.width / 4) * density);
+            for (let i = 0; i < count; i++) {
+                drops.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    speed: Math.random() * 20 + 10,
+                    len: Math.random() * 30 + 15,
+                    opacity: Math.random() * 0.2 + 0.05
+                });
+            }
+
+            // Static water beads
+            const staticCount = Math.floor(canvas.width / 15);
+            for (let i = 0; i < staticCount; i++) {
+                staticDrops.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    opacity: Math.random() * 0.15 + 0.05
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw static beads
+            staticDrops.forEach(d => {
+                ctx.beginPath();
+                ctx.arc(d.x, d.y, d.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${d.opacity})`;
+                ctx.fill();
+            });
+
+            // Draw falling streaks
+            ctx.lineCap = 'round';
+            drops.forEach(d => {
+                ctx.beginPath();
+                ctx.moveTo(d.x, d.y);
+                ctx.lineTo(d.x, d.y + d.len);
+                ctx.strokeStyle = `rgba(200, 230, 255, ${d.opacity})`;
+                ctx.lineWidth = 1.2;
+                ctx.stroke();
+
+                d.y += d.speed;
+                if (d.y > canvas.height) {
+                    d.y = -50;
+                    d.x = Math.random() * canvas.width;
+                }
+            });
+
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        draw();
+    </script>
+</body>
+
+</html>

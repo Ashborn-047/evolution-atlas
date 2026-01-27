@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jelly Button | UI Evolution</title>
+    <meta name="description"
+        content="The Jelly Button component - Biological recoil effect on click using GSAP timeline. Part of the Organic Flow era.">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/base.css">
+    <link rel="stylesheet" href="../../css/chapters/fluid.css">
+
+    <style>
+        .demo-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+        }
+
+        .demo-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .demo-header a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-header a:hover {
+            color: white;
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-stage {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            width: 100%;
+        }
+
+        .code-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-fluid);
+        }
+
+        .code-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ddd;
+            white-space: pre-wrap;
+        }
+
+        .code-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            color: var(--accent-fluid);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="demo-container">
+        <div class="demo-header">
+            <a href="../../index.html">← Back to Atlas</a>
+            <span class="chapter-badge">Chapter 03 · Organic Flow</span>
+            <h1>The Jelly Button</h1>
+            <p class="narrative-text">
+                Newton's laws applied to UI. Action has reaction. When you click, the button doesn't just change color;
+                it absorbs the energy of the press, squashing and wobbling to show weight and mass.
+            </p>
+        </div>
+
+        <div class="demo-stage">
+            <button class="btn-jelly" id="jellyBtn">Squish Me</button>
+        </div>
+
+        <div class="code-section">
+            <h2>HTML Structure</h2>
+            <div class="code-block">
+                <pre>&lt;button class="btn-jelly" id="jellyBtn"&gt;Squish Me&lt;/button&gt;</pre>
+            </div>
+
+            <h2>CSS Base Styles</h2>
+            <div class="code-block">
+                <pre>.btn-jelly {
+    background: var(--accent-fluid);  /* #10b981 */
+    color: #000;
+    padding: 1.2rem 3.5rem;
+    border-radius: 50px;
+    border: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    /* GSAP handles scaleX/scaleY animation */
+}</pre>
+            </div>
+
+            <h2>GSAP Animation</h2>
+            <p class="code-label">Timeline Sequence</p>
+            <div class="code-block">
+                <pre>const jellyBtn = document.getElementById('jellyBtn');
+
+jellyBtn.addEventListener('click', () => {
+    <span class="highlight">gsap.timeline()</span>
+        // Stage 1: SQUASH (press energy absorbed)
+        .to(jellyBtn, {
+            scaleX: 1.25,    // Wider
+            scaleY: 0.75,    // Shorter
+            duration: 0.1
+        })
+        // Stage 2: STRETCH (recoil)
+        .to(jellyBtn, {
+            scaleX: 0.75,    // Narrower
+            scaleY: 1.25,    // Taller
+            duration: 0.1
+        })
+        // Stage 3: SETTLE (elastic bounce back)
+        .to(jellyBtn, {
+            scaleX: 1,
+            scaleY: 1,
+            duration: 0.8,
+            <span class="highlight">ease: "elastic.out(1, 0.3)"</span>
+        });
+});</pre>
+            </div>
+
+            <h2>Animation Breakdown</h2>
+            <div class="code-block">
+                <pre>/* GSAP Timeline creates a sequence of animations.
+
+   Stage 1 (0.1s): Squash
+   - scaleX increases (button gets wider)
+   - scaleY decreases (button gets shorter)
+   - Simulates compression from the click force
+   
+   Stage 2 (0.1s): Stretch  
+   - Inverse of squash (narrow + tall)
+   - Simulates elastic recoil
+   
+   Stage 3 (0.8s): Settle
+   - Returns to original scale
+   - elastic.out(1, 0.3) creates the wobble effect
+     - 1 = amplitude (how far it overshoots)
+     - 0.3 = period (wobble frequency)
+*/</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Jelly Button
+        const jellyBtn = document.getElementById('jellyBtn');
+
+        jellyBtn.addEventListener('click', () => {
+            gsap.timeline()
+                .to(jellyBtn, {
+                    scaleX: 1.25,
+                    scaleY: 0.75,
+                    duration: 0.1
+                })
+                .to(jellyBtn, {
+                    scaleX: 0.75,
+                    scaleY: 1.25,
+                    duration: 0.1
+                })
+                .to(jellyBtn, {
+                    scaleX: 1,
+                    scaleY: 1,
+                    duration: 0.8,
+                    ease: "elastic.out(1, 0.3)"
+                });
+        });
+    </script>
+
+</body>
+
+</html>

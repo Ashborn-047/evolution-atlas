@@ -1,0 +1,397 @@
+/* ==========================================================================
+   COMPONENTS.CSS
+   Reusable component styles
+   ========================================================================== */
+
+/* ==================== CUSTOM CURSOR ==================== */
+.cursor-dot,
+.cursor-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    mix-blend-mode: difference;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: white;
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid white;
+    transition: width 0.2s, height 0.2s;
+}
+
+/* ==================== STORY MARKER (Section Labels) ==================== */
+.story-marker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 2rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    height: auto;
+    max-height: calc(100% - 4rem);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+/* ==================== ARCHIVE GRID ITEMS ==================== */
+.archive-item {
+    border-right: 1px solid #1f2937;
+    /* gray-800 */
+    border-bottom: 1px solid #1f2937;
+    /* gray-800 */
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 2rem;
+    text-align: center;
+}
+
+.archive-item:hover {
+    background-color: #0f0f0f;
+}
+
+@media (min-width: 1024px) {
+    .archive-item:nth-child(3n) {
+        border-right: none;
+    }
+}
+
+/* ---------- Responsive Archive Text ---------- */
+.archive-item h2 {
+    font-size: clamp(2.5rem, 5vw, 5rem) !important;
+    white-space: nowrap;
+}
+
+/* ==================== INK EFFECT (SVG Filter) ==================== */
+.ink-effect {
+    filter: url(#ink-distortion);
+    transform-origin: center center;
+    will-change: filter;
+}
+
+/* ==================== GLITCH EFFECT ==================== */
+.glitch-wrapper {
+    position: relative;
+}
+
+.glitch-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Hide white text completely on hover, show only RGB */
+#glitch-text:hover .glitch-main {
+    opacity: 0;
+}
+
+#glitch-text:hover .glitch-layer {
+    opacity: 1;
+}
+
+/* RED layer - covers full height with fragmented slices */
+.glitch-layer.red {
+    color: #ff0040;
+    animation: glitch-red 0.15s steps(2) infinite;
+}
+
+/* CYAN layer - chromatic opposite of red */
+.glitch-layer.cyan {
+    color: #00ffff;
+    animation: glitch-cyan 0.12s steps(3) infinite;
+}
+
+/* Glitch Keyframes - Chaotic fragmented slices covering full text */
+@keyframes glitch-red {
+    0% {
+        transform: translate(-15px, 0) skewX(-5deg);
+        clip-path: polygon(0 0%, 100% 0%, 100% 20%, 0 20%,
+                0 25%, 100% 25%, 100% 35%, 0 35%,
+                0 60%, 100% 60%, 100% 75%, 0 75%);
+    }
+
+    25% {
+        transform: translate(12px, 0) skewX(3deg);
+        clip-path: polygon(0 5%, 100% 5%, 100% 18%, 0 18%,
+                0 40%, 100% 40%, 100% 55%, 0 55%,
+                0 80%, 100% 80%, 100% 95%, 0 95%);
+    }
+
+    50% {
+        transform: translate(-10px, 0) skewX(-2deg);
+        clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%,
+                0 45%, 100% 45%, 100% 60%, 0 60%,
+                0 70%, 100% 70%, 100% 85%, 0 85%);
+    }
+
+    75% {
+        transform: translate(18px, 0) skewX(4deg);
+        clip-path: polygon(0 0%, 100% 0%, 100% 12%, 0 12%,
+                0 35%, 100% 35%, 100% 50%, 0 50%,
+                0 65%, 100% 65%, 100% 80%, 0 80%);
+    }
+
+    100% {
+        transform: translate(-8px, 0) skewX(-3deg);
+        clip-path: polygon(0 10%, 100% 10%, 100% 25%, 0 25%,
+                0 50%, 100% 50%, 100% 65%, 0 65%,
+                0 85%, 100% 85%, 100% 100%, 0 100%);
+    }
+}
+
+@keyframes glitch-cyan {
+    0% {
+        transform: translate(12px, 0) skewX(4deg);
+        clip-path: polygon(0 8%, 100% 8%, 100% 22%, 0 22%,
+                0 38%, 100% 38%, 100% 52%, 0 52%,
+                0 72%, 100% 72%, 100% 88%, 0 88%);
+    }
+
+    20% {
+        transform: translate(-18px, 0) skewX(-5deg);
+        clip-path: polygon(0 0%, 100% 0%, 100% 15%, 0 15%,
+                0 30%, 100% 30%, 100% 45%, 0 45%,
+                0 60%, 100% 60%, 100% 78%, 0 78%);
+    }
+
+    40% {
+        transform: translate(14px, 0) skewX(2deg);
+        clip-path: polygon(0 18%, 100% 18%, 100% 32%, 0 32%,
+                0 48%, 100% 48%, 100% 62%, 0 62%,
+                0 78%, 100% 78%, 100% 92%, 0 92%);
+    }
+
+    60% {
+        transform: translate(-10px, 0) skewX(-4deg);
+        clip-path: polygon(0 5%, 100% 5%, 100% 20%, 0 20%,
+                0 42%, 100% 42%, 100% 58%, 0 58%,
+                0 82%, 100% 82%, 100% 100%, 0 100%);
+    }
+
+    80% {
+        transform: translate(16px, 0) skewX(3deg);
+        clip-path: polygon(0 12%, 100% 12%, 100% 28%, 0 28%,
+                0 35%, 100% 35%, 100% 50%, 0 50%,
+                0 68%, 100% 68%, 100% 85%, 0 85%);
+    }
+
+    100% {
+        transform: translate(-12px, 0) skewX(-2deg);
+        clip-path: polygon(0 2%, 100% 2%, 100% 18%, 0 18%,
+                0 45%, 100% 45%, 100% 60%, 0 60%,
+                0 75%, 100% 75%, 100% 92%, 0 92%);
+    }
+}
+
+/* Main text glitch animation on hover */
+#glitch-text:hover h2:first-child {
+    animation: glitch-main 0.2s infinite;
+}
+
+@keyframes glitch-main {
+
+    0%,
+    90%,
+    100% {
+        transform: translate(0);
+    }
+
+    10% {
+        transform: translate(-2px, 1px);
+    }
+
+    30% {
+        transform: translate(2px, -1px);
+    }
+
+    50% {
+        transform: translate(-1px, 2px);
+    }
+
+    70% {
+        transform: translate(1px, -2px);
+    }
+}
+
+/* Scanline overlay effect */
+#glitch-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 0, 0, 0.3) 1px,
+            rgba(0, 0, 0, 0.3) 2px);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 30;
+}
+
+#glitch-text:hover::before {
+    opacity: 1;
+}
+
+/* Noise grain overlay */
+#glitch-text::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0;
+    z-index: 25;
+    mix-blend-mode: overlay;
+}
+
+#glitch-text:hover::after {
+    opacity: 0.15;
+    animation: noise-shift 0.2s steps(10) infinite;
+}
+
+@keyframes noise-shift {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    20% {
+        transform: translate(-5%, -5%);
+    }
+
+    40% {
+        transform: translate(5%, 5%);
+    }
+
+    60% {
+        transform: translate(-10%, 5%);
+    }
+
+    80% {
+        transform: translate(10%, -5%);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* Flicker effect on main text */
+#glitch-text:hover h2:first-child {
+    animation: glitch-main 0.2s infinite, glitch-flicker 0.15s infinite;
+}
+
+@keyframes glitch-flicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    5% {
+        opacity: 0.7;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    55% {
+        opacity: 0.4;
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 0.85;
+    }
+}
+
+/* ==================== ECLIPSE EFFECT (3D Shadows) ==================== */
+.eclipse-wrapper {
+    perspective: 500px;
+}
+
+.eclipse-char {
+    transform-style: preserve-3d;
+    display: inline-block;
+}
+
+.eclipse-shadow {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+    transform: rotateX(90deg) translateZ(10px);
+    opacity: 0;
+    filter: blur(4px);
+    transition: opacity 0.3s;
+}
+
+.archive-item:hover .eclipse-shadow,
+#hero-ink-trigger:hover .eclipse-shadow {
+    opacity: 0.6;
+}
+
+/* ==================== LAYER CLONES (Chromatic Aberration) ==================== */
+.layer-clone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.archive-item:hover .layer-clone {
+    opacity: 1;
+}
+
+/* ==================== NAVIGATION ==================== */
+#nav-logo {
+    cursor: pointer;
+    position: relative;
+    z-index: 100;
+}
+
+/* ==================== 3D CANVAS CONTAINER ==================== */
+#canvas-mini {
+    pointer-events: none;
+}
