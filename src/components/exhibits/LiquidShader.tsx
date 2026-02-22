@@ -15,7 +15,7 @@ import { SHADERS } from '@/lib/shaders';
 export function LiquidShader() {
   const meshRef = useRef<Mesh>(null);
   const materialRef = useRef<ShaderMaterial>(null);
-  const { shaderUniforms, updateUniform } = useAtlasStore();
+  const { shaderUniforms } = useAtlasStore();
   const { pointer } = useThree();
 
   // Create shader material
@@ -40,13 +40,11 @@ export function LiquidShader() {
 
     // Update time uniform
     materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
-    updateUniform('uTime', state.clock.elapsedTime);
 
     // Update mouse position (normalized to -1 to 1, then mapped to 0-1 for UV space)
     const mouseX = (pointer.x + 1) * 0.5;
     const mouseY = (pointer.y + 1) * 0.5;
     materialRef.current.uniforms.uMouse.value.set(mouseX, mouseY);
-    updateUniform('uMouse', [mouseX, mouseY]);
 
     // Sync with store uniforms
     materialRef.current.uniforms.uViscosity.value = shaderUniforms.uViscosity;
