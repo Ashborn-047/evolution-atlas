@@ -87,6 +87,7 @@ export default function App() {
                                 onClick={() => setMode('gallery')}
                                 className={`hover:text-[#00F0FF] transition-colors ${mode === 'gallery' ? 'text-[#00F0FF]' : ''
                                     }`}
+                                aria-label="Switch to Gallery Mode"
                             >
                                 Gallery
                             </button>
@@ -94,6 +95,7 @@ export default function App() {
                                 onClick={() => setMode('documentary')}
                                 className={`hover:text-[#00F0FF] transition-colors ${mode === 'documentary' ? 'text-[#00F0FF]' : ''
                                     }`}
+                                aria-label="Switch to Documentary Mode"
                             >
                                 Documentary
                             </button>

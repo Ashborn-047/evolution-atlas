@@ -127,6 +127,7 @@ function ExhibitSlide({ exhibit, index, onExplore }: ExhibitSlideProps) {
                 <button
                     onClick={onExplore}
                     className="group relative px-12 py-4 transition-all hover:scale-105"
+                    aria-label={`Explore Project: ${exhibit.title}`}
                 >
                     <div
                         className="absolute inset-0 border-2 transition-all group-hover:bg-white/5"

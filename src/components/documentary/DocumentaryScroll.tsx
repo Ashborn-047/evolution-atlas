@@ -318,6 +318,7 @@ export function DocumentaryScroll() {
               <button
                 onClick={() => setSelectedChapter(index)}
                 className="group relative flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 transition-all duration-300"
+                aria-label={`Read Insight: ${section.title}`}
               >
                 <div className="w-1.5 h-1.5 rounded-full transition-all group-hover:scale-150" style={{ backgroundColor: section.color }} />
                 <span className="text-sm font-mono tracking-widest uppercase">Read Insight</span>
@@ -375,6 +376,7 @@ export function DocumentaryScroll() {
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="group relative px-8 py-4 rounded-full border border-white/10 hover:border-white/30 bg-white/5 backdrop-blur-md overflow-hidden transition-all duration-500"
+                aria-label="Return to Evolution"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-[#00F0FF]/10 to-[#FF00FF]/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                 <div className="relative flex items-center gap-3">

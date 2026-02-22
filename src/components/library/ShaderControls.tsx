@@ -22,6 +22,7 @@ export function ShaderControls() {
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 z-40 p-4 glass-panel hud-border hover:border-[#00F0FF] transition-colors"
         title="Shader Controls"
+        aria-label="Toggle Shader Controls"
       >
         <Sliders className="w-6 h-6" />
       </button>
