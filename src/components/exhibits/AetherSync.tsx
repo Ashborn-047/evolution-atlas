@@ -18,7 +18,7 @@ const PARTICLE_COUNT = 5000;
 export function AetherSync() {
   const meshRef = useRef<InstancedMesh>(null);
   const materialRef = useRef<ShaderMaterial>(null);
-  const { shaderUniforms, updateUniform } = useAtlasStore();
+  const { shaderUniforms } = useAtlasStore();
 
   // Generate particle attributes
   const { offsets, phases } = useMemo(() => {
@@ -79,8 +79,6 @@ export function AetherSync() {
     materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
     materialRef.current.uniforms.uIntensity.value = shaderUniforms.uIntensity;
     materialRef.current.uniforms.uColor.value = shaderUniforms.uColor;
-
-    updateUniform('uTime', state.clock.elapsedTime);
 
     // Rotate the entire particle system
     meshRef.current.rotation.y = state.clock.elapsedTime * 0.1;

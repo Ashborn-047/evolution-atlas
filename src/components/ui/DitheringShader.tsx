@@ -432,11 +432,35 @@ export function DitheringShader({
       }
     };
 
+    // Intersection Observer to pause animation when off-screen
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (!animationRef.current && speed !== 0) {
+              render();
+            }
+          } else {
+            if (animationRef.current) {
+              cancelAnimationFrame(animationRef.current);
+              animationRef.current = undefined;
+            }
+          }
+        });
+      },
+      { threshold: 0 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
     if (speed !== 0) {
-      animationRef.current = requestAnimationFrame(render);
+      render();
     }
 
     return () => {
+      observer.disconnect();
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }

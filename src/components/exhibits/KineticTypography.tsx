@@ -15,7 +15,7 @@ import { SHADERS } from '@/lib/shaders';
  */
 export function KineticTypography() {
   const groupRef = useRef<any>(null);
-  const { shaderUniforms, updateUniform } = useAtlasStore();
+  const { shaderUniforms } = useAtlasStore();
   const { pointer } = useThree();
 
   // Create shader material for text
@@ -41,8 +41,6 @@ export function KineticTypography() {
     material.uniforms.uMouse.value.set(pointer.x * 2, pointer.y * 2);
     material.uniforms.uIntensity.value = shaderUniforms.uIntensity;
     material.uniforms.uColor.value = shaderUniforms.uColor;
-
-    updateUniform('uTime', state.clock.elapsedTime);
 
     // Gentle group rotation
     if (groupRef.current) {
